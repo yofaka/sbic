@@ -3,21 +3,22 @@ package sbic;
 import java.util.Date;
 import javax.swing.JPanel;
 
-public class SalesHeader {
+public class Sales {
 
     private int SalesHederId;
     private String InvoiceNumber;
     private Date Date;
     private int CoustomerTIN;
     private User user;
-    final static String TABLE_NAME = "sales_header";
+    
+    final static String TABLE_NAME = "sales";
     private boolean isNew;
 
-    SalesHeader() {
+    Sales() {
         this.isNew = true;
     }
 
-    public SalesHeader(String InvoiceNumber, Date Date, int CoustomerTIN, User user) {
+    public Sales(String InvoiceNumber, Date Date, int CoustomerTIN, User user) {
 
         this.InvoiceNumber = InvoiceNumber;
         this.Date = Date;
@@ -81,19 +82,19 @@ public class SalesHeader {
 
     }
 
-    static SalesHeader find(int SalesHederId) {
+    static Sales find(int SalesHederId) {
 
-        SalesHeader found = new SalesHeader();
+        Sales found = new Sales();
         found.isNew = false;
 
         return found;
     }
 
-    static SalesHeader[] findAll() {
+    static Sales[] findAll() {
 
-        SalesHeader[] SalesHeaderIId = null;
+        Sales[] saless = null;
 
-        return SalesHeaderIId;
+        return saless;
     }
 
     static JPanel addForm() {

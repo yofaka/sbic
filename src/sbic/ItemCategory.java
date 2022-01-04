@@ -14,6 +14,10 @@ import javax.swing.JPanel;
 public class ItemCategory {
 
     private int id;
+
+    public static String getTABLE_NAME() {
+        return TABLE_NAME;
+    }
     private String name;
     private String description;
 

@@ -18,21 +18,8 @@ public class SBIC {
         // TODO code application logic here
         
         
-        User x = new User();
         
-        x.setUserName("haile");
-        x.setPassword("lkjaVKJBSFKVBFBVBF");
-        x.setRole("Store");
-        
-        x.save();
-
-        
-        User y = User.find(1);
-        
-        y.setPassword("kkkkkkk");
-        
-        y.save();
-        
+       ProgramWindow.loadMainWindow(); 
        
         
     }

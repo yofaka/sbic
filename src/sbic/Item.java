@@ -123,6 +123,31 @@ public class Item {
         this.description = description;
     }
     
+    public Item find(int itemId){
+    
+    
+        Item item = new Item();
+        item.isNew = false;
+        
+        return item;
+    }
+    
+    public boolean save(){
+    
+        if(this.isNew){
+            //insert code
+        }
+        else{
+         //update code
+            }
+        
+            return false;
+    }
+    
+    public boolean delete(){
+    
+    return false;
+    }
     
     
 }
