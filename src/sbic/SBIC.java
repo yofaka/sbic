@@ -19,7 +19,7 @@ public class SBIC {
         
         
         
-       ProgramWindow.loadMainWindow(); 
+       ProgramWindow.loadLoginWindow(); 
        
         
     }

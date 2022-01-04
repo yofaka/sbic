@@ -7,6 +7,7 @@ package sbic;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -95,21 +96,18 @@ public class DBConnection {
         DBConnection.password = password;
     }
 
-
     int insertData() {
         return 0;  //to be modified 
     }
 
-    int ResultSet() {
-        return 0;  //to be modified  
+    ResultSet select(String TableName, String Columns, String WhereClause) {
+
+        return null;
+
     }
 
-    int selectWhere() {
-        return 0;  //to be modified  
-    }
-
-    int deleteData() {
-        return 0;  //to be modified
+    boolean deleteData(String TableName, String PrimaryKeyColumn, int id) {
+        return false;  //to be modified
     }
 
 }
