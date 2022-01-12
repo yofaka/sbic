@@ -5,6 +5,8 @@
  */
 package sbic;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JPanel;
 
 /**
@@ -58,7 +60,6 @@ public class User {
         return isActive;
     }
 
-    
     public boolean isNew() {
         return isNew;
     }
@@ -84,6 +85,25 @@ public class User {
         this.isActive = isActive;
     }
 
+    static int validCredentials(String userName, String password) throws SQLException {
+
+        ResultSet matchingUsers = DBConnection.select("users", "count(id) as matchingUsersCount", "name = '" + userName + "' AND password='" + password + "'");
+
+        matchingUsers.next();
+
+        if (matchingUsers.getInt("matchingUsersCount") > 0) {
+
+            ResultSet matchedUser = DBConnection.select("users", "id", "name = '" + userName + "' AND password='" + password + "'");
+            matchedUser.next();
+            return Integer.valueOf(matchedUser.getString(1));
+
+        } else {
+
+            return 0;
+        }
+
+    }
+
     boolean save() {
 
         if (this.isNew) {
@@ -100,12 +120,28 @@ public class User {
 
     }
 
-    static User find(int id) {
+    static User find(int id) throws SQLException {
 
-        User foundUser = new User();
-        foundUser.isNew = false;
+        ResultSet foundUserRow = DBConnection.select("users", "id,name,password,role,active", "id=" + id);
+        if (foundUserRow.next()) {
 
-        return foundUser;
+            boolean isActive;
+
+            if (Integer.valueOf(foundUserRow.getString(5)) == 0) {
+                isActive = false;
+            } else {
+                isActive = true;
+            }
+
+            User foundUser = new User(foundUserRow.getString(2), foundUserRow.getString(3), foundUserRow.getString(4), isActive);
+            foundUser.id = Integer.valueOf(foundUserRow.getString(1));
+            foundUser.isNew = false;
+
+            return foundUser;
+        } else {
+
+            return null;
+        }
     }
 
     static User[] findAll() {
@@ -119,7 +155,6 @@ public class User {
         return null;
     }
 
-    
     static JPanel editForm() {
         return null;
 

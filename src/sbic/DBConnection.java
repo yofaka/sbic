@@ -15,16 +15,14 @@ import java.util.ListIterator;
 import java.io.*;
 
 public class DBConnection {
-  
+
     final static String DB_CONFIG_FILE_NAME = "config/dbconfig";
     final static String DEFAULT_SERVER_NAME = "localhost";
     final static String DEFAULT_PORT_NUMBER = "3306";
     final static String DEFAULT_DATABASE_NAME = "sbic";
     final static String DEFAULT_USER_NAME = "root";
-    final static String DEFAULT_PASSWORD = "root";
+    final static String DEFAULT_PASSWORD = "";
 
-
-    
     private static Connection connection;
     private static String serverName;
     private static String portNumber;
@@ -32,10 +30,9 @@ public class DBConnection {
     private static String userName;
     private static String password;
 
+    static void loadDBConfig() throws FileNotFoundException, IOException {
 
-    static void loadConfig() throws FileNotFoundException,IOException {
-
-       File DBConfigFile = new File(DB_CONFIG_FILE_NAME);
+        File DBConfigFile = new File(DB_CONFIG_FILE_NAME);
 
         if (DBConfigFile.exists()) {
 
@@ -50,11 +47,12 @@ public class DBConnection {
         } else {
 
             DBConfigFile.createNewFile();
-            setDBConfig(DEFAULT_SERVER_NAME,DEFAULT_PORT_NUMBER,DEFAULT_DATABASE_NAME,DEFAULT_USER_NAME,DEFAULT_PASSWORD);
-                }      
+            setDBConfig(DEFAULT_SERVER_NAME, DEFAULT_PORT_NUMBER, DEFAULT_DATABASE_NAME, DEFAULT_USER_NAME, DEFAULT_PASSWORD);
+
+        }
     }
 
-    static void setDBConfig(String serverName, String portNumber,String databaseName, String userName,String password ) throws IOException {
+    static void setDBConfig(String serverName, String portNumber, String databaseName, String userName, String password) throws IOException {
 
         FileWriter DBConfigFileWriter = new FileWriter(DB_CONFIG_FILE_NAME);
         PrintWriter DBConfigFilePrintWriter = new PrintWriter(DBConfigFileWriter);
@@ -68,23 +66,25 @@ public class DBConnection {
         DBConfigFilePrintWriter.close();
         DBConfigFileWriter.close();
 
+        loadDBConfig();
     }
-    
-    public static void connect() throws ClassNotFoundException, SQLException, FileNotFoundException,IOException {
 
-        loadConfig();
+    public static boolean connect() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
 
-        //Class.forName("com.mysql.jdbc.Driver");
+        loadDBConfig();
+
+        
         String url = "jdbc:mysql://" + DBConnection.serverName + ":" + DBConnection.portNumber + "/" + DBConnection.databaseName;
-        Connection conn = DriverManager.getConnection(url, DBConnection.userName, DBConnection.password);
+        Connection connection = DriverManager.getConnection(url, DBConnection.userName, DBConnection.password);
 
-        if (conn == null) {
-            System.out.println("NOT Connected!!!");
+        if (connection == null) {
+            return false;
         } else {
 
-            System.out.println("Connected!!!");
+            DBConnection.connection = connection;
 
-            DBConnection.connection = conn;
+            return true;
+
         }
 
     }
@@ -146,7 +146,7 @@ public class DBConnection {
         while (valuesIterator.hasNext()) {
 
             Object value = valuesIterator.next();
-            if ( value == "null") {
+            if (value == "null") {
                 insertQuery = insertQuery + " NULL "; // list the values on the list with ''
             } else {
                 insertQuery = insertQuery + " '" + value + "' "; // list the values on the list with ''
@@ -211,7 +211,7 @@ public class DBConnection {
         } else {
             selectQuery = "select " + columns + " from " + tableName + " where " + whereClause;
         }
-        
+
         System.out.println(selectQuery);
         Statement statement = connection.createStatement();
 

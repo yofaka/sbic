@@ -5,6 +5,8 @@
  */
 package sbic;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import javax.swing.JPanel;
 
 /**
@@ -12,15 +14,15 @@ import javax.swing.JPanel;
  * @author Mebrea
  */
 public class Session {
-   
+
     private static boolean loggedIn;
     private static User loggedInUser;
-    
-    
-    static void logUserOut(){
-    
+
+    static void logUserOut() throws SQLException, IOException {
+
         loggedIn = false;
         loggedInUser = null;
+        ProgramWindow.restartWindow();
     }
 
     public static boolean isLoggedIn() {
@@ -38,14 +40,16 @@ public class Session {
     public static void setLoggedInUser(User loggedInUser) {
         Session.loggedInUser = loggedInUser;
     }
-    
-    static void logUserIn(User user){
-    
+
+    static void logUserIn(User user) throws SQLException, IOException {
+
         loggedIn = true;
         loggedInUser = user;
+        ProgramWindow.loginWindow.setVisible(false);
+        ProgramWindow.loginWindow.dispose();
+        ProgramWindow.loginWindow = null;
+
+        ProgramWindow.startWindow();
     }
 
 }
-
-    
-

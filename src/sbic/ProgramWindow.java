@@ -11,6 +11,8 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,11 +21,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
@@ -40,9 +45,13 @@ public class ProgramWindow {
     static Color primaryColor;
     static Color secondaryColor;
 
+    static JLabel userInfo;
+    static JButton logoutButton;
+
     static JPanel itemsPanel;
     static JPanel itemCategoriesPanel;
     static JPanel themeSetting;
+    static JPanel databaseSetting;
 
     static boolean mainWindowStarted;
     static JFrame mainWindow;
@@ -78,9 +87,17 @@ public class ProgramWindow {
         }
     }
 
-    static void restartWindow() throws SQLException, IOException {
+    static void destroyWindow() {
 
         mainWindow.setVisible(false);
+        mainWindow.dispose();
+        mainWindow = null;
+
+    }
+
+    static void restartWindow() throws SQLException, IOException {
+
+        destroyWindow();
         startWindow();
     }
 
@@ -121,9 +138,29 @@ public class ProgramWindow {
 
     static void loadMainWindow() throws SQLException, IOException {
 
+        userInfo = new JLabel(Session.getLoggedInUser().getUserName() + " (" + Session.getLoggedInUser().getRole() + ")");
+        logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Session.logUserOut();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
         headerPanel = new JPanel();
+        headerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        headerPanel.add(userInfo);
+        headerPanel.add(logoutButton);
 
         themeSetting = new ThemeSetting();
+
+        databaseSetting = new DBConnectionConfiguration();
 
         itemCategoriesPanel = new ItemCategories();
 
@@ -138,7 +175,8 @@ public class ProgramWindow {
         mainTab.addTab("Disposal", new JPanel());
         mainTab.addTab("Master Table", new JPanel());
         mainTab.addTab("Users", new JPanel());
-        mainTab.addTab("Settings", themeSetting);
+        mainTab.addTab("Theme Settings", themeSetting);
+        mainTab.addTab("Database Settings", databaseSetting);
 
         centerPanel = new JPanel();
         //centerPanel.add(mainTab);
@@ -179,6 +217,42 @@ public class ProgramWindow {
 
         loginButton = new JButton("Login");
         loginButton.setBounds(200, 150, 100, 30);
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (loginUserNameField.getText().equals("")) {
+                    
+                    JOptionPane.showMessageDialog(loginWindow, "Enter User Name", "Login", JOptionPane.ERROR_MESSAGE);
+
+                } else if (loginPasswordField.getText().equals("")) {
+
+                    JOptionPane.showMessageDialog(loginWindow, "Enter Password", "Login", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+
+                    try {
+
+                        int loginResult = User.validCredentials(loginUserNameField.getText(), loginPasswordField.getText());
+
+                        if (loginResult > 0) {
+
+                            
+                            Session.logUserIn(User.find(loginResult));
+                          
+                        } else {
+
+                            JOptionPane.showMessageDialog(loginWindow, "Wrong User Name or Password!", "Login", JOptionPane.ERROR_MESSAGE);
+
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
+            }
+        });
 
         loginForm = new JPanel();
         loginForm.setLayout(null);
@@ -196,6 +270,7 @@ public class ProgramWindow {
         loginFooter.add(aboutDevelopersButton);
 
         loginWindow = new JFrame("Login - Small Business Management Software");
+        loginWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginWindow.setSize(500, 500);
         loginWindow.setLayout(new BorderLayout());
         loginWindow.add(loginHeader, BorderLayout.NORTH);
@@ -242,22 +317,22 @@ public class ProgramWindow {
             return "White";
         } else if (color == Color.BLACK) {
             return "Black";
-        }else if (color == Color.GREEN) {
+        } else if (color == Color.GREEN) {
             return "Green";
-        }else if (color == Color.RED) {
+        } else if (color == Color.RED) {
             return "Red";
-        }else if (color == Color.YELLOW) {
+        } else if (color == Color.YELLOW) {
             return "Yellow";
-        }else if (color == Color.BLUE) {
+        } else if (color == Color.BLUE) {
             return "Blue";
-        }else if (color == Color.ORANGE) {
+        } else if (color == Color.ORANGE) {
             return "Orange";
-        }else if (color == Color.PINK) {
+        } else if (color == Color.PINK) {
             return "Pink";
-        }else if (color == Color.GRAY) {
+        } else if (color == Color.GRAY) {
             return "Gray";
-        }else{
-        return "White";
+        } else {
+            return "White";
         }
 
     }

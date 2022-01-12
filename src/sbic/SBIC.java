@@ -24,8 +24,6 @@ public class SBIC {
         // TODO code application logic here
 
         DBConnection.connect();
-        Session.logUserIn(new User());
-
         ProgramWindow.startWindow();
     }
 
