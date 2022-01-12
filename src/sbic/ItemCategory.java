@@ -5,6 +5,9 @@
  */
 package sbic;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -66,10 +69,15 @@ public class ItemCategory {
         this.isNew = isNew;
     }
 
-    boolean save() {
+    boolean save() throws SQLException {
 
         if (this.isNew) {
-            // insert code
+            ArrayList dataToInsert = new ArrayList();
+            dataToInsert.add("null");
+            dataToInsert.add(this.name);
+            dataToInsert.add(this.description);
+            
+            DBConnection.insert(TABLE_NAME, dataToInsert);
         } else {
             //update code
         }
@@ -90,13 +98,48 @@ public class ItemCategory {
         return foundItemCategory;
     }
 
-    static ItemCategory[] findAll() {
+    static Object[][] findAll() throws SQLException {
+        
+      
+       ResultSet resultsCounter  = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1");
+      
+       ResultSet results = DBConnection.select(TABLE_NAME, "id, name, description", "1=1");
+      
+       resultsCounter.next();
+       int rowCount = resultsCounter.getInt("rowCount");
+       
+       
+       Object[][] foundItemCategories = new Object[rowCount][results.getMetaData().getColumnCount()];
 
-        ItemCategory[] foundItemCategories = null;
-
+       int rowCounter = 0;
+       
+      while(results.next()){
+      
+          for(int i = 0; i < 3; i++){
+         
+              foundItemCategories[rowCounter][i] = results.getString(i+1);
+          }
+          rowCounter++;
+      }
+       
+        
         return foundItemCategories;
     }
+    
 
+    static boolean nameExists(String Name) throws SQLException{
+    
+        ResultSet resultsCounter  = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "Name='"+Name+"'");
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+        if(rowCount>0)
+            return true;
+        else
+            return false;
+    
+    }
+    
+    
     static JPanel addForm() {
         return null;
     }
