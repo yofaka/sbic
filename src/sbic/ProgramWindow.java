@@ -289,6 +289,7 @@ public class ProgramWindow {
 
         loginWindow = new JFrame("Login - Small Business Management Software");
         loginWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginWindow.setResizable(false);
         loginWindow.setSize(500, 500);
         loginWindow.setLayout(new BorderLayout());
         loginWindow.add(loginHeader, BorderLayout.NORTH);
