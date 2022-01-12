@@ -74,7 +74,7 @@ public class ProgramWindow {
     static JTextField loginUserNameField;
     static JTextField loginPasswordField;
     static JButton loginButton;
-    static JButton aboutDevelopersButton;
+    static JButton aboutButton;
 
     static void startWindow() throws SQLException, IOException {
 
@@ -181,7 +181,17 @@ public class ProgramWindow {
         centerPanel = new JPanel();
         //centerPanel.add(mainTab);
 
+        aboutButton = new JButton("About The Project & Developers");
+        aboutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AboutDevelopers aboutDevelopers = new AboutDevelopers();
+                aboutDevelopers.setVisible(true);
+            }
+        });
         footerPanel = new JPanel();
+        footerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        footerPanel.add(aboutButton);
 
         mainWindow = new JFrame("Small Business Management Software");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -222,7 +232,7 @@ public class ProgramWindow {
             public void actionPerformed(ActionEvent e) {
 
                 if (loginUserNameField.getText().equals("")) {
-                    
+
                     JOptionPane.showMessageDialog(loginWindow, "Enter User Name", "Login", JOptionPane.ERROR_MESSAGE);
 
                 } else if (loginPasswordField.getText().equals("")) {
@@ -237,15 +247,16 @@ public class ProgramWindow {
 
                         if (loginResult > 0) {
 
-                            
                             Session.logUserIn(User.find(loginResult));
-                          
+
                         } else {
 
                             JOptionPane.showMessageDialog(loginWindow, "Wrong User Name or Password!", "Login", JOptionPane.ERROR_MESSAGE);
 
                         }
                     } catch (SQLException ex) {
+                        Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
                         Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
@@ -264,10 +275,17 @@ public class ProgramWindow {
         loginForm.add(loginPasswordField);
         loginForm.add(loginButton);
 
-        aboutDevelopersButton = new JButton("About Developers");
+        aboutButton = new JButton("About The Project & Developers");
+        aboutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AboutDevelopers aboutDevelopers = new AboutDevelopers();
+                aboutDevelopers.setVisible(true);
+            }
+        });
 
         loginFooter = new JPanel();
-        loginFooter.add(aboutDevelopersButton);
+        loginFooter.add(aboutButton);
 
         loginWindow = new JFrame("Login - Small Business Management Software");
         loginWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
