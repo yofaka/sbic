@@ -238,7 +238,11 @@ public class ProgramWindow {
                         if (loginResult > 0) {
 
                             
-                            Session.logUserIn(User.find(loginResult));
+                            try {
+                                Session.logUserIn(User.find(loginResult));
+                            } catch (IOException ex) {
+                                Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                           
                         } else {
 
