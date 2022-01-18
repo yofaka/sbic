@@ -172,7 +172,7 @@ public class DBConnection {
 
         String updateQuery = "update " + tableName + " set ";
 
-        ListIterator columnsIterator = values.listIterator();
+        ListIterator columnsIterator = columns.listIterator();
 
         int index = 0;
 
@@ -180,7 +180,7 @@ public class DBConnection {
 
             updateQuery = updateQuery + " " + columnsIterator.next() + " = '" + values.get(index) + "' "; // add column = value to string from the 2 array lists
 
-            if (columnsIterator.nextIndex() < (values.size() - 1)) {
+            if (columnsIterator.nextIndex() < (values.size())) {
 
                 updateQuery = updateQuery + ", "; // add a comma only if there is at least one next element
             }
@@ -188,6 +188,8 @@ public class DBConnection {
         }
 
         updateQuery = updateQuery + " where " + whereClause;
+        
+        System.out.println(updateQuery);
 
         Statement statement = connection.createStatement();
 

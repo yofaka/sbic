@@ -8,6 +8,7 @@ package sbic;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -39,6 +40,16 @@ public class ItemCategory {
         this.description = description;
 
         this.isNew = true;
+
+    }
+
+    ItemCategory(int id, String name, String description) {
+
+        this.id = id;
+        this.name = name;
+        this.description = description;
+
+        this.isNew = false;
     }
 
     public int getId() {
@@ -76,17 +87,51 @@ public class ItemCategory {
             dataToInsert.add("null");
             dataToInsert.add(this.name);
             dataToInsert.add(this.description);
-            
-            DBConnection.insert(TABLE_NAME, dataToInsert);
+
+            if (DBConnection.insert(TABLE_NAME, dataToInsert) == 1) {
+                return true;
+            } else {
+                return false;
+            }
+
         } else {
-            //update code
+            ArrayList columnNames = new ArrayList();
+            columnNames.add("name");
+            columnNames.add("description");
+
+            ArrayList columnValues = new ArrayList();
+            columnValues.add(this.name);
+            columnValues.add(this.description);
+
+            if (DBConnection.update(TABLE_NAME, columnNames, columnValues, "id = " + this.id + "") == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
-        return true;
     }
 
-    boolean delete() {
-        return false;
+    boolean canDelete() throws SQLException {
+
+        ResultSet resultsCounter = DBConnection.select(Item.TABLE_NAME, "count(id) as rowCount", "itemCategoryId = " + this.id);
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+
+        if (rowCount > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    boolean delete() throws SQLException {
+
+        if (DBConnection.delete(TABLE_NAME, "id = " + this.id) == 1) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
@@ -98,56 +143,45 @@ public class ItemCategory {
         return foundItemCategory;
     }
 
-    static Object[][] findAll() throws SQLException {
-        
-      
-       ResultSet resultsCounter  = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1");
-      
-       ResultSet results = DBConnection.select(TABLE_NAME, "id, name, description", "1=1");
-      
-       resultsCounter.next();
-       int rowCount = resultsCounter.getInt("rowCount");
-       
-       
-       Object[][] foundItemCategories = new Object[rowCount][results.getMetaData().getColumnCount()];
+    static ItemCategory[] findAll() throws SQLException {
 
-       int rowCounter = 0;
-       
-      while(results.next()){
-      
-          for(int i = 0; i < 3; i++){
-         
-              foundItemCategories[rowCounter][i] = results.getString(i+1);
-          }
-          rowCounter++;
-      }
-       
-        
-        return foundItemCategories;
-    }
-    
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1 Order By id");
 
-    static boolean nameExists(String Name) throws SQLException{
-    
-        ResultSet resultsCounter  = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "Name='"+Name+"'");
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, name, description", "1=1");
+
         resultsCounter.next();
         int rowCount = resultsCounter.getInt("rowCount");
-        if(rowCount>0)
-            return true;
-        else
+
+        ItemCategory[] foundItemCategories = new ItemCategory[rowCount];
+
+        int rowCounter = 0;
+
+        while (results.next()) {
+
+            foundItemCategories[rowCounter] = new ItemCategory(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3));
+
+            rowCounter++;
+        }
+
+        return foundItemCategories;
+    }
+
+    static boolean nameExists(String Name, String Except) throws SQLException {
+
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "name='" + Name + "'");
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+        if (rowCount > 0) {
+
+            if (Except.equals(Name)) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
             return false;
-    
-    }
-    
-    
-    static JPanel addForm() {
-        return null;
-    }
-
-    
-
-    static JPanel editForm() {
-        return null;
+        }
 
     }
 

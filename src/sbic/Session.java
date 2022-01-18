@@ -45,6 +45,7 @@ public class Session {
 
         loggedIn = true;
         loggedInUser = user;
+        
         ProgramWindow.loginWindow.setVisible(false);
         ProgramWindow.loginWindow.dispose();
         ProgramWindow.loginWindow = null;

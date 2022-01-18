@@ -7,9 +7,7 @@ package sbic;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import static java.sql.JDBCType.NULL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
@@ -25,6 +23,8 @@ public class SBIC {
 
         DBConnection.connect();
         ProgramWindow.startWindow();
+        Session.logUserIn(new User("Admin", "", "Admin", true));
+
     }
 
 }
