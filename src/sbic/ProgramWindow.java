@@ -164,12 +164,14 @@ public class ProgramWindow {
 
         itemCategoriesPanel = new ItemCategories();
 
+        itemsPanel = new Items();
+        
         mainTab = new JTabbedPane();
         mainTab.setBackground(primaryColor);
         mainTab.setForeground(secondaryColor);
         mainTab.addTab("Home", new JPanel());
         mainTab.addTab("Item Categories", itemCategoriesPanel);
-        mainTab.addTab("Items", new JPanel());
+        mainTab.addTab("Items", itemsPanel);
         mainTab.addTab("GRN", new JPanel());
         mainTab.addTab("Sales", new JPanel());
         mainTab.addTab("Disposal", new JPanel());

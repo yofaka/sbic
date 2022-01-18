@@ -127,27 +127,33 @@ public class ItemCategory {
 
     boolean delete() throws SQLException {
 
-        if (DBConnection.delete(TABLE_NAME, "id = " + this.id) == 1) {
-            return true;
+        if (this.canDelete()) {
+            if (DBConnection.delete(TABLE_NAME, "id = " + this.id) == 1) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
-
     }
 
-    static ItemCategory find(int id) {
+    static ItemCategory find(int id) throws SQLException {
 
-        ItemCategory foundItemCategory = new ItemCategory();
-        foundItemCategory.isNew = false;
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, name, description", "id = " + id);
+
+        results.next();
+
+        ItemCategory foundItemCategory = new ItemCategory(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3));
 
         return foundItemCategory;
     }
 
     static ItemCategory[] findAll() throws SQLException {
 
-        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1 Order By id");
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1");
 
-        ResultSet results = DBConnection.select(TABLE_NAME, "id, name, description", "1=1");
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, name, description", "1=1 Order By id");
 
         resultsCounter.next();
         int rowCount = resultsCounter.getInt("rowCount");
