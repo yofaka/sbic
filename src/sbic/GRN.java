@@ -7,6 +7,8 @@ package sbic;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JPanel;
@@ -167,15 +169,18 @@ public class GRN {
 
     boolean save() throws SQLException {
 
+        String dateFormatPattern = "yyyy-mm-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormatPattern);
+
         if (this.isNew) {
             ArrayList dataToInsert = new ArrayList();
             dataToInsert.add("null");
             dataToInsert.add(this.GRNNumber);
-            dataToInsert.add(this.date);
+            dataToInsert.add(simpleDateFormat.format(this.date));
             dataToInsert.add(this.getSupplierName());
             dataToInsert.add(this.getSupplierTelephone());
             dataToInsert.add(this.getSupplierTIN());
-            dataToInsert.add(this.getUser().getId());
+            dataToInsert.add(Session.getLoggedInUser().getId());
             dataToInsert.add(this.getItem().getId());
             dataToInsert.add(this.getReceivedQuantity());
             dataToInsert.add(this.getUnitCost());
@@ -191,26 +196,29 @@ public class GRN {
 
         } else {
             ArrayList columnNames = new ArrayList();
-            columnNames.add("GRNNumber");
+            //columnNames.add("GRNNumber");
             columnNames.add("date");
             columnNames.add("supplierName");
             columnNames.add("supplierTelephone");
-            columnNames.add("unitPrice");
-            columnNames.add("quantityAtHand");
-            columnNames.add("minStockLevel");
-            columnNames.add("description");
-
+            columnNames.add("supplierTIN");
+            //columnNames.add("userId");
+            //columnNames.add("itemId");
+            //columnNames.add("receivedQuantity");
+            //columnNames.add("unitCost");
+            //columnNames.add("totalCost");
+          
+          
             ArrayList columnValues = new ArrayList();
-            columnValues.add(this.GRNNumber);
-            columnValues.add(this.date);
+            //columnValues.add(this.GRNNumber);
+            columnValues.add(simpleDateFormat.format(this.date));
             columnValues.add(this.getSupplierName());
             columnValues.add(this.getSupplierTelephone());
             columnValues.add(this.getSupplierTIN());
-            columnValues.add(this.getUser().getId());
-            columnValues.add(this.getItem().getId());
-            columnValues.add(this.getReceivedQuantity());
-            columnValues.add(this.getUnitCost());
-            columnValues.add(this.getTotalCost());
+            //columnValues.add(this.getUser().getId());
+            //columnValues.add(this.getItem().getId());
+            //columnValues.add(this.getReceivedQuantity());
+            //columnValues.add(this.getUnitCost());
+            //columnValues.add(this.getTotalCost());
 
             double oldRecievedQuantity = (GRN.find(this.id).getReceivedQuantity()); // fetch unmodified object of GRN to fetch the old received
             double newItemQuantity = (this.getItem().getQuantityAtHand() - oldRecievedQuantity) + this.receivedQuantity; // determined new quantity
@@ -237,7 +245,7 @@ public class GRN {
 
     }
 
-    static GRN[] findAll() throws SQLException {
+    static GRN[] findAll() throws SQLException, ParseException {
 
         ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1");
 
@@ -248,13 +256,11 @@ public class GRN {
 
         GRN[] foundGRNs = new GRN[rowCount];
 
-        
-        
         int rowCounter = 0;
 
         while (results.next()) {
 
-            foundGRNs[rowCounter] = new GRN(Integer.valueOf(results.getString(1)), results.getString(2), new Date(), results.getString(4), results.getString(5), results.getString(6), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
+            foundGRNs[rowCounter] = new GRN(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), results.getString(5), results.getString(6), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
 
             rowCounter++;
         }

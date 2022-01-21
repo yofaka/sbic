@@ -89,14 +89,5 @@ public class Validator {
         return true;
     }
     
-    static boolean isProperDate(DateFieldHelper dateField){
-    
-        return true;
-    }
-    
-    static boolean isNotFutureDate(DateFieldHelper dateField){
-    
-        return true;
-    }
-
+ 
 }

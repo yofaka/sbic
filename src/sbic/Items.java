@@ -411,6 +411,9 @@ public class Items extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Item Registered Succesfully", "Add Item", JOptionPane.INFORMATION_MESSAGE);
                         form.setVisible(false);
                         loadData();
+                    }else{
+                      JOptionPane.showMessageDialog(this, "Item Registeration Failed", "Add Item", JOptionPane.ERROR_MESSAGE);
+                      
                     }
 
                 }

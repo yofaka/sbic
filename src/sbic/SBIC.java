@@ -8,6 +8,7 @@ package sbic;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 /**
  *
@@ -18,12 +19,12 @@ public class SBIC {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, ParseException {
         // TODO code application logic here
 
         DBConnection.connect();
         ProgramWindow.startWindow();
-        Session.logUserIn(new User("Admin", "", "Admin", true));
+        Session.logUserIn( User.find(1));
 
     }
 

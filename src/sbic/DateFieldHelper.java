@@ -5,6 +5,8 @@
  */
 package sbic;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JComboBox;
 
@@ -23,6 +25,8 @@ public class DateFieldHelper {
         this.dayField = dayField;
         this.monthField = monthField;
         this.yearField = yearField;
+
+        getDateFromFields();
 
     }
 
@@ -99,6 +103,23 @@ public class DateFieldHelper {
 
     }
 
+    void getDateFromFields() {
+
+        this.dd = dayField.getSelectedItem().toString();
+        this.day = Integer.valueOf(dd);
+
+        this.mm = monthField.getSelectedItem().toString();
+        this.month = Integer.valueOf(mm);
+
+        this.yyyy = yearField.getSelectedItem().toString();
+        this.year = Integer.valueOf(yyyy);
+
+        this.dayField.setSelectedItem(dd);
+        this.dayField.setSelectedItem(mm);
+        this.dayField.setSelectedItem(yyyy);
+
+    }
+
     public String getDd() {
         return dd;
     }
@@ -147,9 +168,19 @@ public class DateFieldHelper {
         this.year = year;
     }
 
-    Date getDateObj() {
-        return new Date(day, month, year);
+    Date getDateObj() throws ParseException {
 
+        String pattern = "yyyy-mm-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date date = simpleDateFormat.parse(yyyy + "-" + mm + "-" + dd);
+        return date;
+    }
+
+    static Date strToDate(String dateStr, String dateFormatPattern) throws ParseException {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormatPattern);
+        Date date = simpleDateFormat.parse(dateStr);
+        return date;
     }
 
 }

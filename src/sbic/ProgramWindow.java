@@ -21,6 +21,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.GroupLayout;
@@ -77,7 +78,7 @@ public class ProgramWindow {
     static JButton loginButton;
     static JButton aboutButton;
 
-    static void startWindow() throws SQLException, IOException {
+    static void startWindow() throws SQLException, IOException, ParseException {
 
         ProgramWindow.loadThemeConfig();
 
@@ -96,7 +97,7 @@ public class ProgramWindow {
 
     }
 
-    static void restartWindow() throws SQLException, IOException {
+    static void restartWindow() throws SQLException, IOException, ParseException {
 
         destroyWindow();
         startWindow();
@@ -137,7 +138,7 @@ public class ProgramWindow {
 
     }
 
-    static void loadMainWindow() throws SQLException, IOException {
+    static void loadMainWindow() throws SQLException, IOException, ParseException {
 
         userInfo = new JLabel(Session.getLoggedInUser().getUserName() + " (" + Session.getLoggedInUser().getRole() + ")");
         logoutButton = new JButton("Logout");
