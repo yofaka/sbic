@@ -498,7 +498,7 @@ public class Items extends javax.swing.JPanel {
             tableDataRows[numberOfRows][7] = item.getMinStockLevel();
             tableDataRows[numberOfRows][8] = item.getDescription();
 
-            //tableDataRows[numberOfRows][3] = (Object) new JButton("Edit");
+         
             numberOfRows++;
         }
 
