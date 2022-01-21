@@ -147,9 +147,7 @@ public class ProgramWindow {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Session.logUserOut();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
+                } catch (SQLException | IOException | ParseException ex) {
                     Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -260,9 +258,7 @@ public class ProgramWindow {
                             JOptionPane.showMessageDialog(loginWindow, "Wrong User Name or Password!", "Login", JOptionPane.ERROR_MESSAGE);
 
                         }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
+                    } catch (SQLException | IOException | ParseException ex) {
                         Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
                     }
 

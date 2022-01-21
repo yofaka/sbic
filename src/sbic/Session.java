@@ -7,6 +7,7 @@ package sbic;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import javax.swing.JPanel;
 
 /**
@@ -18,7 +19,7 @@ public class Session {
     private static boolean loggedIn;
     private static User loggedInUser;
 
-    static void logUserOut() throws SQLException, IOException {
+    static void logUserOut() throws SQLException, IOException, ParseException {
 
         loggedIn = false;
         loggedInUser = null;
@@ -41,7 +42,7 @@ public class Session {
         Session.loggedInUser = loggedInUser;
     }
 
-    static void logUserIn(User user) throws SQLException, IOException {
+    static void logUserIn(User user) throws SQLException, IOException, ParseException {
 
         loggedIn = true;
         loggedInUser = user;
