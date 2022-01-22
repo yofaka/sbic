@@ -32,13 +32,13 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="totalCostField" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="totalCostField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="dateField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="supplierTINNumberField" max="32767" attributes="0"/>
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -177,9 +177,12 @@
             <Component class="javax.swing.JSpinner" name="receivedQuantityField">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="0.1" maximum="1.0E7" minimum="0.1" numberType="java.lang.Double" stepSize="1.0" type="number"/>
+                  <SpinnerModel initial="0.0" maximum="1.0E7" minimum="0.0" numberType="java.lang.Double" stepSize="1.0" type="number"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="receivedQuantityFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
@@ -194,9 +197,12 @@
             <Component class="javax.swing.JSpinner" name="unitCostField">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="0.1" maximum="1.0E7" minimum="0.1" numberType="java.lang.Double" stepSize="1.0" type="number"/>
+                  <SpinnerModel initial="0.0" maximum="1.0E7" minimum="0.0" numberType="java.lang.Double" stepSize="1.0" type="number"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="unitCostFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
@@ -206,8 +212,9 @@
             <Component class="javax.swing.JSpinner" name="totalCostField">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="0.1" maximum="1.0E7" minimum="0.1" numberType="java.lang.Double" stepSize="1.0" type="number"/>
+                  <SpinnerModel initial="0.0" maximum="1.0E7" minimum="0.0" numberType="java.lang.Double" stepSize="1.0" type="number"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="saveBtn">

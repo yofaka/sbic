@@ -59,13 +59,13 @@ public class Items extends javax.swing.JPanel {
         uomField = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        unitPriceField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        minStockLevelField = new javax.swing.JTextField();
         descriptionLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         descriptionField = new javax.swing.JTextArea();
         saveBtn = new javax.swing.JButton();
+        unitPriceField = new javax.swing.JSpinner();
+        minStockLevelField = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         addBtn = new javax.swing.JButton();
@@ -112,6 +112,10 @@ public class Items extends javax.swing.JPanel {
             }
         });
 
+        unitPriceField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
+
+        minStockLevelField.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000000, 1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -120,9 +124,6 @@ public class Items extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(saveBtn)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -136,12 +137,19 @@ public class Items extends javax.swing.JPanel {
                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(uomField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel7)
-                                .addComponent(unitPriceField)
-                                .addComponent(jLabel8)
-                                .addComponent(minStockLevelField))
+                                .addComponent(jLabel8))
                             .addComponent(descriptionLabel)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(unitPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(minStockLevelField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(saveBtn)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,9 +186,9 @@ public class Items extends javax.swing.JPanel {
                 .addComponent(descriptionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addComponent(saveBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout formLayout = new javax.swing.GroupLayout(form.getContentPane());
@@ -312,8 +320,8 @@ public class Items extends javax.swing.JPanel {
             nameField.setText(selectedItem.getName());
             itemCategoryField.setSelectedItem(selectedItem.getItemCategory().getName());
             uomField.setSelectedItem(selectedItem.getUom());
-            unitPriceField.setText(String.valueOf(selectedItem.getUnitPrice()));
-            minStockLevelField.setText(String.valueOf(selectedItem.getMinStockLevel()));
+            unitPriceField.setValue(selectedItem.getUnitPrice());
+            minStockLevelField.setValue(selectedItem.getMinStockLevel());
             descriptionLabel.setText(selectedItem.getDescription());
             form.setVisible(true);
         } catch (SQLException ex) {
@@ -386,10 +394,10 @@ public class Items extends javax.swing.JPanel {
                 } else if (nameField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Item Name", "Add Item", JOptionPane.ERROR_MESSAGE);
-                } else if (unitPriceField.getText().equals("")) {
+                } else if (unitPriceField.getValue().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Unit Price", "Add Item", JOptionPane.ERROR_MESSAGE);
-                } else if (minStockLevelField.getText().equals("")) {
+                } else if (minStockLevelField.getValue().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Minimum Stock Level", "Add Item", JOptionPane.ERROR_MESSAGE);
                 } else if (Item.codeExists(codeField.getText(), "")) {
@@ -406,7 +414,7 @@ public class Items extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Minimum Stock Level Needs To Be A Number Greater Than 0 ", "Add Item", JOptionPane.ERROR_MESSAGE);
                 } else {
 
-                    Item newItem = new Item(codeField.getText(), nameField.getText(), listedItemCategories[itemCategoryField.getSelectedIndex()], uomField.getSelectedItem().toString(), Double.valueOf(unitPriceField.getText()), 0, Double.valueOf(minStockLevelField.getText()), descriptionField.getText());
+                    Item newItem = new Item(codeField.getText(), nameField.getText(), listedItemCategories[itemCategoryField.getSelectedIndex()], uomField.getSelectedItem().toString(), (double) unitPriceField.getValue(), 0, (double) minStockLevelField.getValue(), descriptionField.getText());
                     if (newItem.save()) {
                         JOptionPane.showMessageDialog(this, "Item Registered Succesfully", "Add Item", JOptionPane.INFORMATION_MESSAGE);
                         form.setVisible(false);
@@ -426,10 +434,10 @@ public class Items extends javax.swing.JPanel {
                 } else if (nameField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Item Name", "Add Item", JOptionPane.ERROR_MESSAGE);
-                } else if (unitPriceField.getText().equals("")) {
+                } else if (unitPriceField.getValue().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Unit Price", "Add Item", JOptionPane.ERROR_MESSAGE);
-                } else if (minStockLevelField.getText().equals("")) {
+                } else if (minStockLevelField.getValue().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Minimum Stock Level", "Add Item", JOptionPane.ERROR_MESSAGE);
                 } else if (Item.codeExists(codeField.getText(), selectedItem.getCode())) {
@@ -450,8 +458,8 @@ public class Items extends javax.swing.JPanel {
                     selectedItem.setName(nameField.getText());
                     selectedItem.setItemCategory(listedItemCategories[itemCategoryField.getSelectedIndex()]);
                     selectedItem.setUom(uomField.getSelectedItem().toString());
-                    selectedItem.setUnitPrice(Double.valueOf(unitPriceField.getText()));
-                    selectedItem.setMinStockLevel(Double.valueOf(minStockLevelField.getText()));
+                    selectedItem.setUnitPrice((double)unitPriceField.getValue());
+                    selectedItem.setMinStockLevel((double) minStockLevelField.getValue());
                     selectedItem.setDescription(descriptionField.getText());
 
                     if (selectedItem.save()) {
@@ -544,8 +552,8 @@ public class Items extends javax.swing.JPanel {
         nameField.setText("");
         itemCategoryField.setSelectedIndex(0);
         uomField.setSelectedIndex(0);
-        unitPriceField.setText("");
-        minStockLevelField.setText("");
+        unitPriceField.setValue(0);
+        minStockLevelField.setValue(0);
         descriptionLabel.setText("");
 
     }
@@ -603,13 +611,13 @@ public class Items extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField minStockLevelField;
+    private javax.swing.JSpinner minStockLevelField;
     private javax.swing.JTextField nameField;
     private javax.swing.JButton refreshBtn;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchField;
     private javax.swing.JTable table;
-    private javax.swing.JTextField unitPriceField;
+    private javax.swing.JSpinner unitPriceField;
     private javax.swing.JComboBox<String> uomField;
     // End of variables declaration//GEN-END:variables
 }

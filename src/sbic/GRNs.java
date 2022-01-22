@@ -25,12 +25,12 @@ import static sbic.Items.newForm;
  * @author Yoftahe
  */
 public class GRNs extends javax.swing.JPanel {
-    
+
     static TableRowSorter tableRowSorter;
-    
+
     static boolean newForm;
     static Item[] listedItems;
-    
+
     static GRN selectedGRN;
 
     /**
@@ -40,7 +40,7 @@ public class GRNs extends javax.swing.JPanel {
         initComponents();
         loadData();
         loadItemField();
-        
+
     }
 
     /**
@@ -103,17 +103,28 @@ public class GRNs extends javax.swing.JPanel {
 
         jLabel8.setText("Item");
 
-        receivedQuantityField.setModel(new javax.swing.SpinnerNumberModel(0.1d, 0.1d, 1.0E7d, 1.0d));
+        receivedQuantityField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
+        receivedQuantityField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                receivedQuantityFieldKeyReleased(evt);
+            }
+        });
 
         jLabel9.setText("Quantity");
 
         jLabel10.setText("Unit Cost");
 
-        unitCostField.setModel(new javax.swing.SpinnerNumberModel(0.1d, 0.1d, 1.0E7d, 1.0d));
+        unitCostField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
+        unitCostField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                unitCostFieldKeyReleased(evt);
+            }
+        });
 
         jLabel11.setText("Total Cost");
 
-        totalCostField.setModel(new javax.swing.SpinnerNumberModel(0.1d, 0.1d, 1.0E7d, 1.0d));
+        totalCostField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
+        totalCostField.setEnabled(false);
 
         saveBtn.setText("Save");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -132,12 +143,12 @@ public class GRNs extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(totalCostField, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(saveBtn))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(totalCostField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dateField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(supplierTINNumberField)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,35 +326,35 @@ public class GRNs extends javax.swing.JPanel {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         try {
             if (newForm) {
-                
+
                 if (grnNumberField.getText().equals("")) {
-                    
+
                     JOptionPane.showMessageDialog(this, "Enter GRN Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } else if (supplierNameField.getText().equals("")) {
-                    
+
                     JOptionPane.showMessageDialog(this, "Enter Supplier Name", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } else if (supplierTelephoneNumberField.getText().equals("")) {
-                    
+
                     JOptionPane.showMessageDialog(this, "Enter Supplier Telephone Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } else if (supplierTINNumberField.getText().equals("")) {
-                    
+
                     JOptionPane.showMessageDialog(this, "Enter Supplier TIN Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } else if (receivedQuantityField.getValue().equals("") || receivedQuantityField.getValue() == null) {
-                    
+
                     JOptionPane.showMessageDialog(this, "Enter Quantity", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } else if (unitCostField.getValue().equals("") || receivedQuantityField.getValue() == null) {
-                    
+
                     JOptionPane.showMessageDialog(this, "Enter Unit Cost", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } else if (GRN.GRNNumberExists(grnNumberField.getText(), "")) {
-                    
+
                     JOptionPane.showMessageDialog(this, "This GRN Number is already in use.", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } /*
                 else if (!Validator.isProperDate(dateField)) {
 
@@ -355,39 +366,39 @@ public class GRNs extends javax.swing.JPanel {
 
                 } 
                  */ else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
-                    
+
                     JOptionPane.showMessageDialog(this, "The telephone number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } else if (!Validator.isProperTINNumber(supplierTINNumberField)) {
-                    
+
                     JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } else if (!Validator.isNumberGreaterThan(receivedQuantityField, 0)) {
-                    
+
                     JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } else if (!Validator.isNumberGreaterThan(unitCostField, 0)) {
-                    
+
                     JOptionPane.showMessageDialog(this, "The unit cost needs to be a valid number greater than 0", "Add GRN", JOptionPane.ERROR_MESSAGE);
-                    
+
                 } else {
-                    
+
                     GRN newGRN = new GRN(grnNumberField.getText(), (Date) dateField.getValue(), supplierNameField.getText(), supplierTelephoneNumberField.getText(), supplierTINNumberField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) receivedQuantityField.getValue(), (double) receivedQuantityField.getValue(), (double) receivedQuantityField.getValue());
                     if (newGRN.save()) {
-                        
+
                         JOptionPane.showMessageDialog(this, "GRN Registered Succesfully", "Add Item", JOptionPane.INFORMATION_MESSAGE);
                         form.setVisible(false);
                         loadData();
                     } else {
                         JOptionPane.showMessageDialog(this, "GRN Registeration Failed", "Add Item", JOptionPane.ERROR_MESSAGE);
-                        
+
                     }
-                    
+
                 }
             } else {
-                
+
             }
-            
+
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(GRNs.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -395,7 +406,7 @@ public class GRNs extends javax.swing.JPanel {
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        
+
         try {
             loadItemField();
             newForm = true;
@@ -406,14 +417,14 @@ public class GRNs extends javax.swing.JPanel {
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        
+
         try {
             newForm = false;
             clearForm();
             loadItemField();
-            
+
             grnNumberField.setText(selectedGRN.getGRNNumber());
-            
+
             form.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
@@ -421,15 +432,15 @@ public class GRNs extends javax.swing.JPanel {
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        
+
         try {
             if (!selectedGRN.canDelete()) {
-                
+
                 JOptionPane.showMessageDialog(this, "You can not delete this " + selectedGRN.getGRNNumber() + " because you dont have sufficient quantity of " + selectedGRN.getItem().getName() + " !", "Delete Item", JOptionPane.ERROR_MESSAGE);
             } else {
-                
+
                 if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedGRN.getGRNNumber() + "?", "Delete Item Category", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                    
+
                     if (selectedGRN.delete()) {
                         JOptionPane.showMessageDialog(this, selectedGRN.getGRNNumber() + " deleted succesfully!", "Delete Item", JOptionPane.INFORMATION_MESSAGE);
                         loadData();
@@ -437,12 +448,12 @@ public class GRNs extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Deleting " + selectedGRN.getGRNNumber() + " failed!", "Delete Item Category", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    
+
                 }
-                
+
             }
         } catch (SQLException e) {
-            
+
         } catch (ParseException ex) {
             Logger.getLogger(GRNs.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -473,52 +484,60 @@ public class GRNs extends javax.swing.JPanel {
             tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchKey));
         }
     }//GEN-LAST:event_searchFieldKeyReleased
-    
+
+    private void receivedQuantityFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_receivedQuantityFieldKeyReleased
+        setTotalCost();
+    }//GEN-LAST:event_receivedQuantityFieldKeyReleased
+
+    private void unitCostFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_unitCostFieldKeyReleased
+        setTotalCost();
+    }//GEN-LAST:event_unitCostFieldKeyReleased
+
     void loadItemField(String selectedItemName) throws SQLException {
-        
+
         listedItems = Item.findAll();
-        
+
         for (Item item : listedItems) {
-            
+
             itemField.addItem(item.getName());
-            
+
             if (selectedItemName.equals(item.getName())) {
-                
+
                 itemField.setSelectedItem(selectedItemName);
             }
-            
+
         }
-        
+
     }
-    
+
     void loadItemField() throws SQLException {
-        
+
         listedItems = Item.findAll();
-        
+
         for (Item itemCategory : listedItems) {
-            
+
             itemField.addItem(itemCategory.getName());
-            
+
         }
-        
+
     }
-    
+
     void loadData() throws SQLException, ParseException {
-        
+
         editBtn.setEnabled(false);
-        
+
         deleteBtn.setEnabled(false);
-        
+
         String tableColumns[] = {"No", "GRN Number", "Date", "Supplier Name", "Supplier Telephone", "Supplier TIN", "User", "Item", "Received Quantity", "Unit Cost", "Total Cost"};
-        
+
         GRN[] grns = GRN.findAll();
-        
+
         Object tableDataRows[][] = new Object[grns.length][11];
-        
+
         int numberOfRows = 0;
-        
+
         for (GRN grn : grns) {
-            
+
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
             tableDataRows[numberOfRows][1] = grn.getGRNNumber();
             tableDataRows[numberOfRows][2] = grn.getDate();
@@ -530,58 +549,64 @@ public class GRNs extends javax.swing.JPanel {
             tableDataRows[numberOfRows][8] = grn.getReceivedQuantity();
             tableDataRows[numberOfRows][9] = grn.getUnitCost();
             tableDataRows[numberOfRows][10] = grn.getTotalCost();
-            
+
             numberOfRows++;
         }
-        
+
         TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
-        
+
         table.setModel(itemCategoriesTableModel);
-        
+
         ListSelectionModel itemCategoriesTableSelectionModel = table.getSelectionModel();
-        
+
         tableRowSorter = new TableRowSorter(table.getModel());
-        
+
         table.setRowSorter(tableRowSorter);
-        
+
         itemCategoriesTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                
+
                 if (itemCategoriesTableSelectionModel.getMaxSelectionIndex() == -1) {
-                    
+
                     editBtn.setEnabled(false);
-                    
+
                     deleteBtn.setEnabled(false);
-                    
+
                 } else {
-                    
+
                     editBtn.setEnabled(true);
-                    
+
                     deleteBtn.setEnabled(true);
                     selectedGRN = grns[e.getFirstIndex()];
                 }
             }
         });
-        
+
     }
-    
+
+    void setTotalCost() {
+
+        totalCostField.setValue(((double) unitCostField.getValue() * (double) receivedQuantityField.getValue()));
+
+    }
+
     void clearForm() throws SQLException {
-        
+
         loadItemField();
-        
+
         grnNumberField.setText("");
-        
+
         supplierNameField.setText("");
         supplierTelephoneNumberField.setText("");
         supplierTINNumberField.setText("");
-        
+
         dateField.setValue(new Date());
         itemField.setSelectedIndex(0);
         receivedQuantityField.setValue(0);
         unitCostField.setValue(0);
         totalCostField.setValue(0);
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
