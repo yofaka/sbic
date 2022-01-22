@@ -169,7 +169,7 @@ public class GRN {
 
     boolean save() throws SQLException {
 
-        String dateFormatPattern = "yyyy-mm-dd";
+        String dateFormatPattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormatPattern);
 
         if (this.isNew) {

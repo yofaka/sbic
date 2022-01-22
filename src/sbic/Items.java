@@ -538,7 +538,7 @@ public class Items extends javax.swing.JPanel {
                     editBtn.setEnabled(true);
 
                     deleteBtn.setEnabled(true);
-                    selectedItem = items[e.getFirstIndex()];
+                    selectedItem = items[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
                 }
             }
         });
@@ -578,6 +578,8 @@ public class Items extends javax.swing.JPanel {
      void loadItemCategoryField() throws SQLException {
 
         listedItemCategories = ItemCategory.findAll();
+        
+        itemCategoryField.removeAllItems();
 
         for (ItemCategory itemCategory : listedItemCategories) {
 

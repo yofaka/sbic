@@ -5,14 +5,26 @@
  */
 package sbic;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -104,22 +116,13 @@ public class GRNs extends javax.swing.JPanel {
         jLabel8.setText("Item");
 
         receivedQuantityField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
-        receivedQuantityField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                receivedQuantityFieldKeyReleased(evt);
-            }
-        });
+        receivedQuantityField.setEditor(new javax.swing.JSpinner.NumberEditor(receivedQuantityField, ""));
 
         jLabel9.setText("Quantity");
 
         jLabel10.setText("Unit Cost");
 
         unitCostField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
-        unitCostField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                unitCostFieldKeyReleased(evt);
-            }
-        });
 
         jLabel11.setText("Total Cost");
 
@@ -485,17 +488,11 @@ public class GRNs extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_searchFieldKeyReleased
 
-    private void receivedQuantityFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_receivedQuantityFieldKeyReleased
-        setTotalCost();
-    }//GEN-LAST:event_receivedQuantityFieldKeyReleased
-
-    private void unitCostFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_unitCostFieldKeyReleased
-        setTotalCost();
-    }//GEN-LAST:event_unitCostFieldKeyReleased
-
     void loadItemField(String selectedItemName) throws SQLException {
 
         listedItems = Item.findAll();
+
+        itemField.removeAllItems();
 
         for (Item item : listedItems) {
 
@@ -578,7 +575,9 @@ public class GRNs extends javax.swing.JPanel {
                     editBtn.setEnabled(true);
 
                     deleteBtn.setEnabled(true);
-                    selectedGRN = grns[e.getFirstIndex()];
+                    selectedGRN = grns[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
+                    
+               
                 }
             }
         });
@@ -587,6 +586,7 @@ public class GRNs extends javax.swing.JPanel {
 
     void setTotalCost() {
 
+        System.out.println("total Cost Update");
         totalCostField.setValue(((double) unitCostField.getValue() * (double) receivedQuantityField.getValue()));
 
     }
@@ -608,7 +608,6 @@ public class GRNs extends javax.swing.JPanel {
         totalCostField.setValue(0);
 
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JSpinner dateField;
