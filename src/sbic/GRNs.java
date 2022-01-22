@@ -5,32 +5,20 @@
  */
 package sbic;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import static sbic.Items.newForm;
 
 /**
  *
@@ -328,6 +316,8 @@ public class GRNs extends javax.swing.JPanel {
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         try {
+
+            setTotalCost();
             if (newForm) {
 
                 if (grnNumberField.getText().equals("")) {
@@ -387,18 +377,101 @@ public class GRNs extends javax.swing.JPanel {
                 } else {
 
                     GRN newGRN = new GRN(grnNumberField.getText(), (Date) dateField.getValue(), supplierNameField.getText(), supplierTelephoneNumberField.getText(), supplierTINNumberField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) receivedQuantityField.getValue(), (double) receivedQuantityField.getValue(), (double) receivedQuantityField.getValue());
+
                     if (newGRN.save()) {
 
-                        JOptionPane.showMessageDialog(this, "GRN Registered Succesfully", "Add Item", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "GRN Registered Succesfully", "Add GRN", JOptionPane.INFORMATION_MESSAGE);
                         form.setVisible(false);
                         loadData();
                     } else {
-                        JOptionPane.showMessageDialog(this, "GRN Registeration Failed", "Add Item", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "GRN Registeration Failed", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
                     }
 
                 }
             } else {
+
+                if (grnNumberField.getText().equals("")) {
+
+                    JOptionPane.showMessageDialog(this, "Enter GRN Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (supplierNameField.getText().equals("")) {
+
+                    JOptionPane.showMessageDialog(this, "Enter Supplier Name", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (supplierTelephoneNumberField.getText().equals("")) {
+
+                    JOptionPane.showMessageDialog(this, "Enter Supplier Telephone Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (supplierTINNumberField.getText().equals("")) {
+
+                    JOptionPane.showMessageDialog(this, "Enter Supplier TIN Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (receivedQuantityField.getValue().equals("") || receivedQuantityField.getValue() == null) {
+
+                    JOptionPane.showMessageDialog(this, "Enter Quantity", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (unitCostField.getValue().equals("") || receivedQuantityField.getValue() == null) {
+
+                    JOptionPane.showMessageDialog(this, "Enter Unit Cost", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (GRN.GRNNumberExists(grnNumberField.getText(), selectedGRN.getGRNNumber())) {
+
+                    JOptionPane.showMessageDialog(this, "This GRN Number is already in use.", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } /*
+                else if (!Validator.isProperDate(dateField)) {
+
+                    JOptionPane.showMessageDialog(this, "This date is not acceptable.", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (!Validator.isNotFutureDate(dateField)) {
+
+                    JOptionPane.showMessageDialog(this, "The date is a future date", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } 
+                 */ else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
+
+                    JOptionPane.showMessageDialog(this, "The telephone number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (!Validator.isProperTINNumber(supplierTINNumberField)) {
+
+                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (!Validator.isNumberGreaterThan(receivedQuantityField, 0)) {
+
+                    JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (!Validator.isNumberGreaterThan(receivedQuantityField, (selectedGRN.getItem().getQuantityAtHand() + 0.1))) {
+
+                    JOptionPane.showMessageDialog(this, "You can't reduce the quantity more than the available quantity of the item!", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else if (!Validator.isNumberGreaterThan(unitCostField, 0)) {
+
+                    JOptionPane.showMessageDialog(this, "The unit cost needs to be a valid number greater than 0", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+
+                    selectedGRN.setGRNNumber(grnNumberField.getText());
+                    selectedGRN.setDate((Date) dateField.getValue());
+                    selectedGRN.setSupplierName(supplierNameField.getText());
+                    selectedGRN.setSupplierTelephone(supplierTelephoneNumberField.getText());
+                    selectedGRN.setSupplierTIN(supplierTINNumberField.getText());
+                    selectedGRN.setItem(listedItems[itemField.getSelectedIndex()]);
+                    selectedGRN.setReceivedQuantity((double) receivedQuantityField.getValue());
+                    selectedGRN.setUnitCost((double) unitCostField.getValue());
+                    selectedGRN.setTotalCost((double) totalCostField.getValue());
+
+                    if (selectedGRN.save()) {
+
+                        JOptionPane.showMessageDialog(this, "GRN Updated Succesfully", "Edit GRN", JOptionPane.INFORMATION_MESSAGE);
+                        form.setVisible(false);
+                        loadData();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "GRN Update Failed", "Edit GRN", JOptionPane.ERROR_MESSAGE);
+
+                    }
+
+                }
 
             }
 
@@ -431,15 +504,15 @@ public class GRNs extends javax.swing.JPanel {
             supplierNameField.setText(selectedGRN.getSupplierName());
             supplierTelephoneNumberField.setText(selectedGRN.getSupplierTelephone());
             supplierTINNumberField.setText(selectedGRN.getSupplierTIN());
-            
+
             itemField.setSelectedItem(selectedGRN.getItem().getName());
-            
+
             supplierTINNumberField.setText(selectedGRN.getSupplierTIN());
 
             receivedQuantityField.setValue(selectedGRN.getReceivedQuantity());
             unitCostField.setValue(selectedGRN.getUnitCost());
             totalCostField.setValue(selectedGRN.getTotalCost());
-            
+
             form.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
@@ -588,8 +661,7 @@ public class GRNs extends javax.swing.JPanel {
 
                     deleteBtn.setEnabled(true);
                     selectedGRN = grns[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
-                    
-               
+
                 }
             }
         });
