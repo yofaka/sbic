@@ -427,7 +427,19 @@ public class GRNs extends javax.swing.JPanel {
             loadItemField();
 
             grnNumberField.setText(selectedGRN.getGRNNumber());
+            dateField.setValue(selectedGRN.getDate());
+            supplierNameField.setText(selectedGRN.getSupplierName());
+            supplierTelephoneNumberField.setText(selectedGRN.getSupplierTelephone());
+            supplierTINNumberField.setText(selectedGRN.getSupplierTIN());
+            
+            itemField.setSelectedItem(selectedGRN.getItem().getName());
+            
+            supplierTINNumberField.setText(selectedGRN.getSupplierTIN());
 
+            receivedQuantityField.setValue(selectedGRN.getReceivedQuantity());
+            unitCostField.setValue(selectedGRN.getUnitCost());
+            totalCostField.setValue(selectedGRN.getTotalCost());
+            
             form.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
