@@ -114,7 +114,7 @@ public class Items extends javax.swing.JPanel {
 
         unitPriceField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
 
-        minStockLevelField.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000000, 1));
+        minStockLevelField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -301,6 +301,7 @@ public class Items extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
+            clearForm();
             loadItemCategoryField();
             newForm = true;
             form.setVisible(true);
@@ -562,6 +563,8 @@ public class Items extends javax.swing.JPanel {
 
         listedItemCategories = ItemCategory.findAll();
 
+         itemCategoryField.removeAllItems();
+        
         for (ItemCategory itemCategory : listedItemCategories) {
 
             itemCategoryField.addItem(itemCategory.getName());

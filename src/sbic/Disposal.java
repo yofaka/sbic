@@ -174,11 +174,12 @@ public class Disposal {
          
 
             ArrayList columnValues = new ArrayList();
+            //coulumnValues.add(this.disposalNumber);
             //columnValues.add(simpleDateFormat.format(this.date));
             columnValues.add(this.getDescription());
             //columnValues.add(Session.getLoggedInUser().getId());
             //columnValues.add(this.getItem().getId());
-            //columnValues.add(this.getSoldQuantity());
+            //columnValues.add(this.getDisposedQuantity());
           
 
             if (DBConnection.update(TABLE_NAME, columnNames, columnValues, "id = " + this.id + "") == 1) {
@@ -191,7 +192,7 @@ public class Disposal {
 
     static Disposal find(int id) throws SQLException, ParseException {
 
-        ResultSet results = DBConnection.select(TABLE_NAME, "id, disposalNumber, date, customerTIN, userId, itemId, disposedQuantity, unitPrice, totalPrice", "id = "+id+"  Order By id");
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, disposalNumber, date, description, userId, itemId, disposedQuantity", "id = "+id+"  Order By id");
         results.next();
 
         Disposal foundDisposal = new Disposal(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)));
@@ -202,7 +203,7 @@ public class Disposal {
 
         ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1");
 
-        ResultSet results = DBConnection.select(TABLE_NAME, "id, disposalNumber, date, customerTIN, userId, itemId, disposedQuantity, unitPrice, totalPrice", "1=1  Order By id");
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, disposalNumber, date, description, userId, itemId, disposedQuantity", "1=1  Order By id");
 
         resultsCounter.next();
         int rowCount = resultsCounter.getInt("rowCount");

@@ -240,6 +240,7 @@ public class ItemCategories extends javax.swing.JPanel {
     private void additemCategoriesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_additemCategoriesBtnActionPerformed
 
         newForm = true;
+        clearItemCategoryForm();
         itemCategoryForm.setVisible(true);
     }//GEN-LAST:event_additemCategoriesBtnActionPerformed
 

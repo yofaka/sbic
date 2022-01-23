@@ -7,10 +7,7 @@ package sbic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -24,7 +21,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -49,6 +45,7 @@ public class ProgramWindow {
     static JLabel userInfo;
     static JButton logoutButton;
 
+    static JPanel disposalPanel;
     static JPanel salesPanel;
     static JPanel grnsPanel;
     static JPanel itemsPanel;
@@ -171,6 +168,8 @@ public class ProgramWindow {
         
         salesPanel = new Sales();
         
+        disposalPanel = new Disposals();
+        
         mainTab = new JTabbedPane();
         mainTab.setBackground(primaryColor);
         mainTab.setForeground(secondaryColor);
@@ -179,7 +178,7 @@ public class ProgramWindow {
         mainTab.addTab("Items", itemsPanel);
         mainTab.addTab("GRN", grnsPanel);
         mainTab.addTab("Sales", salesPanel);
-        mainTab.addTab("Disposal", new JPanel());
+        mainTab.addTab("Disposal", disposalPanel);
         mainTab.addTab("Master Table", new JPanel());
         mainTab.addTab("Users", new JPanel());
         mainTab.addTab("Theme Settings", themeSetting);
