@@ -91,10 +91,11 @@ public class ProgramWindow {
 
     static void destroyWindow() {
 
+        if(mainWindow!=null){
         mainWindow.setVisible(false);
         mainWindow.dispose();
         mainWindow = null;
-
+        }
     }
 
     static void restartWindow() throws SQLException, IOException, ParseException {
@@ -130,7 +131,7 @@ public class ProgramWindow {
         PrintWriter themeConfigFilePrintWriter = new PrintWriter(themeConfigFileWriter);
 
         themeConfigFilePrintWriter.println(primaryColor);
-        themeConfigFilePrintWriter.println(secondaryColor);
+        themeConfigFilePrintWriter.print(secondaryColor);
 
         themeConfigFilePrintWriter.flush();
         themeConfigFilePrintWriter.close();

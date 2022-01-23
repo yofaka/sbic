@@ -60,7 +60,7 @@ public class DBConnection {
         DBConfigFilePrintWriter.println(portNumber);
         DBConfigFilePrintWriter.println(databaseName);
         DBConfigFilePrintWriter.println(userName);
-        DBConfigFilePrintWriter.println(password);
+        DBConfigFilePrintWriter.print(password);
 
         DBConfigFilePrintWriter.flush();
         DBConfigFilePrintWriter.close();
@@ -69,23 +69,31 @@ public class DBConnection {
         loadDBConfig();
     }
 
-    public static boolean connect() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
+    public static boolean connect() throws ClassNotFoundException,  FileNotFoundException, IOException {
 
         loadDBConfig();
 
-        
+        try{
         String url = "jdbc:mysql://" + DBConnection.serverName + ":" + DBConnection.portNumber + "/" + DBConnection.databaseName;
         Connection connection = DriverManager.getConnection(url, DBConnection.userName, DBConnection.password);
 
-        if (connection == null) {
-            return false;
-        } else {
+       
 
             DBConnection.connection = connection;
 
             return true;
-
-        }
+        }catch(SQLException e){
+        
+            System.out.println("Failed!!!!!!!");
+            
+        
+            
+            return false;
+             
+             
+        } 
+       
+       
 
     }
 
