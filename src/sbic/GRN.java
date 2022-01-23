@@ -220,9 +220,9 @@ public class GRN {
             columnValues.add(this.getUnitCost());
             columnValues.add(this.getTotalCost());
 
-            double oldRecievedQuantity = (GRN.find(this.id).getReceivedQuantity()); // fetch unmodified object of GRN to fetch the old received
-            double newItemQuantity = (this.getItem().getQuantityAtHand() - oldRecievedQuantity) + this.receivedQuantity; // determined new quantity
-            this.getItem().setQuantityAtHand(newItemQuantity); // update quantity and save wih updated GRN
+            //double oldRecievedQuantity = (GRN.find(this.id).getReceivedQuantity()); // fetch unmodified object of GRN to fetch the old received
+            //double newItemQuantity = (this.getItem().getQuantityAtHand() - oldRecievedQuantity) + this.receivedQuantity; // determined new quantity
+            //this.getItem().setQuantityAtHand(newItemQuantity); // update quantity and save wih updated GRN
 
             if (DBConnection.update(TABLE_NAME, columnNames, columnValues, "id = " + this.id + "") == 1) {
                 return true;
