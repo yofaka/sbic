@@ -110,7 +110,7 @@ public class User {
 
     static int validCredentials(String userName, String password) throws SQLException {
 
-        ResultSet matchingUsers = DBConnection.select("users", "count(id) as matchingUsersCount", "active = '1', name = '" + userName + "' AND password='" + password + "'");
+        ResultSet matchingUsers = DBConnection.select("users", "count(id) as matchingUsersCount", "active = '1' AND name = '" + userName + "' AND password='" + password + "'");
 
         matchingUsers.next();
 

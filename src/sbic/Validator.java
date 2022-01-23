@@ -30,7 +30,11 @@ public class Validator {
     }
 
     static boolean isNumberGreaterThan(JSpinner spinnerField, int Minimum) {
+        
+        if((double)spinnerField.getValue() > (double)Minimum)
         return true;
+        else
+        return false;    
 
     }
 
@@ -81,11 +85,15 @@ public class Validator {
 
     static boolean isProperTelephoneNumber(JTextField textField) {
 
+        
         return true;
     }
 
     static boolean isProperTINNumber(JTextField textField) {
 
+        if(textField.getText().toString().length() > 10)
+        return false;
+        else
         return true;
     }
     

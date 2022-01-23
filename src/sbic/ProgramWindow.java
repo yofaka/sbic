@@ -26,6 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
@@ -73,7 +74,7 @@ public class ProgramWindow {
     static JLabel loginUserNameLabel;
     static JLabel loginPasswordLabel;
     static JTextField loginUserNameField;
-    static JTextField loginPasswordField;
+    static JPasswordField loginPasswordField;
     static JButton loginButton;
     static JButton aboutButton;
 
@@ -98,7 +99,7 @@ public class ProgramWindow {
 
     static void restartWindow() throws SQLException, IOException, ParseException {
 
-        destroyWindow();
+        destroyWindow(); 
         startWindow();
     }
 
@@ -231,7 +232,7 @@ public class ProgramWindow {
         loginPasswordLabel = new JLabel("Password");
         loginPasswordLabel.setBounds(125, 80, 250, 20);
 
-        loginPasswordField = new JTextField();
+        loginPasswordField = new JPasswordField();
         loginPasswordField.setColumns(10);
         loginPasswordField.setBounds(125, 100, 250, 30);
 
@@ -253,7 +254,7 @@ public class ProgramWindow {
 
                     try {
 
-                        int loginResult = User.validCredentials(loginUserNameField.getText(), loginPasswordField.getText());
+                        int loginResult = User.validCredentials(loginUserNameField.getText(), loginPasswordField.getPassword().toString());
 
                         if (loginResult > 0) {
 

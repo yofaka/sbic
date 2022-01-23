@@ -140,7 +140,7 @@ public class Item {
 
     public static Item[] findAll() throws SQLException {
 
-        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1");
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "");
 
         ResultSet results = DBConnection.select(TABLE_NAME, "id, code, name, itemCategoryId, uom, unitPrice, quantityAtHand, minStockLevel, description", "1=1  Order By id");
 
