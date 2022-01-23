@@ -343,7 +343,7 @@ public class Sales extends javax.swing.JPanel {
                         form.setVisible(false);
                         loadData();
                     } else {
-                        JOptionPane.showMessageDialog(this, "Sale Registeration Failed", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Sale Registration Failed", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
                     }
 
@@ -618,9 +618,11 @@ public class Sales extends javax.swing.JPanel {
 
     void setTotalPrice() {
 
+     //   try{
         System.out.println("total Price Update");
         totalPriceField.setValue(((double) unitPriceField.getValue() * (double) soldQuantityField.getValue()));
-
+    //    }catch(Exception e){
+     //   }
     }
 
     void clearForm() throws SQLException {

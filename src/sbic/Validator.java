@@ -19,28 +19,13 @@ public class Validator {
 
     }
 
-    static boolean isNumberGreaterThan(JTextField textField, int Minimum) {
-        return true;
-
-    }
-
-    static boolean isNumberGreaterThan(JTextField textField, double Minimum) {
-        return true;
-
-    }
-
-    static boolean isNumberGreaterThan(JSpinner spinnerField, int Minimum) {
-        
-        if((double)spinnerField.getValue() > (double)Minimum)
-        return true;
-        else
-        return false;    
-
-    }
-
     static boolean isNumberGreaterThan(JSpinner spinnerField, double Minimum) {
-        return true;
 
+        if((double)spinnerField.getValue() > Minimum){
+        return true;
+        }else{
+        return false;
+        }
     }
 
     static boolean isNumberLessThan(JTextField textField, int Maximum) {

@@ -5,9 +5,13 @@
         <group>
             <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/ProgramWindow.java</file>
             <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/Sales.java</file>
-            <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/GRN.java</file>
-            <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/Item.java</file>
+            <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/DBConnection.java</file>
+            <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/DBConnectionConfiguration.java</file>
+            <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/Users.java</file>
             <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/Sale.java</file>
+            <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/SBIC.java</file>
+            <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/Validator.java</file>
+            <file>file:/C:/Users/Yoftahe/Documents/NetBeansProjects/SBIC/src/sbic/User.java</file>
         </group>
     </open-files>
 </project-private>

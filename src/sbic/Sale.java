@@ -129,12 +129,12 @@ public class Sale {
 
     boolean canSell() throws SQLException {
 
-        if (Item.find(this.item.getId()).getQuantityAtHand() <= soldQuantity) {
+        if (Item.find(this.item.getId()).getQuantityAtHand() >= soldQuantity) {
             return true;
         } else {
             return false;
         }
-
+       
     }
 
     boolean save() throws SQLException {
@@ -196,7 +196,7 @@ public class Sale {
 
     static Sale find(int id) throws SQLException, ParseException {
 
-        ResultSet results = DBConnection.select(TABLE_NAME, "id, invoiceNumber, date, customerTIN, userId, itemId, soldQuantity, unitPrice, totalPrice", "id = "+id+" Order By id");
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, invoiceNumber, date, customerTIN, userId, itemId, soldQuantity, unitPrice, totalPrice", "id = " + id + " Order By id");
         results.next();
 
         Sale foundSale = new Sale(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), Double.parseDouble(results.getString(9)));
