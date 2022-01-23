@@ -7,7 +7,9 @@ package sbic;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JPanel;
+import static sbic.Disposal.TABLE_NAME;
 
 /**
  *
@@ -19,7 +21,7 @@ public class User {
     private String userName;
     private String password;
     private String role;
-    private boolean isActive;
+    private boolean Active;
 
     final static String TABLE_NAME = "users";
     private boolean isNew;
@@ -29,14 +31,26 @@ public class User {
         this.isNew = true;
     }
 
-    User(String userName, String password, String role, boolean isActive) {
+    User(String userName, String password, String role, boolean Active) {
 
         this.userName = userName;
         this.password = password;
         this.role = role;
-        this.isActive = isActive;
+        this.Active = Active;
 
         this.isNew = true;
+
+    }
+
+    User(int id, String userName, String password, String role, boolean Active) {
+
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.role = role;
+        this.Active = Active;
+
+        this.isNew = false;
 
     }
 
@@ -57,7 +71,16 @@ public class User {
     }
 
     public boolean isActive() {
-        return isActive;
+        return Active;
+    }
+
+    public String getActive() {
+
+        if (Active) {
+            return "Yes";
+        } else {
+            return "No";
+        }
     }
 
     public boolean isNew() {
@@ -81,13 +104,13 @@ public class User {
         this.role = role;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean isActive) {
+        this.Active = Active;
     }
 
     static int validCredentials(String userName, String password) throws SQLException {
 
-        ResultSet matchingUsers = DBConnection.select("users", "count(id) as matchingUsersCount", "name = '" + userName + "' AND password='" + password + "'");
+        ResultSet matchingUsers = DBConnection.select("users", "count(id) as matchingUsersCount", "active = '1', name = '" + userName + "' AND password='" + password + "'");
 
         matchingUsers.next();
 
@@ -104,19 +127,75 @@ public class User {
 
     }
 
-    boolean save() {
+    boolean save() throws SQLException {
 
         if (this.isNew) {
-            // insert code
+            ArrayList dataToInsert = new ArrayList();
+            dataToInsert.add("null");
+            dataToInsert.add(this.userName);
+            dataToInsert.add(this.password);
+            dataToInsert.add(this.role);
+            if (this.Active) {
+                dataToInsert.add(1);
+            } else {
+                dataToInsert.add(0);
+            }
+
+            if (DBConnection.insert(TABLE_NAME, dataToInsert) == 1) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            //update code
+            ArrayList columnNames = new ArrayList();
+            columnNames.add("name");
+            columnNames.add("password");
+            columnNames.add("role");
+            columnNames.add("active");
+
+            ArrayList columnValues = new ArrayList();
+            columnValues.add(this.userName);
+            columnValues.add(this.password);
+            columnValues.add(this.role);
+            columnValues.add(this.password);
+
+            if (DBConnection.update(TABLE_NAME, columnNames, columnValues, "id = " + this.id + "") == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
-        return true;
     }
 
-    boolean delete() {
-        return false;
+    boolean canDelete() throws SQLException {
+
+        ResultSet resultsCounter = DBConnection.select(GRN.TABLE_NAME + ", " + Sale.TABLE_NAME + "," + Disposal.TABLE_NAME, "count(*) as rowCount", "grn.userId = " + this.id + " OR sales.userId = " + this.id + " OR disposal.userId = " + this.id);
+
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+
+        if (rowCount > 0) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    boolean delete() throws SQLException {
+
+        if (canDelete()) {
+
+            if (DBConnection.delete(TABLE_NAME, "id = " + this.id) == 1) {
+
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
 
     }
 
@@ -149,19 +228,6 @@ public class User {
         User[] foundUsers = null;
 
         return foundUsers;
-    }
-
-    static JPanel addForm() {
-        return null;
-    }
-
-    static JPanel editForm() {
-        return null;
-
-    }
-
-    static JPanel listView() {
-        return null;
     }
 
 }

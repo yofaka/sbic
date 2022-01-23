@@ -89,5 +89,16 @@ public class Validator {
         return true;
     }
     
+    
+    static boolean isProperPassword(JTextField textField){
+    
+    return true;
+    }
+    
+  static boolean isUserName(JTextField textField){
+    
+    return true;
+    }
+    
  
 }
