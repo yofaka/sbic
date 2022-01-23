@@ -67,6 +67,15 @@ public class Users extends javax.swing.JPanel {
         confirmPasswordField = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         activeField = new javax.swing.JComboBox<>();
+        passwordResetForm = new javax.swing.JFrame();
+        jPanel1 = new javax.swing.JPanel();
+        resetPasswordField = new javax.swing.JPasswordField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        resetConfirmPasswordField = new javax.swing.JPasswordField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel10 = new javax.swing.JLabel();
+        saveResetPasswordBtn = new javax.swing.JButton();
         addBtn = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
@@ -77,7 +86,6 @@ public class Users extends javax.swing.JPanel {
         table = new javax.swing.JTable();
         resetPasswordBtn = new javax.swing.JButton();
 
-        form.setPreferredSize(new java.awt.Dimension(372, 500));
         form.setResizable(false);
         form.setSize(new java.awt.Dimension(400, 500));
 
@@ -179,6 +187,72 @@ public class Users extends javax.swing.JPanel {
                 .addGap(0, 0, 0))
         );
 
+        passwordResetForm.setTitle("Reset User Password");
+        passwordResetForm.setResizable(false);
+        passwordResetForm.setSize(new java.awt.Dimension(400, 300));
+
+        jLabel7.setText("Password");
+
+        jLabel9.setText("Confirm Password");
+
+        jLabel10.setText("Reset Password");
+
+        saveResetPasswordBtn.setText("Save");
+        saveResetPasswordBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveResetPasswordBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator2)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(saveResetPasswordBtn)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9)
+                            .addComponent(resetConfirmPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                            .addComponent(resetPasswordField))))
+                .addContainerGap(208, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(resetPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(resetConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(saveResetPasswordBtn)
+                .addContainerGap(69, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout passwordResetFormLayout = new javax.swing.GroupLayout(passwordResetForm.getContentPane());
+        passwordResetForm.getContentPane().setLayout(passwordResetFormLayout);
+        passwordResetFormLayout.setHorizontalGroup(
+            passwordResetFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        passwordResetFormLayout.setVerticalGroup(
+            passwordResetFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         addBtn.setText("Add");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,6 +305,11 @@ public class Users extends javax.swing.JPanel {
         jScrollPane1.setViewportView(table);
 
         resetPasswordBtn.setText("Reset Password");
+        resetPasswordBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetPasswordBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -298,11 +377,11 @@ public class Users extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter User Number", "Add User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (passwordField.getPassword().equals("")) {
+                } else if (passwordField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Password", "Add User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (confirmPasswordField.getPassword().equals("")) {
+                } else if (confirmPasswordField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Confirm Password", "Add User", JOptionPane.ERROR_MESSAGE);
 
@@ -310,13 +389,13 @@ public class Users extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "This User Name is already in use.", "Add User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword())) {
+                } else if (passwordField.getText().equals(confirmPasswordField.getText())) {
 
                     JOptionPane.showMessageDialog(this, "Two Passwords Must Be The Same", "Edit User", JOptionPane.ERROR_MESSAGE);
 
                 } else {
 
-                    User newUser = new User(userNameField.getText(), passwordField.getPassword().toString(), roleField.getSelectedItem().toString(), isActive);
+                    User newUser = new User(userNameField.getText(), passwordField.getText().toString(), roleField.getSelectedItem().toString(), isActive);
 
                     if (newUser.save()) {
 
@@ -336,7 +415,7 @@ public class Users extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter User Number", "Edit User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (confirmPasswordField.getPassword().equals("")) {
+                } else if (confirmPasswordField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Confirm Password", "Edit User", JOptionPane.ERROR_MESSAGE);
 
@@ -468,6 +547,47 @@ public class Users extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_searchFieldKeyReleased
 
+    private void resetPasswordBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetPasswordBtnActionPerformed
+
+        resetPasswordField.setText("");
+        resetConfirmPasswordField.setText("");
+
+        passwordResetForm.setVisible(true);
+
+    }//GEN-LAST:event_resetPasswordBtnActionPerformed
+
+    private void saveResetPasswordBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveResetPasswordBtnActionPerformed
+
+        if (resetPasswordField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Enter Password", "Reset User Password", JOptionPane.ERROR_MESSAGE);
+
+        } else if (resetConfirmPasswordField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Confirm Password", "Reset User Password", JOptionPane.ERROR_MESSAGE);
+
+        } else if (!resetPasswordField.getText().equals(resetConfirmPasswordField.getText())) {
+            JOptionPane.showMessageDialog(this, "The two passwords need to be the same!", "Reset User Password", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+
+            try {
+                selectedUser.setPassword(resetPasswordField.getText());
+                if (selectedUser.savePassword()) {
+                    JOptionPane.showMessageDialog(this, "Password reset succefully!", "Reset User Password", JOptionPane.INFORMATION_MESSAGE);
+                    passwordResetForm.setVisible(false);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Password reset failed!", "Reset User Password", JOptionPane.ERROR_MESSAGE);
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveResetPasswordBtnActionPerformed
+
     void loadData() throws SQLException, ParseException {
 
         editBtn.setEnabled(false);
@@ -548,20 +668,29 @@ public class Users extends javax.swing.JPanel {
     private javax.swing.JButton editBtn;
     private javax.swing.JFrame form;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPasswordField passwordField;
+    private javax.swing.JFrame passwordResetForm;
     private javax.swing.JButton refreshBtn;
+    private javax.swing.JPasswordField resetConfirmPasswordField;
     private javax.swing.JButton resetPasswordBtn;
+    private javax.swing.JPasswordField resetPasswordField;
     private javax.swing.JComboBox<String> roleField;
     private javax.swing.JButton saveBtn;
+    private javax.swing.JButton saveResetPasswordBtn;
     private javax.swing.JTextField searchField;
     private javax.swing.JTable table;
     private javax.swing.JTextField userNameField;

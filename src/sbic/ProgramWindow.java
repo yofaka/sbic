@@ -254,7 +254,7 @@ public class ProgramWindow {
 
                     try {
 
-                        int loginResult = User.validCredentials(loginUserNameField.getText(), loginPasswordField.getPassword().toString());
+                        int loginResult = User.validCredentials(loginUserNameField.getText(), loginPasswordField.getText());
 
                         if (loginResult > 0) {
 

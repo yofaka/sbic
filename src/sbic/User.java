@@ -170,12 +170,37 @@ public class User {
 
     }
 
+    boolean savePassword() throws SQLException{
+    
+     ArrayList columnNames = new ArrayList();
+            columnNames.add("password");
+
+            ArrayList columnValues = new ArrayList();
+            columnValues.add(this.password);
+           
+            if (DBConnection.update(TABLE_NAME, columnNames, columnValues, "id = " + this.id + "") == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        
+    }
+    
     boolean canDelete() throws SQLException {
 
-        ResultSet resultsCounter = DBConnection.select(GRN.TABLE_NAME + ", " + Sale.TABLE_NAME + "," + User.TABLE_NAME, "count(*) as rowCount", "grn.userId = " + this.id + " OR sales.userId = " + this.id + " OR disposal.userId = " + this.id);
-
+         ResultSet resultsCounter = DBConnection.select(GRN.TABLE_NAME, "count(*) as rowCount", "grn.userId = " + this.id);
         resultsCounter.next();
-        int rowCount = resultsCounter.getInt("rowCount");
+        int GRNRowCount = resultsCounter.getInt("rowCount");
+
+        resultsCounter = DBConnection.select(Sale.TABLE_NAME, "count(*) as rowCount", "sales.userId = " + this.id);
+        resultsCounter.next();
+        int SaleRowCount = resultsCounter.getInt("rowCount");
+
+        resultsCounter = DBConnection.select(Disposal.TABLE_NAME, "count(*) as rowCount", "disposal.userId = " + this.id);
+        resultsCounter.next();
+        int DisposalRowCount = resultsCounter.getInt("rowCount");
+
+        int rowCount = GRNRowCount + SaleRowCount + DisposalRowCount;
 
         if (rowCount > 0) {
             return false;
