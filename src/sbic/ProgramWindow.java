@@ -49,6 +49,7 @@ public class ProgramWindow {
     static JLabel userInfo;
     static JButton logoutButton;
 
+    static JPanel salesPanel;
     static JPanel grnsPanel;
     static JPanel itemsPanel;
     static JPanel itemCategoriesPanel;
@@ -168,6 +169,8 @@ public class ProgramWindow {
 
         grnsPanel = new GRNs();
         
+        salesPanel = new Sales();
+        
         mainTab = new JTabbedPane();
         mainTab.setBackground(primaryColor);
         mainTab.setForeground(secondaryColor);
@@ -175,7 +178,7 @@ public class ProgramWindow {
         mainTab.addTab("Item Categories", itemCategoriesPanel);
         mainTab.addTab("Items", itemsPanel);
         mainTab.addTab("GRN", grnsPanel);
-        mainTab.addTab("Sales", new JPanel());
+        mainTab.addTab("Sales", salesPanel);
         mainTab.addTab("Disposal", new JPanel());
         mainTab.addTab("Master Table", new JPanel());
         mainTab.addTab("Users", new JPanel());
