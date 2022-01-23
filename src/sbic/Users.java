@@ -8,6 +8,7 @@ package sbic;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +40,6 @@ public class Users extends javax.swing.JPanel {
     public Users() throws SQLException, ParseException {
         initComponents();
         loadData();
-       
 
     }
 
@@ -65,9 +65,8 @@ public class Users extends javax.swing.JPanel {
         passwordField = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
         confirmPasswordField = new javax.swing.JPasswordField();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        activeField = new javax.swing.JComboBox<>();
         addBtn = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
@@ -76,7 +75,7 @@ public class Users extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        resetPasswordButton = new javax.swing.JButton();
+        resetPasswordBtn = new javax.swing.JButton();
 
         form.setPreferredSize(new java.awt.Dimension(372, 500));
         form.setResizable(false);
@@ -87,6 +86,8 @@ public class Users extends javax.swing.JPanel {
         jLabel2.setText("User Name");
 
         jLabel8.setText("Role");
+
+        roleField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Sales\t" }));
 
         saveBtn.setText("Save");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -99,10 +100,9 @@ public class Users extends javax.swing.JPanel {
 
         jLabel5.setText("Confirm Password");
 
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Active");
-
         jLabel6.setText("Active");
+
+        activeField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -113,15 +113,6 @@ public class Users extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(userNameField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(roleField, javax.swing.GroupLayout.Alignment.LEADING, 0, 188, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(127, 127, 127)
@@ -129,9 +120,18 @@ public class Users extends javax.swing.JPanel {
                             .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel6)
-                            .addComponent(jCheckBox1))
-                        .addGap(0, 172, Short.MAX_VALUE))))
+                            .addComponent(jLabel6))
+                        .addGap(0, 172, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(activeField, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(userNameField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(roleField, javax.swing.GroupLayout.Alignment.LEADING, 0, 188, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,8 +150,8 @@ public class Users extends javax.swing.JPanel {
                 .addComponent(roleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox1)
+                .addGap(6, 6, 6)
+                .addComponent(activeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,7 +230,7 @@ public class Users extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(table);
 
-        resetPasswordButton.setText("Reset Password");
+        resetPasswordBtn.setText("Reset Password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -238,7 +238,7 @@ public class Users extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(212, 212, 212)
-                .addComponent(resetPasswordButton)
+                .addComponent(resetPasswordBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(refreshBtn)
                 .addContainerGap(278, Short.MAX_VALUE))
@@ -264,7 +264,7 @@ public class Users extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resetPasswordButton)
+                    .addComponent(resetPasswordBtn)
                     .addComponent(refreshBtn))
                 .addContainerGap(262, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,6 +285,12 @@ public class Users extends javax.swing.JPanel {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         try {
 
+            boolean isActive = false;
+            if (activeField.getSelectedItem().toString().equals("Active")) {
+                isActive = true;
+
+            }
+
             setTotalPrice();
             if (newForm) {
 
@@ -292,29 +298,30 @@ public class Users extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter User Number", "Add User", JOptionPane.ERROR_MESSAGE);
 
-                }else if (passwordField.getPassword().equals("")) {
+                } else if (passwordField.getPassword().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Password", "Add User", JOptionPane.ERROR_MESSAGE);
 
-                }else if (confirmPasswordField.getPassword().equals("")) {
+                } else if (confirmPasswordField.getPassword().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Confirm Password", "Add User", JOptionPane.ERROR_MESSAGE);
 
-                }  else if (User.userNumberExists(userNameField.getText(), "")) {
+                } else if (User.userNameExists(userNameField.getText(), "")) {
 
-                    JOptionPane.showMessageDialog(this, "This User Number is already in use.", "Add User", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "This User Name is already in use.", "Add User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isNumberGreaterThan(disposedQuantity, 0)) {
+                } else if (!Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword())) {
 
-                    JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add User", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Two Passwords Must Be The Same", "Edit User", JOptionPane.ERROR_MESSAGE);
 
-                }  else {
+                } else {
 
-                    User newUser = new User(userNameField.getText(), (Date) dateField.getValue(), descriptionField.getText(), Session.getLoggedInUser(), listedItems[roleField.getSelectedIndex()], (double) disposedQuantity.getValue());
+                    User newUser = new User(userNameField.getText(), passwordField.getPassword().toString(), roleField.getSelectedItem().toString(), isActive);
 
                     if (newUser.save()) {
 
                         JOptionPane.showMessageDialog(this, "User Registered Succesfully", "Add User", JOptionPane.INFORMATION_MESSAGE);
+                        clearForm();
                         form.setVisible(false);
                         loadData();
                     } else {
@@ -329,37 +336,25 @@ public class Users extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter User Number", "Edit User", JOptionPane.ERROR_MESSAGE);
 
-                }else if (descriptionField.getText().equals("")) {
+                } else if (confirmPasswordField.getPassword().equals("")) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Description (Reason) Number", "Edit User", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Confirm Password", "Edit User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (disposedQuantity.getValue().equals("") || disposedQuantity.getValue() == null) {
-
-                    JOptionPane.showMessageDialog(this, "Enter Quantity", "Edit User", JOptionPane.ERROR_MESSAGE);
-
-                } else if (User.userNumberExists(userNameField.getText(), selectedUser.getUserNumber())) {
+                } else if (User.userNameExists(userNameField.getText(), selectedUser.getUserName())) {
 
                     JOptionPane.showMessageDialog(this, "This User Number is already in use.", "Edit User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isNumberGreaterThan(disposedQuantity, 0)) {
+                } else {
 
-                    JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Edit User", JOptionPane.ERROR_MESSAGE);
+                    selectedUser.setUserName(userNameField.getText());
+                    selectedUser.setRole(roleField.getSelectedItem().toString());
 
-                } else if (!Validator.isNumberGreaterThan(disposedQuantity, (selectedUser.getItem().getQuantityAtHand() + 0.1))) {
+                    selectedUser.setActive(isActive);
 
-                    JOptionPane.showMessageDialog(this, "You can't reduce the quantity more than the available quantity of the item!", "Edit User", JOptionPane.ERROR_MESSAGE);
-
-                }  else {
-
-                    selectedUser.setUserNumber(userNameField.getText());
-                    selectedUser.setDate((Date) dateField.getValue());
-                    selectedUser.setDescription(descriptionField.getText());
-                    selectedUser.setItem(listedItems[roleField.getSelectedIndex()]);
-                    selectedUser.setDisposedQuantity((double) disposedQuantity.getValue());
-               
                     if (selectedUser.save()) {
 
                         JOptionPane.showMessageDialog(this, "User Updated Succesfully", "Edit User", JOptionPane.INFORMATION_MESSAGE);
+                        clearForm();
                         form.setVisible(false);
                         loadData();
                     } else {
@@ -381,14 +376,12 @@ public class Users extends javax.swing.JPanel {
 
         try {
             clearForm();
-            loadItemField();
 
             newForm = true;
 
-            userNameField.setEnabled(true);
-            dateField.setEnabled(true);
-            roleField.setEnabled(true);
-            disposedQuantity.setEnabled(true);
+            passwordField.setEnabled(true);
+            confirmPasswordField.setEnabled(true);
+
             form.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
@@ -398,21 +391,22 @@ public class Users extends javax.swing.JPanel {
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
 
         try {
-            newForm = false;
-            clearForm();
-            loadItemField();
 
-            userNameField.setText(selectedUser.getUserNumber());
-            dateField.setValue(selectedUser.getDate());
-            roleField.setSelectedItem(selectedUser.getItem().getName());
-            descriptionField.setText(selectedUser.getDescription());
-            disposedQuantity.setValue(selectedUser.getDisposedQuantity());
+            clearForm();
+            newForm = false;
+
+            userNameField.setText(selectedUser.getUserName());
+            roleField.setSelectedItem(selectedUser.getRole());
+
+            if (selectedUser.isActive()) {
+                activeField.setSelectedItem("Active");
+            } else {
+                activeField.setSelectedItem("Inactive");
+            }
 
             //Lock some Fields For Data Integrity Purposes
-            userNameField.setEnabled(false);
-            dateField.setEnabled(false);
-            roleField.setEnabled(false);
-            disposedQuantity.setEnabled(false);
+            passwordField.setEnabled(false);
+            confirmPasswordField.setEnabled(false);
 
             form.setVisible(true);
         } catch (SQLException ex) {
@@ -425,16 +419,16 @@ public class Users extends javax.swing.JPanel {
         try {
             if (!selectedUser.canDelete()) {
 
-                JOptionPane.showMessageDialog(this, "You can not delete this " + selectedUser.getUserNumber() + " because you dont have sufficient quantity of " + selectedUser.getItem().getName() + " !", "Delete User", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "You can not delete this " + selectedUser.getUserName() + " because it has GRNs, Sales or Disposals attached to it!", "Delete User", JOptionPane.ERROR_MESSAGE);
             } else {
 
-                if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedUser.getUserNumber() + "? It will increase the amount of " + selectedUser.getItem().getName() + " by " + selectedUser.getDisposedQuantity(), "Delete User", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedUser.getUserName() + "? ", "Delete User", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
                     if (selectedUser.delete()) {
-                        JOptionPane.showMessageDialog(this, selectedUser.getUserNumber() + " deleted succesfully!", "Delete User", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, selectedUser.getUserName() + " deleted succesfully!", "Delete User", JOptionPane.INFORMATION_MESSAGE);
                         loadData();
                     } else {
-                        JOptionPane.showMessageDialog(this, "Deleting " + selectedUser.getUserNumber() + " failed!", "Delete User", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Deleting " + selectedUser.getUserName() + " failed!", "Delete User", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
 
@@ -474,9 +468,6 @@ public class Users extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_searchFieldKeyReleased
 
-   
-   
-
     void loadData() throws SQLException, ParseException {
 
         editBtn.setEnabled(false);
@@ -496,9 +487,7 @@ public class Users extends javax.swing.JPanel {
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
             tableDataRows[numberOfRows][1] = user.getUserName();
             tableDataRows[numberOfRows][2] = user.getRole();
-            tableDataRows[numberOfRows][3] = user.isActive();
-         
-         
+            tableDataRows[numberOfRows][3] = user.getActive();
 
             numberOfRows++;
         }
@@ -520,7 +509,7 @@ public class Users extends javax.swing.JPanel {
                 if (itemCategoriesTableSelectionModel.getMaxSelectionIndex() == -1) {
 
                     editBtn.setEnabled(false);
-
+                    resetPasswordBtn.setEnabled(false);
                     deleteBtn.setEnabled(false);
 
                 } else {
@@ -540,28 +529,24 @@ public class Users extends javax.swing.JPanel {
 
     void setTotalPrice() {
 
-        
-
     }
 
     void clearForm() throws SQLException {
 
-        loadItemField();
-
         userNameField.setText("");
         roleField.setSelectedIndex(0);
+        activeField.setSelectedIndex(0);
         passwordField.setText("");
         confirmPasswordField.setText("");
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> activeField;
     private javax.swing.JButton addBtn;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPasswordField confirmPasswordField;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton editBtn;
     private javax.swing.JFrame form;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -574,7 +559,7 @@ public class Users extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton refreshBtn;
-    private javax.swing.JButton resetPasswordButton;
+    private javax.swing.JButton resetPasswordBtn;
     private javax.swing.JComboBox<String> roleField;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchField;

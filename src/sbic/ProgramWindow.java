@@ -45,6 +45,7 @@ public class ProgramWindow {
     static JLabel userInfo;
     static JButton logoutButton;
 
+    static JPanel usersPanel;
     static JPanel disposalPanel;
     static JPanel salesPanel;
     static JPanel grnsPanel;
@@ -165,11 +166,13 @@ public class ProgramWindow {
         itemsPanel = new Items();
 
         grnsPanel = new GRNs();
-        
+
         salesPanel = new Sales();
-        
+
         disposalPanel = new Disposals();
-        
+
+        usersPanel = new Users();
+
         mainTab = new JTabbedPane();
         mainTab.setBackground(primaryColor);
         mainTab.setForeground(secondaryColor);
@@ -180,7 +183,7 @@ public class ProgramWindow {
         mainTab.addTab("Sales", salesPanel);
         mainTab.addTab("Disposal", disposalPanel);
         //mainTab.addTab("Master Table", new JPanel());
-        mainTab.addTab("Users", new JPanel());
+        mainTab.addTab("Users", usersPanel);
         mainTab.addTab("Theme Settings", themeSetting);
         mainTab.addTab("Database Settings", databaseSetting);
 
@@ -201,11 +204,12 @@ public class ProgramWindow {
 
         mainWindow = new JFrame("Small Business Management Software");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setSize(1000, 1000);
+
         mainWindow.setLayout(new BorderLayout());
         mainWindow.add(headerPanel, BorderLayout.NORTH);
         mainWindow.add(mainTab, BorderLayout.CENTER);
         mainWindow.add(footerPanel, BorderLayout.SOUTH);
+        mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         mainWindow.setVisible(true);
 
     }

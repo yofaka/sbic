@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import static sbic.Disposal.TABLE_NAME;
+
 
 /**
  *
@@ -104,7 +104,7 @@ public class User {
         this.role = role;
     }
 
-    public void setActive(boolean isActive) {
+    public void setActive(boolean Active) {
         this.Active = Active;
     }
 
@@ -149,15 +149,17 @@ public class User {
         } else {
             ArrayList columnNames = new ArrayList();
             columnNames.add("name");
-            columnNames.add("password");
             columnNames.add("role");
             columnNames.add("active");
 
             ArrayList columnValues = new ArrayList();
             columnValues.add(this.userName);
-            columnValues.add(this.password);
             columnValues.add(this.role);
-            columnValues.add(this.password);
+           if (this.Active) {
+                columnValues.add(1);
+            } else {
+                columnValues.add(0);
+            }
 
             if (DBConnection.update(TABLE_NAME, columnNames, columnValues, "id = " + this.id + "") == 1) {
                 return true;
@@ -170,7 +172,7 @@ public class User {
 
     boolean canDelete() throws SQLException {
 
-        ResultSet resultsCounter = DBConnection.select(GRN.TABLE_NAME + ", " + Sale.TABLE_NAME + "," + Disposal.TABLE_NAME, "count(*) as rowCount", "grn.userId = " + this.id + " OR sales.userId = " + this.id + " OR disposal.userId = " + this.id);
+        ResultSet resultsCounter = DBConnection.select(GRN.TABLE_NAME + ", " + Sale.TABLE_NAME + "," + User.TABLE_NAME, "count(*) as rowCount", "grn.userId = " + this.id + " OR sales.userId = " + this.id + " OR disposal.userId = " + this.id);
 
         resultsCounter.next();
         int rowCount = resultsCounter.getInt("rowCount");
@@ -223,11 +225,53 @@ public class User {
         }
     }
 
-    static User[] findAll() {
+    static User[] findAll() throws SQLException {
 
-        User[] foundUsers = null;
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1");
+
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, name, password, role, active", "1=1  Order By id");
+
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+
+        User[] foundUsers = new User[rowCount];
+
+        int rowCounter = 0;
+
+        boolean isActive = false;
+
+        while (results.next()) {
+
+            isActive=false;
+            if(Integer.valueOf(results.getString(5))==1)
+            isActive = true;
+            
+            
+            foundUsers[rowCounter] = new User(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3),  results.getString(4), isActive);
+
+            rowCounter++;
+        }
 
         return foundUsers;
+    }
+
+    static boolean userNameExists(String userName, String Except) throws SQLException {
+
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "name ='" + userName + "'");
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+        if (rowCount > 0) {
+
+            if (Except.equals(userName)) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+            return false;
+        }
+
     }
 
 }
