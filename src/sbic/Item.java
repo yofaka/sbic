@@ -225,7 +225,7 @@ public class Item {
 
     boolean canDelete() throws SQLException {
 
-        ResultSet resultsCounter = DBConnection.select(GRN.TABLE_NAME + ", " + Sales.TABLE_NAME + "," + Disposal.TABLE_NAME, "count(*) as rowCount", "grn.itemId = " + this.id + " OR sales.itemId = " + this.id + " OR disposal.itemId = " + this.id);
+        ResultSet resultsCounter = DBConnection.select(GRN.TABLE_NAME + ", " + Sale.TABLE_NAME + "," + Disposal.TABLE_NAME, "count(*) as rowCount", "grn.itemId = " + this.id + " OR sales.itemId = " + this.id + " OR disposal.itemId = " + this.id);
 
         resultsCounter.next();
         int rowCount = resultsCounter.getInt("rowCount");
