@@ -194,9 +194,9 @@ public class Sale {
         }
     }
 
-    static Sale find(int SalesHederId) throws SQLException, ParseException {
+    static Sale find(int id) throws SQLException, ParseException {
 
-        ResultSet results = DBConnection.select(TABLE_NAME, "id, invoiceNumber, date, customerTIN, userId, itemId, soldQuantity, unitPrice, totalPrice", "1=1  Order By id");
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, invoiceNumber, date, customerTIN, userId, itemId, soldQuantity, unitPrice, totalPrice", "id = "+id+" Order By id");
         results.next();
 
         Sale foundSale = new Sale(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), Double.parseDouble(results.getString(9)));
