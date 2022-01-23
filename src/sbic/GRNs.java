@@ -376,7 +376,7 @@ public class GRNs extends javax.swing.JPanel {
 
                 } else {
 
-                    GRN newGRN = new GRN(grnNumberField.getText(), (Date) dateField.getValue(), supplierNameField.getText(), supplierTelephoneNumberField.getText(), supplierTINNumberField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) receivedQuantityField.getValue(), (double) receivedQuantityField.getValue(), (double) receivedQuantityField.getValue());
+                    GRN newGRN = new GRN(grnNumberField.getText(), (Date) dateField.getValue(), supplierNameField.getText(), supplierTelephoneNumberField.getText(), supplierTINNumberField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) receivedQuantityField.getValue(), (double) unitCostField.getValue(), (double) totalCostField.getValue());
 
                     if (newGRN.save()) {
 
@@ -484,8 +484,15 @@ public class GRNs extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
+            clearForm();
             loadItemField();
+
             newForm = true;
+
+            grnNumberField.setEnabled(true);
+            dateField.setEnabled(true);
+            itemField.setEnabled(true);
+            receivedQuantityField.setEnabled(true);
             form.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
@@ -513,6 +520,12 @@ public class GRNs extends javax.swing.JPanel {
             unitCostField.setValue(selectedGRN.getUnitCost());
             totalCostField.setValue(selectedGRN.getTotalCost());
 
+            //Lock some Fields For Data Integrity Purposes
+            grnNumberField.setEnabled(false);
+            dateField.setEnabled(false);
+            itemField.setEnabled(false);
+            receivedQuantityField.setEnabled(false);
+
             form.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
@@ -527,7 +540,7 @@ public class GRNs extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "You can not delete this " + selectedGRN.getGRNNumber() + " because you dont have sufficient quantity of " + selectedGRN.getItem().getName() + " !", "Delete Item", JOptionPane.ERROR_MESSAGE);
             } else {
 
-                if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedGRN.getGRNNumber() + "?", "Delete Item Category", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedGRN.getGRNNumber() + "? It will reduce the amount of " + selectedGRN.getItem().getName() + " by " + selectedGRN.getReceivedQuantity(), "Delete Item Category", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
                     if (selectedGRN.delete()) {
                         JOptionPane.showMessageDialog(this, selectedGRN.getGRNNumber() + " deleted succesfully!", "Delete Item", JOptionPane.INFORMATION_MESSAGE);
@@ -661,6 +674,8 @@ public class GRNs extends javax.swing.JPanel {
 
                     deleteBtn.setEnabled(true);
                     selectedGRN = grns[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
+
+                    System.out.println(itemCategoriesTableSelectionModel.getMaxSelectionIndex() + " from " + grns.length);
 
                 }
             }

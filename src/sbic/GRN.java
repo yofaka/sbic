@@ -197,28 +197,28 @@ public class GRN {
         } else {
             ArrayList columnNames = new ArrayList();
             //columnNames.add("GRNNumber");
-            columnNames.add("date");
+            //columnNames.add("date");
             columnNames.add("supplierName");
             columnNames.add("supplierTelephone");
             columnNames.add("supplierTIN");
             //columnNames.add("userId");
             //columnNames.add("itemId");
             //columnNames.add("receivedQuantity");
-            //columnNames.add("unitCost");
-            //columnNames.add("totalCost");
+            columnNames.add("unitCost");
+            columnNames.add("totalCost");
           
           
             ArrayList columnValues = new ArrayList();
             //columnValues.add(this.GRNNumber);
-            columnValues.add(simpleDateFormat.format(this.date));
+            //columnValues.add(simpleDateFormat.format(this.date));
             columnValues.add(this.getSupplierName());
             columnValues.add(this.getSupplierTelephone());
             columnValues.add(this.getSupplierTIN());
             //columnValues.add(this.getUser().getId());
             //columnValues.add(this.getItem().getId());
             //columnValues.add(this.getReceivedQuantity());
-            //columnValues.add(this.getUnitCost());
-            //columnValues.add(this.getTotalCost());
+            columnValues.add(this.getUnitCost());
+            columnValues.add(this.getTotalCost());
 
             double oldRecievedQuantity = (GRN.find(this.id).getReceivedQuantity()); // fetch unmodified object of GRN to fetch the old received
             double newItemQuantity = (this.getItem().getQuantityAtHand() - oldRecievedQuantity) + this.receivedQuantity; // determined new quantity
@@ -282,7 +282,10 @@ public class GRN {
         if (this.canDelete()) {
 
             double newQuantity = this.getItem().getQuantityAtHand() - this.receivedQuantity;
+            System.out.println((this.getItem().getQuantityAtHand() - this.receivedQuantity)+"<-"+this.getItem().getQuantityAtHand()+" - "+this.receivedQuantity);
+            System.out.println("Old QAH -> "+this.getItem().getQuantityAtHand());
             this.getItem().setQuantityAtHand(newQuantity);
+            System.out.println("New QAH -> "+this.getItem().getQuantityAtHand());
 
             if (DBConnection.delete(TABLE_NAME, "id = " + this.id) == 1 && this.getItem().save()) {
                 return true;
