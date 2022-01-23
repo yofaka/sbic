@@ -434,7 +434,7 @@ public class ItemCategories extends javax.swing.JPanel {
                     editItemCategoryBtn.setEnabled(true);
 
                     deleteItemCategoryBtn.setEnabled(true);
-                    selectedItemCategory = itemCategories[e.getFirstIndex()];
+                    selectedItemCategory = itemCategories[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
                 }
             }
         });

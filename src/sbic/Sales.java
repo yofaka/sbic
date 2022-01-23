@@ -305,7 +305,7 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Sale Number", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
-                }  else if (customerTINNumberField.getText().equals("")) {
+                } else if (customerTINNumberField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Supplier TIN Number", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
@@ -321,7 +321,7 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "This Sale Number is already in use.", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
-                }else if (!Validator.isProperTINNumber(customerTINNumberField)) {
+                } else if (!Validator.isProperTINNumber(customerTINNumberField)) {
 
                     JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
@@ -354,7 +354,7 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Sale Number", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
-                }  else if (customerTINNumberField.getText().equals("")) {
+                } else if (customerTINNumberField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Supplier TIN Number", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
@@ -370,7 +370,7 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "This Sale Number is already in use.", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
-                }else if (!Validator.isProperTINNumber(customerTINNumberField)) {
+                } else if (!Validator.isProperTINNumber(customerTINNumberField)) {
 
                     JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
@@ -541,6 +541,8 @@ public class Sales extends javax.swing.JPanel {
     void loadItemField() throws SQLException {
 
         listedItems = Item.findAll();
+
+        itemField.removeAllItems();
 
         for (Item itemCategory : listedItems) {
 

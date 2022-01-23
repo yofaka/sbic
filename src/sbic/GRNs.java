@@ -609,6 +609,8 @@ public class GRNs extends javax.swing.JPanel {
 
         listedItems = Item.findAll();
 
+        itemField.removeAllItems();
+
         for (Item itemCategory : listedItems) {
 
             itemField.addItem(itemCategory.getName());

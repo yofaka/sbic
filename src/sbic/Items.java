@@ -344,7 +344,7 @@ public class Items extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, selectedItem.getName() + " deleted succesfully!", "Delete Item", JOptionPane.INFORMATION_MESSAGE);
                         loadData();
                     } else {
-                        JOptionPane.showMessageDialog(this, "Deleting " + selectedItem.getName() + " failed!", "Delete Item Category", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Deleting " + selectedItem.getName() + " failed!", "Delete Item", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
 

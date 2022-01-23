@@ -179,7 +179,7 @@ public class ProgramWindow {
         mainTab.addTab("GRN", grnsPanel);
         mainTab.addTab("Sales", salesPanel);
         mainTab.addTab("Disposal", disposalPanel);
-        mainTab.addTab("Master Table", new JPanel());
+        //mainTab.addTab("Master Table", new JPanel());
         mainTab.addTab("Users", new JPanel());
         mainTab.addTab("Theme Settings", themeSetting);
         mainTab.addTab("Database Settings", databaseSetting);
