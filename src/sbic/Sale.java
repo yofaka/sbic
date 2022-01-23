@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JPanel;
 
 public class Sale {
 
@@ -43,6 +42,7 @@ public class Sale {
 
     public Sale(int id, String invoiceNumber, Date date, String customerTIN, User user, Item item, double soldQuantity, double unitPrice, double totalPrice) {
 
+        this.id = id;
         this.invoiceNumber = invoiceNumber;
         this.date = date;
         this.customerTIN = customerTIN;
@@ -199,7 +199,7 @@ public class Sale {
         ResultSet results = DBConnection.select(TABLE_NAME, "id, invoiceNumber, date, customerTIN, userId, itemId, soldQuantity, unitPrice, totalPrice", "1=1  Order By id");
         results.next();
 
-        Sale foundSale = new Sale(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
+        Sale foundSale = new Sale(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), Double.parseDouble(results.getString(9)));
         return foundSale;
     }
 
@@ -218,7 +218,7 @@ public class Sale {
 
         while (results.next()) {
 
-            foundSales[rowCounter] = new Sale(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
+            foundSales[rowCounter] = new Sale(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), Double.parseDouble(results.getString(9)));
 
             rowCounter++;
         }
@@ -228,11 +228,7 @@ public class Sale {
 
     boolean canDelete() {
 
-        if (false) {
-            return false;
-        } else {
-            return true;
-        }
+        return true;
 
     }
 

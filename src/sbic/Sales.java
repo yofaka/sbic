@@ -321,17 +321,7 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "This Sale Number is already in use.", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
-                } /*
-                else if (!Validator.isProperDate(dateField)) {
-
-                    JOptionPane.showMessageDialog(this, "This date is not acceptable.", "Add Sale", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isNotFutureDate(dateField)) {
-
-                    JOptionPane.showMessageDialog(this, "The date is a future date", "Add Sale", JOptionPane.ERROR_MESSAGE);
-
-                } 
-                 */ else if (!Validator.isProperTINNumber(customerTINNumberField)) {
+                }else if (!Validator.isProperTINNumber(customerTINNumberField)) {
 
                     JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
@@ -362,49 +352,39 @@ public class Sales extends javax.swing.JPanel {
 
                 if (invoiceNumberField.getText().equals("")) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Sale Number", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Enter Sale Number", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
                 }  else if (customerTINNumberField.getText().equals("")) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Supplier TIN Number", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Enter Supplier TIN Number", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
                 } else if (soldQuantityField.getValue().equals("") || soldQuantityField.getValue() == null) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Quantity", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Enter Quantity", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
                 } else if (unitPriceField.getValue().equals("") || soldQuantityField.getValue() == null) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Unit Price", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Enter Unit Price", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
                 } else if (Sale.invoiceNumberExists(invoiceNumberField.getText(), selectedSale.getInvoiceNumber())) {
 
-                    JOptionPane.showMessageDialog(this, "This Sale Number is already in use.", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "This Sale Number is already in use.", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
-                } /*
-                else if (!Validator.isProperDate(dateField)) {
+                }else if (!Validator.isProperTINNumber(customerTINNumberField)) {
 
-                    JOptionPane.showMessageDialog(this, "This date is not acceptable.", "Add Sale", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isNotFutureDate(dateField)) {
-
-                    JOptionPane.showMessageDialog(this, "The date is a future date", "Add Sale", JOptionPane.ERROR_MESSAGE);
-
-                } 
-                 */ else if (!Validator.isProperTINNumber(customerTINNumberField)) {
-
-                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
                 } else if (!Validator.isNumberGreaterThan(soldQuantityField, 0)) {
 
-                    JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
                 } else if (!Validator.isNumberGreaterThan(soldQuantityField, (selectedSale.getItem().getQuantityAtHand() + 0.1))) {
 
-                    JOptionPane.showMessageDialog(this, "You can't reduce the quantity more than the available quantity of the item!", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "You can't reduce the quantity more than the available quantity of the item!", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
                 } else if (!Validator.isNumberGreaterThan(unitPriceField, 0)) {
 
-                    JOptionPane.showMessageDialog(this, "The unit cost needs to be a valid number greater than 0", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The unit cost needs to be a valid number greater than 0", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
                 } else {
 
@@ -490,16 +470,16 @@ public class Sales extends javax.swing.JPanel {
         try {
             if (!selectedSale.canDelete()) {
 
-                JOptionPane.showMessageDialog(this, "You can not delete this " + selectedSale.getInvoiceNumber() + " because you dont have sufficient quantity of " + selectedSale.getItem().getName() + " !", "Delete Item", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "You can not delete this " + selectedSale.getInvoiceNumber() + " because you dont have sufficient quantity of " + selectedSale.getItem().getName() + " !", "Delete Sale", JOptionPane.ERROR_MESSAGE);
             } else {
 
-                if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedSale.getInvoiceNumber() + "? It will reduce the amount of " + selectedSale.getItem().getName() + " by " + selectedSale.getSoldQuantity(), "Delete Item Category", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedSale.getInvoiceNumber() + "? It will increase the amount of " + selectedSale.getItem().getName() + " by " + selectedSale.getSoldQuantity(), "Delete Sale", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
                     if (selectedSale.delete()) {
-                        JOptionPane.showMessageDialog(this, selectedSale.getInvoiceNumber() + " deleted succesfully!", "Delete Item", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, selectedSale.getInvoiceNumber() + " deleted succesfully!", "Delete Sale", JOptionPane.INFORMATION_MESSAGE);
                         loadData();
                     } else {
-                        JOptionPane.showMessageDialog(this, "Deleting " + selectedSale.getInvoiceNumber() + " failed!", "Delete Item Category", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Deleting " + selectedSale.getInvoiceNumber() + " failed!", "Delete Sale", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
 
@@ -580,7 +560,7 @@ public class Sales extends javax.swing.JPanel {
 
         Sale[] sales = Sale.findAll();
 
-        Object tableDataRows[][] = new Object[sales.length][11];
+        Object tableDataRows[][] = new Object[sales.length][9];
 
         int numberOfRows = 0;
 
@@ -589,12 +569,12 @@ public class Sales extends javax.swing.JPanel {
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
             tableDataRows[numberOfRows][1] = sale.getInvoiceNumber();
             tableDataRows[numberOfRows][2] = sale.getDate();
-            tableDataRows[numberOfRows][5] = sale.getCustomerTIN();
-            tableDataRows[numberOfRows][6] = sale.getUser().getUserName();
-            tableDataRows[numberOfRows][7] = sale.getItem().getName();
-            tableDataRows[numberOfRows][8] = sale.getSoldQuantity();
-            tableDataRows[numberOfRows][9] = sale.getUnitPrice();
-            tableDataRows[numberOfRows][10] = sale.getTotalPrice();
+            tableDataRows[numberOfRows][3] = sale.getCustomerTIN();
+            tableDataRows[numberOfRows][4] = sale.getUser().getUserName();
+            tableDataRows[numberOfRows][5] = sale.getItem().getName();
+            tableDataRows[numberOfRows][6] = sale.getSoldQuantity();
+            tableDataRows[numberOfRows][7] = sale.getUnitPrice();
+            tableDataRows[numberOfRows][8] = sale.getTotalPrice();
 
             numberOfRows++;
         }

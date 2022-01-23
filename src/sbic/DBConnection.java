@@ -202,6 +202,8 @@ public class DBConnection {
 
         Statement statement = connection.createStatement();
 
+        System.out.println(deleteQuery);
+        
         return statement.executeUpdate(deleteQuery);
     }
 
