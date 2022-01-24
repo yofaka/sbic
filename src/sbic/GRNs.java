@@ -341,7 +341,11 @@ public class GRNs extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Unit Cost", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                } else if (GRN.GRNNumberExists(grnNumberField.getText(), "")) {
+                } else if (!Validator.properDocumentNumber(grnNumberField)) {
+
+                    JOptionPane.showMessageDialog(this, "GRN Number can't be longer than 10 characters", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                }else if (GRN.GRNNumberExists(grnNumberField.getText(), "")) {
 
                     JOptionPane.showMessageDialog(this, "This GRN Number is already in use.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
@@ -349,15 +353,15 @@ public class GRNs extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "The supplier name can not be greater than 30 characters!", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
+                }  else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
 
-                    JOptionPane.showMessageDialog(this, "The telephone number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The telephone number is not acceptable. it needs to have 12 digit numbers with '+' sign for the country code.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
                 } else if (!Validator.isProperTINNumber(supplierTINNumberField)) {
 
-                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable. it needs to be a 10 digit number.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isNumberGreaterThan(receivedQuantityField, 0)) {
+                }  else if (!Validator.isNumberGreaterThan(receivedQuantityField, 0)) {
 
                     JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
@@ -407,7 +411,11 @@ public class GRNs extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Unit Cost", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                } else if (GRN.GRNNumberExists(grnNumberField.getText(), selectedGRN.getGRNNumber())) {
+                } else if (!Validator.properDocumentNumber(grnNumberField)) {
+
+                    JOptionPane.showMessageDialog(this, "GRN Number can't be longer than 10 characters", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                }else if (GRN.GRNNumberExists(grnNumberField.getText(), selectedGRN.getGRNNumber())) {
 
                     JOptionPane.showMessageDialog(this, "This GRN Number is already in use.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
@@ -417,11 +425,11 @@ public class GRNs extends javax.swing.JPanel {
 
                 } else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
 
-                    JOptionPane.showMessageDialog(this, "The telephone number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The telephone number is not acceptable. it needs to have 12 digit numbers with '+' sign for the country code.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
                 } else if (!Validator.isProperTINNumber(supplierTINNumberField)) {
 
-                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable. it needs to be a 10 digit number.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
                 } else if (!Validator.isNumberGreaterThan(receivedQuantityField, 0)) {
 
@@ -611,6 +619,12 @@ public class GRNs extends javax.swing.JPanel {
     }
 
     void loadData() throws SQLException, ParseException {
+        
+         if(!Session.getLoggedInUser().getRole().equals("Administrator")){
+        
+            addBtn.setEnabled(false);
+        }
+
 
         editBtn.setEnabled(false);
 
@@ -663,9 +677,11 @@ public class GRNs extends javax.swing.JPanel {
 
                 } else {
 
+                    if(Session.getLoggedInUser().getRole()=="Administrator"){
                     editBtn.setEnabled(true);
 
                     deleteBtn.setEnabled(true);
+                    }
                     selectedGRN = grns[GRNsTableSelectionModel.getMaxSelectionIndex()];
 
                     System.out.println(GRNsTableSelectionModel.getMaxSelectionIndex() + " from " + grns.length);

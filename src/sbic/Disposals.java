@@ -290,7 +290,11 @@ public class Disposals extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Quantity", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (Disposal.disposalNumberExists(disposalNumberField.getText(), "")) {
+                }  else if (!Validator.properDocumentNumber(disposalNumberField)) {
+
+                    JOptionPane.showMessageDialog(this, "Disposal Number can't be longer than 10 characters", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                }else if (Disposal.disposalNumberExists(disposalNumberField.getText(), "")) {
 
                     JOptionPane.showMessageDialog(this, "This Disposal Number is already in use.", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
@@ -327,7 +331,11 @@ public class Disposals extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Quantity", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (Disposal.disposalNumberExists(disposalNumberField.getText(), selectedDisposal.getDisposalNumber())) {
+                } else if (!Validator.properDocumentNumber(disposalNumberField)) {
+
+                    JOptionPane.showMessageDialog(this, "Disposal Number can't be longer than 10 characters", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                }else if (Disposal.disposalNumberExists(disposalNumberField.getText(), selectedDisposal.getDisposalNumber())) {
 
                     JOptionPane.showMessageDialog(this, "This Disposal Number is already in use.", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
@@ -503,6 +511,12 @@ public class Disposals extends javax.swing.JPanel {
     }
 
     void loadData() throws SQLException, ParseException {
+        
+         if(!Session.getLoggedInUser().getRole().equals("Administrator")){
+        
+            addBtn.setEnabled(false);
+        }
+
 
         editBtn.setEnabled(false);
 
@@ -551,9 +565,11 @@ public class Disposals extends javax.swing.JPanel {
 
                 } else {
 
-                    editBtn.setEnabled(true);
+                    if (Session.getLoggedInUser().getRole() == "Administrator") {
+                        editBtn.setEnabled(true);
 
-                    deleteBtn.setEnabled(true);
+                        deleteBtn.setEnabled(true);
+                    }
                     selectedDisposal = disposals[DisposalsTableSelectionModel.getMaxSelectionIndex()];
 
                     System.out.println(DisposalsTableSelectionModel.getMaxSelectionIndex() + " from " + disposals.length);

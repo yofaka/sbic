@@ -385,11 +385,15 @@ public class Users extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Confirm Password", "Add User", JOptionPane.ERROR_MESSAGE);
 
+                } else if (Validator.isProperUserName(userNameField)) {
+
+                    JOptionPane.showMessageDialog(this, "This User Name can't have longer than 25 digits.", "Add User", JOptionPane.ERROR_MESSAGE);
+
                 } else if (User.userNameExists(userNameField.getText(), "")) {
 
                     JOptionPane.showMessageDialog(this, "This User Name is already in use.", "Add User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (passwordField.getText().equals(confirmPasswordField.getText())) {
+                } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
 
                     JOptionPane.showMessageDialog(this, "Two Passwords Must Be The Same", "Edit User", JOptionPane.ERROR_MESSAGE);
 
@@ -415,9 +419,9 @@ public class Users extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter User Number", "Edit User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (confirmPasswordField.getText().equals("")) {
+                } else if (Validator.isProperUserName(userNameField)) {
 
-                    JOptionPane.showMessageDialog(this, "Confirm Password", "Edit User", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "This User Name can't have longer than 25 digits.", "Add User", JOptionPane.ERROR_MESSAGE);
 
                 } else if (User.userNameExists(userNameField.getText(), selectedUser.getUserName())) {
 
@@ -635,7 +639,7 @@ public class Users extends javax.swing.JPanel {
                 } else {
 
                     editBtn.setEnabled(true);
-
+                    resetPasswordBtn.setEnabled(true);
                     deleteBtn.setEnabled(true);
                     selectedUser = users[UsersTableSelectionModel.getMaxSelectionIndex()];
 

@@ -56,7 +56,7 @@ public class ItemCategories extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        additemCategoriesBtn = new javax.swing.JButton();
+        addBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         itemCategoriesTable = new javax.swing.JTable();
         editItemCategoryBtn = new javax.swing.JButton();
@@ -142,10 +142,10 @@ public class ItemCategories extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        additemCategoriesBtn.setText("Add");
-        additemCategoriesBtn.addActionListener(new java.awt.event.ActionListener() {
+        addBtn.setText("Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                additemCategoriesBtnActionPerformed(evt);
+                addBtnActionPerformed(evt);
             }
         });
 
@@ -198,7 +198,7 @@ public class ItemCategories extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(additemCategoriesBtn)
+                        .addComponent(addBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editItemCategoryBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -216,7 +216,7 @@ public class ItemCategories extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(additemCategoriesBtn)
+                    .addComponent(addBtn)
                     .addComponent(editItemCategoryBtn)
                     .addComponent(deleteItemCategoryBtn)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,12 +230,12 @@ public class ItemCategories extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void additemCategoriesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_additemCategoriesBtnActionPerformed
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         newForm = true;
         clearItemCategoryForm();
         itemCategoryForm.setVisible(true);
-    }//GEN-LAST:event_additemCategoriesBtnActionPerformed
+    }//GEN-LAST:event_addBtnActionPerformed
 
     private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
         // TODO add your handling code here:
@@ -250,6 +250,9 @@ public class ItemCategories extends javax.swing.JPanel {
                 if (nameField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Name", "Add Item Category", JOptionPane.ERROR_MESSAGE);
+                } else if (!Validator.isProperName(nameField)) {
+
+                    JOptionPane.showMessageDialog(this, "Name can't be longer than 30 characters.", "Add Item Category", JOptionPane.ERROR_MESSAGE);
                 } else {
 
                     if (ItemCategory.nameExists(nameField.getText(), "")) {
@@ -273,6 +276,9 @@ public class ItemCategories extends javax.swing.JPanel {
                 if (nameField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Name", "Edit Item Category", JOptionPane.ERROR_MESSAGE);
+                } else if (!Validator.isProperName(nameField)) {
+
+                    JOptionPane.showMessageDialog(this, "Name can't be longer than 30 characters.", "Add Item Category", JOptionPane.ERROR_MESSAGE);
                 } else {
 
                     if (ItemCategory.nameExists(nameField.getText(), selectedItemCategory.getName())) {
@@ -358,7 +364,7 @@ public class ItemCategories extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton additemCategoriesBtn;
+    private javax.swing.JButton addBtn;
     private javax.swing.JButton deleteItemCategoryBtn;
     private javax.swing.JTextArea descriptionField;
     private javax.swing.JButton editItemCategoryBtn;
@@ -380,6 +386,11 @@ public class ItemCategories extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     void loadItemCategories() throws SQLException {
+        
+        if(!Session.getLoggedInUser().getRole().equals("Administrator")){
+        
+            addBtn.setEnabled(false);
+        }
 
         editItemCategoryBtn.setEnabled(false);
 
@@ -424,13 +435,19 @@ public class ItemCategories extends javax.swing.JPanel {
 
                 } else {
 
+                if(Session.getLoggedInUser().getRole().equals("Administrator") )  {  
                     editItemCategoryBtn.setEnabled(true);
 
                     deleteItemCategoryBtn.setEnabled(true);
+                    
+                }
                     selectedItemCategory = itemCategories[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
                 }
             }
         });
+        
+
+        
     }
 
     void clearItemCategoryForm() {

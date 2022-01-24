@@ -181,17 +181,32 @@ public class ProgramWindow {
         mainTab = new JTabbedPane();
         mainTab.setBackground(primaryColor);
         mainTab.setForeground(secondaryColor);
+
+        if(Session.getLoggedInUser().getRole().equals("Administrator")){
         mainTab.addTab("Home", homePanel);
         mainTab.addTab("Item Categories", itemCategoriesPanel);
         mainTab.addTab("Items", itemsPanel);
         mainTab.addTab("GRN", grnsPanel);
         mainTab.addTab("Sales", salesPanel);
         mainTab.addTab("Disposal", disposalPanel);
-        //mainTab.addTab("Master Table", new JPanel());
         mainTab.addTab("Users", usersPanel);
         mainTab.addTab("Theme Settings", themeSetting);
         mainTab.addTab("Database Settings", databaseSetting);
-
+        }else{
+        
+        
+        mainTab.addTab("Home", homePanel);
+        mainTab.addTab("Item Categories", itemCategoriesPanel);
+        mainTab.addTab("Items", itemsPanel);
+        mainTab.addTab("GRN", grnsPanel);
+        mainTab.addTab("Sales", salesPanel);
+        mainTab.addTab("Disposal", disposalPanel);
+       // mainTab.addTab("Users", usersPanel);
+        mainTab.addTab("Theme Settings", themeSetting);
+        mainTab.addTab("Database Settings", databaseSetting);
+        
+        
+        }
         centerPanel = new JPanel();
         //centerPanel.add(mainTab);
 

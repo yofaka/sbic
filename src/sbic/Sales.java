@@ -310,13 +310,17 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Unit Price", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
-                } else if (Sale.invoiceNumberExists(invoiceNumberField.getText(), "")) {
+                } else if (!Validator.properDocumentNumber(invoiceNumberField)) {
+
+                    JOptionPane.showMessageDialog(this, "Invoice Number can't be longer than 10 characters", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                }else if (Sale.invoiceNumberExists(invoiceNumberField.getText(), "")) {
 
                     JOptionPane.showMessageDialog(this, "This Sale Number is already in use.", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
                 } else if (!Validator.isProperTINNumber(customerTINNumberField) && !customerTINNumberField.equals("")) {
 
-                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable. It needs to be a 10 digit number.", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
                 } else if (!Validator.isNumberGreaterThan(soldQuantityField, 0)) {
 
@@ -356,7 +360,11 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Unit Price", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
-                } else if (Sale.invoiceNumberExists(invoiceNumberField.getText(), selectedSale.getInvoiceNumber())) {
+                }  else if (!Validator.properDocumentNumber(invoiceNumberField)) {
+
+                    JOptionPane.showMessageDialog(this, "Invoice Number can't be longer than 10 characters", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
+                }else if (Sale.invoiceNumberExists(invoiceNumberField.getText(), selectedSale.getInvoiceNumber())) {
 
                     JOptionPane.showMessageDialog(this, "This Sale Number is already in use.", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
@@ -410,10 +418,8 @@ public class Sales extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
-             clearForm();
+            clearForm();
             if (itemField.getItemCount() > 0) {
-               
-               
 
                 newForm = true;
 
@@ -552,7 +558,6 @@ public class Sales extends javax.swing.JPanel {
 
     void loadData() throws SQLException, ParseException {
 
-       
         editBtn.setEnabled(false);
 
         deleteBtn.setEnabled(false);
@@ -602,9 +607,11 @@ public class Sales extends javax.swing.JPanel {
 
                 } else {
 
-                    editBtn.setEnabled(true);
+                 //   if (Session.getLoggedInUser().getRole() == "Administrator") {
+                        editBtn.setEnabled(true);
 
-                    deleteBtn.setEnabled(true);
+                        deleteBtn.setEnabled(true);
+                 //   }
                     selectedSale = sales[SalesTableSelectionModel.getMaxSelectionIndex()];
 
                     System.out.println(SalesTableSelectionModel.getMaxSelectionIndex() + " from " + sales.length);

@@ -305,7 +305,7 @@ public class Items extends javax.swing.JPanel {
 
             clearForm();
             if (itemCategoryField.getItemCount() > 0) {
-               
+
                 loadItemCategoryField();
                 newForm = true;
                 form.setVisible(true);
@@ -409,9 +409,15 @@ public class Items extends javax.swing.JPanel {
                 } else if (minStockLevelField.getValue().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Minimum Stock Level", "Add Item", JOptionPane.ERROR_MESSAGE);
+                } else if (!Validator.isProperName(codeField)) {
+
+                    JOptionPane.showMessageDialog(this, "Code can't be longer than 30 characters.", "Add Item Category", JOptionPane.ERROR_MESSAGE);
                 } else if (Item.codeExists(codeField.getText(), "")) {
 
                     JOptionPane.showMessageDialog(this, "Item Code Already Exists", "Add Item", JOptionPane.ERROR_MESSAGE);
+                } else if (!Validator.isProperName(nameField)) {
+
+                    JOptionPane.showMessageDialog(this, "Name can't be longer than 30 characters.", "Add Item Category", JOptionPane.ERROR_MESSAGE);
                 } else if (Item.nameExists(nameField.getText(), "")) {
 
                     JOptionPane.showMessageDialog(this, "Item Name Already Exists", "Add Item", JOptionPane.ERROR_MESSAGE);
@@ -449,10 +455,16 @@ public class Items extends javax.swing.JPanel {
                 } else if (minStockLevelField.getValue().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Minimum Stock Level", "Add Item", JOptionPane.ERROR_MESSAGE);
-                } else if (Item.codeExists(codeField.getText(), selectedItem.getCode())) {
+                } else if (!Validator.isProperName(codeField)) {
+
+                    JOptionPane.showMessageDialog(this, "Code can't be longer than 30 characters.", "Add Item Category", JOptionPane.ERROR_MESSAGE);
+                }  else if (Item.codeExists(codeField.getText(), selectedItem.getCode())) {
 
                     JOptionPane.showMessageDialog(this, "Item Code Already Exists", "Add Item", JOptionPane.ERROR_MESSAGE);
-                } else if (Item.nameExists(nameField.getText(), selectedItem.getName())) {
+                }else if (!Validator.isProperName(nameField)) {
+
+                    JOptionPane.showMessageDialog(this, "Name can't be longer than 30 characters.", "Add Item Category", JOptionPane.ERROR_MESSAGE);
+                }  else if (Item.nameExists(nameField.getText(), selectedItem.getName())) {
 
                     JOptionPane.showMessageDialog(this, "Item Name Already Exists", "Add Item", JOptionPane.ERROR_MESSAGE);
                 } else if (!Validator.isNumberGreaterThan(unitPriceField, 0)) {
@@ -493,9 +505,13 @@ public class Items extends javax.swing.JPanel {
     }//GEN-LAST:event_searchFieldActionPerformed
 
     void loadData() throws SQLException {
-
-      
         
+         if(!Session.getLoggedInUser().getRole().equals("Administrator")){
+        
+            addBtn.setEnabled(false);
+        }
+
+
         editBtn.setEnabled(false);
 
         deleteBtn.setEnabled(false);
@@ -545,9 +561,12 @@ public class Items extends javax.swing.JPanel {
 
                 } else {
 
-                    editBtn.setEnabled(true);
+                    if (Session.getLoggedInUser().getRole().equals("Administrator")) {
+                        editBtn.setEnabled(true);
 
-                    deleteBtn.setEnabled(true);
+                        deleteBtn.setEnabled(true);
+                    }
+
                     selectedItem = items[itemsTableSelectionModel.getMaxSelectionIndex()];
                 }
             }

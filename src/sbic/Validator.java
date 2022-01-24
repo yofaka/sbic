@@ -92,16 +92,37 @@ public class Validator {
 
     static boolean isProperName(JTextField textField) {
 
-        if(textField.getText().toString().length()<=30){
-        
+        if (textField.getText().toString().length() <= 30) {
+
             return true;
-        }else{
-        
+        } else {
+
+            return false;
+        }
+    }
+    
+    static boolean isProperUserName(JTextField textField) {
+
+        if (textField.getText().toString().length() <= 25) {
+
+            return true;
+        } else {
+
             return false;
         }
     }
 
-    
+    static boolean properDocumentNumber(JTextField textField) {
+
+        if (textField.getText().toString().length() <= 10) {
+
+            return true;
+        } else {
+
+            return false;
+        }
+    }
+
     static boolean isProperPassword(JTextField textField) {
 
         return true;

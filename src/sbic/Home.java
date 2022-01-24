@@ -5,6 +5,7 @@
  */
 package sbic;
 
+import java.awt.Color;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -27,6 +28,10 @@ public class Home extends javax.swing.JPanel {
     public Home() throws SQLException, ParseException {
         initComponents();
         loadHomeTables();
+
+        homeTab.setBackground(ProgramWindow.primaryColor);
+        homeTab.setForeground(ProgramWindow.secondaryColor);
+
     }
 
     /**
@@ -55,9 +60,9 @@ public class Home extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         belowMinStockItemsTable = new javax.swing.JTable();
 
-        homeTab.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                homeTabStateChanged(evt);
+        homeTab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeTabMouseClicked(evt);
             }
         });
 
@@ -78,11 +83,11 @@ public class Home extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
         );
 
         homeTab.addTab("Today's Sales", jPanel1);
@@ -108,7 +113,7 @@ public class Home extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
         );
 
         homeTab.addTab("Today's GRNs", jPanel2);
@@ -134,7 +139,7 @@ public class Home extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
         );
 
         homeTab.addTab("Today's Disposals", jPanel3);
@@ -160,7 +165,7 @@ public class Home extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
         );
 
         homeTab.addTab("Out Of Stock Items", jPanel4);
@@ -186,7 +191,7 @@ public class Home extends javax.swing.JPanel {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
         );
 
         homeTab.addTab("Below Inventory Level Items", jPanel5);
@@ -199,20 +204,21 @@ public class Home extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(homeTab, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 28, Short.MAX_VALUE)
+                .addComponent(homeTab, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void homeTabStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_homeTabStateChanged
-
+    private void homeTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeTabMouseClicked
         try {
-            loadHomeTables();        // TODO add your handling code here:
+            loadHomeTables();        // 
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_homeTabStateChanged
+    }//GEN-LAST:event_homeTabMouseClicked
 
     void loadHomeTables() throws SQLException, ParseException {
 
@@ -277,6 +283,7 @@ public class Home extends javax.swing.JPanel {
 
         todaySalesTable.setRowSorter(tableRowSorter);
 
+        homeTab.setTitleAt(0, "Today's Sales (" + sales.length + ")");
     }
 
     void loadGRNsTable() throws SQLException, ParseException {
@@ -314,6 +321,7 @@ public class Home extends javax.swing.JPanel {
 
         todayGRNsTable.setRowSorter(tableRowSorter);
 
+        homeTab.setTitleAt(1, "Today's GRNs (" + grns.length + ")");
     }
 
     void loadDisposalsTable() throws SQLException, ParseException {
@@ -348,6 +356,7 @@ public class Home extends javax.swing.JPanel {
 
         todayDisposalsTable.setRowSorter(tableRowSorter);
 
+        homeTab.setTitleAt(2, "Today's Disposals (" + disposals.length + ")");
     }
 
     void loadOutOfStockItems() throws SQLException {
@@ -383,6 +392,7 @@ public class Home extends javax.swing.JPanel {
 
         outOfStockItemsTable.setRowSorter(tableRowSorter);
 
+        homeTab.setTitleAt(3, "Out Of Stock Items (" + items.length + ")");
     }
 
     void loadBelowMinStockItems() throws SQLException {
@@ -417,6 +427,8 @@ public class Home extends javax.swing.JPanel {
         tableRowSorter = new TableRowSorter(belowMinStockItemsTable.getModel());
 
         belowMinStockItemsTable.setRowSorter(tableRowSorter);
+        
+         homeTab.setTitleAt(4, "Below Inventory Level Items (" + items.length + ")");
 
     }
 }
