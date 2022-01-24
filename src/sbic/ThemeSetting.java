@@ -103,12 +103,12 @@ public class ThemeSetting extends javax.swing.JPanel {
 
         try {
 
-            if(primaryColorField.getSelectedItem().equals(secondaryColorField.getSelectedItem())){
+            if(!primaryColorField.getSelectedItem().equals(secondaryColorField.getSelectedItem())){
             // TODO add your handling code here:
 
             ProgramWindow.setThemeConfig(primaryColorField.getSelectedItem().toString(), secondaryColorField.getSelectedItem().toString());
             ProgramWindow.restartWindow();
-            ProgramWindow.mainTab.setSelectedIndex(8); 
+            ProgramWindow.mainTab.setSelectedIndex(7); 
             loadConfig();
             }else{
             

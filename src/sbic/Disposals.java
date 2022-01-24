@@ -372,6 +372,8 @@ public class Disposals extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
+            
+            if(itemField.getItemCount() > 0){
             clearForm();
             loadItemField();
 
@@ -382,6 +384,11 @@ public class Disposals extends javax.swing.JPanel {
             itemField.setEnabled(true);
             disposedQuantity.setEnabled(true);
             form.setVisible(true);
+            
+            }else{
+                   JOptionPane.showMessageDialog(this, "You can't add a Disposal because there are no items.", "Add GRN", JOptionPane.ERROR_MESSAGE);
+         
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -572,7 +579,10 @@ public class Disposals extends javax.swing.JPanel {
         descriptionField.setText("");
 
         dateField.setValue(new Date());
+        
+        if(itemField.getItemCount()>0)
         itemField.setSelectedIndex(0);
+        
         disposedQuantity.setValue(0);
     
 

@@ -301,10 +301,16 @@ public class Items extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
+            
+        if(itemCategoryField.getItemCount()>0){    
             clearForm();
             loadItemCategoryField();
             newForm = true;
             form.setVisible(true);
+        }else{
+        
+            JOptionPane.showMessageDialog(this, "You Can't Add Items With Out Any Categories", "Add Item", JOptionPane.ERROR_MESSAGE);
+        }
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -551,6 +557,7 @@ public class Items extends javax.swing.JPanel {
         loadItemCategoryField();
         codeField.setText("");
         nameField.setText("");
+        if(itemCategoryField.getItemCount() > 0)
         itemCategoryField.setSelectedIndex(0);
         uomField.setSelectedIndex(0);
         unitPriceField.setValue(0);
@@ -591,6 +598,7 @@ public class Items extends javax.swing.JPanel {
 
         }
 
+        
     }
  
     

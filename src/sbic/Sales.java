@@ -303,7 +303,7 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Sale Number", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
-                }  else if (soldQuantityField.getValue().equals("") || soldQuantityField.getValue() == null) {
+                } else if (soldQuantityField.getValue().equals("") || soldQuantityField.getValue() == null) {
 
                     JOptionPane.showMessageDialog(this, "Enter Quantity", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
@@ -365,7 +365,7 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
-                }else if (!Validator.isNumberGreaterThan(soldQuantityField, 0)) {
+                } else if (!Validator.isNumberGreaterThan(soldQuantityField, 0)) {
 
                     JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
@@ -411,16 +411,22 @@ public class Sales extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
-            clearForm();
-            loadItemField();
+            if (itemField.getItemCount() > 0) {
+                clearForm();
+                loadItemField();
 
-            newForm = true;
+                newForm = true;
 
-            invoiceNumberField.setEnabled(true);
-            dateField.setEnabled(true);
-            itemField.setEnabled(true);
-            soldQuantityField.setEnabled(true);
-            form.setVisible(true);
+                invoiceNumberField.setEnabled(true);
+                dateField.setEnabled(true);
+                itemField.setEnabled(true);
+                soldQuantityField.setEnabled(true);
+                form.setVisible(true);
+            } else {
+
+                JOptionPane.showMessageDialog(this, "You can't add a Sale because there are no items.", "Add GRN", JOptionPane.ERROR_MESSAGE);
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -628,7 +634,11 @@ public class Sales extends javax.swing.JPanel {
         customerTINNumberField.setText("");
 
         dateField.setValue(new Date());
-        itemField.setSelectedIndex(0);
+
+        if (itemField.getItemCount() > 0) {
+            itemField.setSelectedIndex(0);
+        }
+
         soldQuantityField.setValue(0);
         unitPriceField.setValue(0);
         totalPriceField.setValue(0);

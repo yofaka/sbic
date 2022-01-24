@@ -472,6 +472,8 @@ public class GRNs extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
+            
+            if(itemField.getItemCount()>0){ 
             clearForm();
             loadItemField();
 
@@ -482,6 +484,10 @@ public class GRNs extends javax.swing.JPanel {
             itemField.setEnabled(true);
             receivedQuantityField.setEnabled(true);
             form.setVisible(true);
+            }else{
+            
+                JOptionPane.showMessageDialog(this, "You can't add GRN because there are no items.", "Add GRN", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -695,7 +701,10 @@ public class GRNs extends javax.swing.JPanel {
         supplierTINNumberField.setText("");
 
         dateField.setValue(new Date());
+        
+        if(itemField.getItemCount()>0)
         itemField.setSelectedIndex(0);
+        
         receivedQuantityField.setValue(0);
         unitCostField.setValue(0);
         totalCostField.setValue(0);
