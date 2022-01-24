@@ -579,21 +579,21 @@ public class Sales extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel SalesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
 
-        table.setModel(itemCategoriesTableModel);
+        table.setModel(SalesTableModel);
 
-        ListSelectionModel itemCategoriesTableSelectionModel = table.getSelectionModel();
+        ListSelectionModel SalesTableSelectionModel = table.getSelectionModel();
 
         tableRowSorter = new TableRowSorter(table.getModel());
 
         table.setRowSorter(tableRowSorter);
 
-        itemCategoriesTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
+        SalesTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
-                if (itemCategoriesTableSelectionModel.getMaxSelectionIndex() == -1) {
+                if (SalesTableSelectionModel.getMaxSelectionIndex() == -1) {
 
                     editBtn.setEnabled(false);
 
@@ -604,9 +604,9 @@ public class Sales extends javax.swing.JPanel {
                     editBtn.setEnabled(true);
 
                     deleteBtn.setEnabled(true);
-                    selectedSale = sales[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
+                    selectedSale = sales[SalesTableSelectionModel.getMaxSelectionIndex()];
 
-                    System.out.println(itemCategoriesTableSelectionModel.getMaxSelectionIndex() + " from " + sales.length);
+                    System.out.println(SalesTableSelectionModel.getMaxSelectionIndex() + " from " + sales.length);
 
                 }
             }

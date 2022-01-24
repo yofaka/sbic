@@ -520,21 +520,21 @@ public class Items extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel itemsTableModel = new DefaultTableModel(tableDataRows, tableColumns);
 
-        table.setModel(itemCategoriesTableModel);
+        table.setModel(itemsTableModel);
 
-        ListSelectionModel itemCategoriesTableSelectionModel = table.getSelectionModel();
+        ListSelectionModel itemsTableSelectionModel = table.getSelectionModel();
 
         tableRowSorter = new TableRowSorter(table.getModel());
 
         table.setRowSorter(tableRowSorter);
 
-        itemCategoriesTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
+        itemsTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
-                if (itemCategoriesTableSelectionModel.getMaxSelectionIndex() == -1) {
+                if (itemsTableSelectionModel.getMaxSelectionIndex() == -1) {
 
                     editBtn.setEnabled(false);
 
@@ -545,7 +545,7 @@ public class Items extends javax.swing.JPanel {
                     editBtn.setEnabled(true);
 
                     deleteBtn.setEnabled(true);
-                    selectedItem = items[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
+                    selectedItem = items[itemsTableSelectionModel.getMaxSelectionIndex()];
                 }
             }
         });

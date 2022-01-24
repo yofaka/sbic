@@ -286,9 +286,9 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns);
 
-        todaySalesTable.setModel(itemCategoriesTableModel);
+        todaySalesTable.setModel(homeTableModel);
 
         tableRowSorter = new TableRowSorter(todaySalesTable.getModel());
 
@@ -323,9 +323,9 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns);
 
-        todayGRNsTable.setModel(itemCategoriesTableModel);
+        todayGRNsTable.setModel(homeTableModel);
 
         tableRowSorter = new TableRowSorter(todayGRNsTable.getModel());
 
@@ -355,11 +355,11 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns);
 
-        todayDisposalsTable.setModel(itemCategoriesTableModel);
+        todayDisposalsTable.setModel(homeTableModel);
 
-        ListSelectionModel itemCategoriesTableSelectionModel = todayDisposalsTable.getSelectionModel();
+        ListSelectionModel homeTableSelectionModel = todayDisposalsTable.getSelectionModel();
 
         tableRowSorter = new TableRowSorter(todayDisposalsTable.getModel());
 
@@ -392,9 +392,9 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns);
 
-        outOfStockItemsTable.setModel(itemCategoriesTableModel);
+        outOfStockItemsTable.setModel(homeTableModel);
 
         tableRowSorter = new TableRowSorter(outOfStockItemsTable.getModel());
 
@@ -427,9 +427,9 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns);
 
-        belowMinStockItemsTable.setModel(itemCategoriesTableModel);
+        belowMinStockItemsTable.setModel(homeTableModel);
 
         tableRowSorter = new TableRowSorter(belowMinStockItemsTable.getModel());
 

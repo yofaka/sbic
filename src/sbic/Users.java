@@ -612,21 +612,21 @@ public class Users extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel UsersTableModel = new DefaultTableModel(tableDataRows, tableColumns);
 
-        table.setModel(itemCategoriesTableModel);
+        table.setModel(UsersTableModel);
 
-        ListSelectionModel itemCategoriesTableSelectionModel = table.getSelectionModel();
+        ListSelectionModel UsersTableSelectionModel = table.getSelectionModel();
 
         tableRowSorter = new TableRowSorter(table.getModel());
 
         table.setRowSorter(tableRowSorter);
 
-        itemCategoriesTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
+        UsersTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
-                if (itemCategoriesTableSelectionModel.getMaxSelectionIndex() == -1) {
+                if (UsersTableSelectionModel.getMaxSelectionIndex() == -1) {
 
                     editBtn.setEnabled(false);
                     resetPasswordBtn.setEnabled(false);
@@ -637,9 +637,9 @@ public class Users extends javax.swing.JPanel {
                     editBtn.setEnabled(true);
 
                     deleteBtn.setEnabled(true);
-                    selectedUser = users[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
+                    selectedUser = users[UsersTableSelectionModel.getMaxSelectionIndex()];
 
-                    System.out.println(itemCategoriesTableSelectionModel.getMaxSelectionIndex() + " from " + users.length);
+                    System.out.println(UsersTableSelectionModel.getMaxSelectionIndex() + " from " + users.length);
 
                 }
             }

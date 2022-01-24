@@ -644,21 +644,21 @@ public class GRNs extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel GRNsTableModel = new DefaultTableModel(tableDataRows, tableColumns);
 
-        table.setModel(itemCategoriesTableModel);
+        table.setModel(GRNsTableModel);
 
-        ListSelectionModel itemCategoriesTableSelectionModel = table.getSelectionModel();
+        ListSelectionModel GRNsTableSelectionModel = table.getSelectionModel();
 
         tableRowSorter = new TableRowSorter(table.getModel());
 
         table.setRowSorter(tableRowSorter);
 
-        itemCategoriesTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
+        GRNsTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
-                if (itemCategoriesTableSelectionModel.getMaxSelectionIndex() == -1) {
+                if (GRNsTableSelectionModel.getMaxSelectionIndex() == -1) {
 
                     editBtn.setEnabled(false);
 
@@ -669,9 +669,9 @@ public class GRNs extends javax.swing.JPanel {
                     editBtn.setEnabled(true);
 
                     deleteBtn.setEnabled(true);
-                    selectedGRN = grns[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
+                    selectedGRN = grns[GRNsTableSelectionModel.getMaxSelectionIndex()];
 
-                    System.out.println(itemCategoriesTableSelectionModel.getMaxSelectionIndex() + " from " + grns.length);
+                    System.out.println(GRNsTableSelectionModel.getMaxSelectionIndex() + " from " + grns.length);
 
                 }
             }

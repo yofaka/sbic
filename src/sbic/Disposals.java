@@ -534,21 +534,21 @@ public class Disposals extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel DisposalsTableModel = new DefaultTableModel(tableDataRows, tableColumns);
 
-        table.setModel(itemCategoriesTableModel);
+        table.setModel(DisposalsTableModel);
 
-        ListSelectionModel itemCategoriesTableSelectionModel = table.getSelectionModel();
+        ListSelectionModel DisposalsTableSelectionModel = table.getSelectionModel();
 
         tableRowSorter = new TableRowSorter(table.getModel());
 
         table.setRowSorter(tableRowSorter);
 
-        itemCategoriesTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
+        DisposalsTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
-                if (itemCategoriesTableSelectionModel.getMaxSelectionIndex() == -1) {
+                if (DisposalsTableSelectionModel.getMaxSelectionIndex() == -1) {
 
                     editBtn.setEnabled(false);
 
@@ -559,9 +559,9 @@ public class Disposals extends javax.swing.JPanel {
                     editBtn.setEnabled(true);
 
                     deleteBtn.setEnabled(true);
-                    selectedDisposal = disposals[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
+                    selectedDisposal = disposals[DisposalsTableSelectionModel.getMaxSelectionIndex()];
 
-                    System.out.println(itemCategoriesTableSelectionModel.getMaxSelectionIndex() + " from " + disposals.length);
+                    System.out.println(DisposalsTableSelectionModel.getMaxSelectionIndex() + " from " + disposals.length);
 
                 }
             }
