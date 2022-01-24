@@ -471,10 +471,8 @@ public class GRNs extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
-
+            clearForm();
             if (itemField.getItemCount() > 0) {
-                clearForm();
-                loadItemField();
 
                 newForm = true;
 
@@ -614,7 +612,6 @@ public class GRNs extends javax.swing.JPanel {
 
     void loadData() throws SQLException, ParseException {
 
-        loadItemField();
         editBtn.setEnabled(false);
 
         deleteBtn.setEnabled(false);

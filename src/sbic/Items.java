@@ -303,8 +303,9 @@ public class Items extends javax.swing.JPanel {
 
         try {
 
+            clearForm();
             if (itemCategoryField.getItemCount() > 0) {
-                clearForm();
+               
                 loadItemCategoryField();
                 newForm = true;
                 form.setVisible(true);
@@ -493,7 +494,7 @@ public class Items extends javax.swing.JPanel {
 
     void loadData() throws SQLException {
 
-        loadItemCategoryField();
+      
         
         editBtn.setEnabled(false);
 

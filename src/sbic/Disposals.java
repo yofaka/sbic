@@ -38,7 +38,6 @@ public class Disposals extends javax.swing.JPanel {
     public Disposals() throws SQLException, ParseException {
         initComponents();
         loadData();
-        
 
     }
 
@@ -277,14 +276,13 @@ public class Disposals extends javax.swing.JPanel {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         try {
 
-           
             if (newForm) {
 
                 if (disposalNumberField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Disposal Number", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                }else if (descriptionField.getText().equals("")) {
+                } else if (descriptionField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Description (Reason) Number", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
@@ -300,7 +298,7 @@ public class Disposals extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                }  else {
+                } else {
 
                     Disposal newDisposal = new Disposal(disposalNumberField.getText(), (Date) dateField.getValue(), descriptionField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) disposedQuantity.getValue());
 
@@ -321,7 +319,7 @@ public class Disposals extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Disposal Number", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                }else if (descriptionField.getText().equals("")) {
+                } else if (descriptionField.getText().equals("")) {
 
                     JOptionPane.showMessageDialog(this, "Enter Description (Reason) Number", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
@@ -341,14 +339,14 @@ public class Disposals extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "You can't reduce the quantity more than the available quantity of the item!", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                }  else {
+                } else {
 
                     selectedDisposal.setDisposalNumber(disposalNumberField.getText());
                     selectedDisposal.setDate((Date) dateField.getValue());
                     selectedDisposal.setDescription(descriptionField.getText());
                     selectedDisposal.setItem(listedItems[itemField.getSelectedIndex()]);
                     selectedDisposal.setDisposedQuantity((double) disposedQuantity.getValue());
-               
+
                     if (selectedDisposal.save()) {
 
                         JOptionPane.showMessageDialog(this, "Disposal Updated Succesfully", "Edit Disposal", JOptionPane.INFORMATION_MESSAGE);
@@ -372,22 +370,20 @@ public class Disposals extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
-            
-            if(itemField.getItemCount() > 0){
             clearForm();
-            loadItemField();
+            if (itemField.getItemCount() > 0) {
 
-            newForm = true;
+                newForm = true;
 
-            disposalNumberField.setEnabled(true);
-            dateField.setEnabled(true);
-            itemField.setEnabled(true);
-            disposedQuantity.setEnabled(true);
-            form.setVisible(true);
-            
-            }else{
-                   JOptionPane.showMessageDialog(this, "You can't add a Disposal because there are no items.", "Add GRN", JOptionPane.ERROR_MESSAGE);
-         
+                disposalNumberField.setEnabled(true);
+                dateField.setEnabled(true);
+                itemField.setEnabled(true);
+                disposedQuantity.setEnabled(true);
+                form.setVisible(true);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "You can't add a Disposal because there are no items.", "Add GRN", JOptionPane.ERROR_MESSAGE);
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
@@ -495,8 +491,8 @@ public class Disposals extends javax.swing.JPanel {
     void loadItemField() throws SQLException {
 
         listedItems = Item.findAll();
-        
-         itemField.removeAllItems();
+
+        itemField.removeAllItems();
 
         for (Item itemCategory : listedItems) {
 
@@ -508,8 +504,6 @@ public class Disposals extends javax.swing.JPanel {
 
     void loadData() throws SQLException, ParseException {
 
-        loadItemField();
-        
         editBtn.setEnabled(false);
 
         deleteBtn.setEnabled(false);
@@ -531,7 +525,6 @@ public class Disposals extends javax.swing.JPanel {
             tableDataRows[numberOfRows][4] = disposal.getUser().getUserName();
             tableDataRows[numberOfRows][5] = disposal.getItem().getName();
             tableDataRows[numberOfRows][6] = disposal.getDisposedQuantity();
-         
 
             numberOfRows++;
         }
@@ -571,7 +564,6 @@ public class Disposals extends javax.swing.JPanel {
 
     }
 
-   
     void clearForm() throws SQLException {
 
         loadItemField();
@@ -581,12 +573,12 @@ public class Disposals extends javax.swing.JPanel {
         descriptionField.setText("");
 
         dateField.setValue(new Date());
-        
-        if(itemField.getItemCount()>0)
-        itemField.setSelectedIndex(0);
-        
+
+        if (itemField.getItemCount() > 0) {
+            itemField.setSelectedIndex(0);
+        }
+
         disposedQuantity.setValue(0);
-    
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
