@@ -57,7 +57,7 @@ public class ProgramWindow {
     static JPanel databaseSetting;
 
     static JFrame DBConfigWindow;
-    
+
     static boolean mainWindowStarted;
     static JFrame mainWindow;
 
@@ -94,16 +94,16 @@ public class ProgramWindow {
 
     static void destroyWindow() {
 
-        if(mainWindow!=null){
-        mainWindow.setVisible(false);
-        mainWindow.dispose();
-        mainWindow = null;
+        if (mainWindow != null) {
+            mainWindow.setVisible(false);
+            mainWindow.dispose();
+            mainWindow = null;
         }
     }
 
     static void restartWindow() throws SQLException, IOException, ParseException {
 
-        destroyWindow(); 
+        destroyWindow();
         startWindow();
     }
 
@@ -177,37 +177,35 @@ public class ProgramWindow {
         disposalPanel = new Disposals();
 
         usersPanel = new Users();
-        
+
         homePanel = new Home();
 
         mainTab = new JTabbedPane();
         mainTab.setBackground(primaryColor);
         mainTab.setForeground(secondaryColor);
 
-        if(Session.getLoggedInUser().getRole().equals("Administrator")){
-        mainTab.addTab("Home", homePanel);
-        mainTab.addTab("Item Categories", itemCategoriesPanel);
-        mainTab.addTab("Items", itemsPanel);
-        mainTab.addTab("GRN", grnsPanel);
-        mainTab.addTab("Sales", salesPanel);
-        mainTab.addTab("Disposal", disposalPanel);
-        mainTab.addTab("Users", usersPanel);
-        mainTab.addTab("Theme Settings", themeSetting);
-        mainTab.addTab("Database Settings", databaseSetting);
-        }else{
-        
-        
-        mainTab.addTab("Home", homePanel);
-        mainTab.addTab("Item Categories", itemCategoriesPanel);
-        mainTab.addTab("Items", itemsPanel);
-        mainTab.addTab("GRN", grnsPanel);
-        mainTab.addTab("Sales", salesPanel);
-        mainTab.addTab("Disposal", disposalPanel);
-       // mainTab.addTab("Users", usersPanel);
-        mainTab.addTab("Theme Settings", themeSetting);
-        mainTab.addTab("Database Settings", databaseSetting);
-        
-        
+        if (Session.getLoggedInUser().getRole().equals("Administrator")) {
+            mainTab.addTab("Home", homePanel);
+            mainTab.addTab("Item Categories", itemCategoriesPanel);
+            mainTab.addTab("Items", itemsPanel);
+            mainTab.addTab("GRN", grnsPanel);
+            mainTab.addTab("Sales", salesPanel);
+            mainTab.addTab("Disposal", disposalPanel);
+            mainTab.addTab("Users", usersPanel);
+            mainTab.addTab("Theme Settings", themeSetting);
+            mainTab.addTab("Database Settings", databaseSetting);
+        } else {
+
+            mainTab.addTab("Home", homePanel);
+            mainTab.addTab("Item Categories", itemCategoriesPanel);
+            mainTab.addTab("Items", itemsPanel);
+            mainTab.addTab("GRN", grnsPanel);
+            mainTab.addTab("Sales", salesPanel);
+            mainTab.addTab("Disposal", disposalPanel);
+            // mainTab.addTab("Users", usersPanel);
+            mainTab.addTab("Theme Settings", themeSetting);
+            mainTab.addTab("Database Settings", databaseSetting);
+
         }
         centerPanel = new JPanel();
         //centerPanel.add(mainTab);
@@ -226,7 +224,7 @@ public class ProgramWindow {
 
         mainWindow = new JFrame("Small Business Management Software");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        mainWindow.setSize(1000, 1000);
         mainWindow.setLayout(new BorderLayout());
         mainWindow.add(headerPanel, BorderLayout.NORTH);
         mainWindow.add(mainTab, BorderLayout.CENTER);
