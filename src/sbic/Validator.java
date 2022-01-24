@@ -21,7 +21,10 @@ public class Validator {
 
     static boolean isNumberGreaterThan(JSpinner spinnerField, double Minimum) {
 
-        if((double)spinnerField.getValue() > Minimum){
+        System.out.println(spinnerField.getValue()+" Vs "+Minimum); 
+        
+        if(Double.valueOf(spinnerField.getValue().toString()) > Minimum){
+           
         return true;
         }else{
         return false;

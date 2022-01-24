@@ -278,7 +278,7 @@ public class Disposals extends javax.swing.JPanel {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         try {
 
-            setTotalPrice();
+           
             if (newForm) {
 
                 if (disposalNumberField.getText().equals("")) {
@@ -563,12 +563,7 @@ public class Disposals extends javax.swing.JPanel {
 
     }
 
-    void setTotalPrice() {
-
-        
-
-    }
-
+   
     void clearForm() throws SQLException {
 
         loadItemField();

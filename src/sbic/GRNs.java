@@ -317,7 +317,6 @@ public class GRNs extends javax.swing.JPanel {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         try {
 
-            setTotalCost();
             if (newForm) {
 
                 if (grnNumberField.getText().equals("")) {
@@ -376,6 +375,7 @@ public class GRNs extends javax.swing.JPanel {
 
                 } else {
 
+                    setTotalCost();
                     GRN newGRN = new GRN(grnNumberField.getText(), (Date) dateField.getValue(), supplierNameField.getText(), supplierTelephoneNumberField.getText(), supplierTINNumberField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) receivedQuantityField.getValue(), (double) unitCostField.getValue(), (double) totalCostField.getValue());
 
                     if (newGRN.save()) {
@@ -451,6 +451,7 @@ public class GRNs extends javax.swing.JPanel {
 
                 } else {
 
+                    setTotalCost();
                     selectedGRN.setGRNNumber(grnNumberField.getText());
                     selectedGRN.setDate((Date) dateField.getValue());
                     selectedGRN.setSupplierName(supplierNameField.getText());
@@ -688,7 +689,11 @@ public class GRNs extends javax.swing.JPanel {
     void setTotalCost() {
 
         System.out.println("total Cost Update");
-        totalCostField.setValue(((double) unitCostField.getValue() * (double) receivedQuantityField.getValue()));
+
+        double unitCost = Double.valueOf(unitCostField.getValue().toString());
+        double receivedQuantity = Double.valueOf(unitCostField.getValue().toString());
+
+        totalCostField.setValue((unitCost * receivedQuantity));
 
     }
 

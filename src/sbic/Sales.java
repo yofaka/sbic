@@ -298,7 +298,6 @@ public class Sales extends javax.swing.JPanel {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         try {
 
-            setTotalPrice();
             if (newForm) {
 
                 if (invoiceNumberField.getText().equals("")) {
@@ -335,6 +334,7 @@ public class Sales extends javax.swing.JPanel {
 
                 } else {
 
+                    setTotalPrice();
                     Sale newSale = new Sale(invoiceNumberField.getText(), (Date) dateField.getValue(), customerTINNumberField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) soldQuantityField.getValue(), (double) unitPriceField.getValue(), (double) totalPriceField.getValue());
 
                     if (newSale.save()) {
@@ -388,6 +388,7 @@ public class Sales extends javax.swing.JPanel {
 
                 } else {
 
+                    setTotalPrice();
                     selectedSale.setInvoiceNumber(invoiceNumberField.getText());
                     selectedSale.setDate((Date) dateField.getValue());
                     selectedSale.setCustomerTIN(customerTINNumberField.getText());
@@ -618,11 +619,13 @@ public class Sales extends javax.swing.JPanel {
 
     void setTotalPrice() {
 
-     //   try{
-        System.out.println("total Price Update");
-        totalPriceField.setValue(((double) unitPriceField.getValue() * (double) soldQuantityField.getValue()));
-    //    }catch(Exception e){
-     //   }
+        System.out.println("total Cost Update");
+
+        double unitCost = Double.valueOf(unitPriceField.getValue().toString());
+        double receivedQuantity = Double.valueOf(unitPriceField.getValue().toString());
+
+        totalPriceField.setValue((unitCost * receivedQuantity));
+
     }
 
     void clearForm() throws SQLException {
