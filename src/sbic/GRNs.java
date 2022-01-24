@@ -5,7 +5,6 @@
  */
 package sbic;
 
-import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
@@ -347,17 +346,11 @@ public class GRNs extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "This GRN Number is already in use.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                } /*
-                else if (!Validator.isProperDate(dateField)) {
+                } else if (!Validator.isProperName(supplierNameField)) {
 
-                    JOptionPane.showMessageDialog(this, "This date is not acceptable.", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The supplier name can not be greater than 30 characters!", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isNotFutureDate(dateField)) {
-
-                    JOptionPane.showMessageDialog(this, "The date is a future date", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } 
-                 */ else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
+                } else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
 
                     JOptionPane.showMessageDialog(this, "The telephone number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
@@ -419,17 +412,11 @@ public class GRNs extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "This GRN Number is already in use.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                } /*
-                else if (!Validator.isProperDate(dateField)) {
+                } else if (!Validator.isProperName(supplierNameField)) {
 
-                    JOptionPane.showMessageDialog(this, "This date is not acceptable.", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The supplier name can not be greater than 30 characters!", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isNotFutureDate(dateField)) {
-
-                    JOptionPane.showMessageDialog(this, "The date is a future date", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } 
-                 */ else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
+                }  else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
 
                     JOptionPane.showMessageDialog(this, "The telephone number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
 

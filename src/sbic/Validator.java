@@ -21,13 +21,13 @@ public class Validator {
 
     static boolean isNumberGreaterThan(JSpinner spinnerField, double Minimum) {
 
-        System.out.println(spinnerField.getValue()+" Vs "+Minimum); 
-        
-        if(Double.valueOf(spinnerField.getValue().toString()) > Minimum){
-           
-        return true;
-        }else{
-        return false;
+        System.out.println(spinnerField.getValue() + " Vs " + Minimum);
+
+        if (Double.valueOf(spinnerField.getValue().toString()) > Minimum) {
+
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -73,28 +73,43 @@ public class Validator {
 
     static boolean isProperTelephoneNumber(JTextField textField) {
 
-        
-        return true;
+        if (textField.getText().length() == 13 && textField.getText().charAt(0) == '+') {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     static boolean isProperTINNumber(JTextField textField) {
 
-        if(textField.getText().toString().length() > 10)
-        return false;
-        else
+        if (textField.getText().toString().length() == 10 && textField.getText().toString().matches("[0-9]*")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    static boolean isProperName(JTextField textField) {
+
+        if(textField.getText().toString().length()<=30){
+        
+            return true;
+        }else{
+        
+            return false;
+        }
+    }
+
+    
+    static boolean isProperPassword(JTextField textField) {
+
         return true;
     }
-    
-    
-    static boolean isProperPassword(JTextField textField){
-    
-    return true;
+
+    static boolean isUserName(JTextField textField) {
+
+        return true;
     }
-    
-  static boolean isUserName(JTextField textField){
-    
-    return true;
-    }
-    
- 
+
 }

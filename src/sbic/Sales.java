@@ -5,7 +5,6 @@
  */
 package sbic;
 
-import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
@@ -304,11 +303,7 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Sale Number", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
-                } else if (customerTINNumberField.getText().equals("")) {
-
-                    JOptionPane.showMessageDialog(this, "Enter Supplier TIN Number", "Add Sale", JOptionPane.ERROR_MESSAGE);
-
-                } else if (soldQuantityField.getValue().equals("") || soldQuantityField.getValue() == null) {
+                }  else if (soldQuantityField.getValue().equals("") || soldQuantityField.getValue() == null) {
 
                     JOptionPane.showMessageDialog(this, "Enter Quantity", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
@@ -320,7 +315,7 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "This Sale Number is already in use.", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isProperTINNumber(customerTINNumberField)) {
+                } else if (!Validator.isProperTINNumber(customerTINNumberField) && !customerTINNumberField.equals("")) {
 
                     JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
@@ -354,10 +349,6 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Sale Number", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
-                } else if (customerTINNumberField.getText().equals("")) {
-
-                    JOptionPane.showMessageDialog(this, "Enter Supplier TIN Number", "Edit Sale", JOptionPane.ERROR_MESSAGE);
-
                 } else if (soldQuantityField.getValue().equals("") || soldQuantityField.getValue() == null) {
 
                     JOptionPane.showMessageDialog(this, "Enter Quantity", "Edit Sale", JOptionPane.ERROR_MESSAGE);
@@ -370,11 +361,11 @@ public class Sales extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "This Sale Number is already in use.", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isProperTINNumber(customerTINNumberField)) {
+                } else if (!Validator.isProperTINNumber(customerTINNumberField) && !customerTINNumberField.equals("")) {
 
-                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Edit Sale", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add Sale", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isNumberGreaterThan(soldQuantityField, 0)) {
+                }else if (!Validator.isNumberGreaterThan(soldQuantityField, 0)) {
 
                     JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Edit Sale", JOptionPane.ERROR_MESSAGE);
 
