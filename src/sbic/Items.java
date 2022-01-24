@@ -35,6 +35,7 @@ public class Items extends javax.swing.JPanel {
     public Items() throws SQLException {
         initComponents();
         loadData();
+
     }
 
     /**
@@ -301,16 +302,16 @@ public class Items extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
-            
-        if(itemCategoryField.getItemCount()>0){    
-            clearForm();
-            loadItemCategoryField();
-            newForm = true;
-            form.setVisible(true);
-        }else{
-        
-            JOptionPane.showMessageDialog(this, "You Can't Add Items With Out Any Categories", "Add Item", JOptionPane.ERROR_MESSAGE);
-        }
+
+            if (itemCategoryField.getItemCount() > 0) {
+                clearForm();
+                loadItemCategoryField();
+                newForm = true;
+                form.setVisible(true);
+            } else {
+
+                JOptionPane.showMessageDialog(this, "You Can't Add Items With Out Any Categories", "Add Item", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -426,9 +427,9 @@ public class Items extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Item Registered Succesfully", "Add Item", JOptionPane.INFORMATION_MESSAGE);
                         form.setVisible(false);
                         loadData();
-                    }else{
-                      JOptionPane.showMessageDialog(this, "Item Registeration Failed", "Add Item", JOptionPane.ERROR_MESSAGE);
-                      
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Item Registeration Failed", "Add Item", JOptionPane.ERROR_MESSAGE);
+
                     }
 
                 }
@@ -465,7 +466,7 @@ public class Items extends javax.swing.JPanel {
                     selectedItem.setName(nameField.getText());
                     selectedItem.setItemCategory(listedItemCategories[itemCategoryField.getSelectedIndex()]);
                     selectedItem.setUom(uomField.getSelectedItem().toString());
-                    selectedItem.setUnitPrice((double)unitPriceField.getValue());
+                    selectedItem.setUnitPrice((double) unitPriceField.getValue());
                     selectedItem.setMinStockLevel((double) minStockLevelField.getValue());
                     selectedItem.setDescription(descriptionField.getText());
 
@@ -492,6 +493,8 @@ public class Items extends javax.swing.JPanel {
 
     void loadData() throws SQLException {
 
+        loadItemCategoryField();
+        
         editBtn.setEnabled(false);
 
         deleteBtn.setEnabled(false);
@@ -516,7 +519,6 @@ public class Items extends javax.swing.JPanel {
             tableDataRows[numberOfRows][7] = item.getMinStockLevel();
             tableDataRows[numberOfRows][8] = item.getDescription();
 
-         
             numberOfRows++;
         }
 
@@ -557,8 +559,9 @@ public class Items extends javax.swing.JPanel {
         loadItemCategoryField();
         codeField.setText("");
         nameField.setText("");
-        if(itemCategoryField.getItemCount() > 0)
-        itemCategoryField.setSelectedIndex(0);
+        if (itemCategoryField.getItemCount() > 0) {
+            itemCategoryField.setSelectedIndex(0);
+        }
         uomField.setSelectedIndex(0);
         unitPriceField.setValue(0);
         minStockLevelField.setValue(0);
@@ -570,8 +573,8 @@ public class Items extends javax.swing.JPanel {
 
         listedItemCategories = ItemCategory.findAll();
 
-         itemCategoryField.removeAllItems();
-        
+        itemCategoryField.removeAllItems();
+
         for (ItemCategory itemCategory : listedItemCategories) {
 
             itemCategoryField.addItem(itemCategory.getName());
@@ -585,24 +588,21 @@ public class Items extends javax.swing.JPanel {
 
     }
 
-     void loadItemCategoryField() throws SQLException {
+    void loadItemCategoryField() throws SQLException {
 
         listedItemCategories = ItemCategory.findAll();
-        
+
         itemCategoryField.removeAllItems();
 
         for (ItemCategory itemCategory : listedItemCategories) {
 
             itemCategoryField.addItem(itemCategory.getName());
 
-
         }
 
-        
     }
- 
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JTextField codeField;

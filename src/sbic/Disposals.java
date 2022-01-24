@@ -38,7 +38,7 @@ public class Disposals extends javax.swing.JPanel {
     public Disposals() throws SQLException, ParseException {
         initComponents();
         loadData();
-        loadItemField();
+        
 
     }
 
@@ -508,6 +508,8 @@ public class Disposals extends javax.swing.JPanel {
 
     void loadData() throws SQLException, ParseException {
 
+        loadItemField();
+        
         editBtn.setEnabled(false);
 
         deleteBtn.setEnabled(false);

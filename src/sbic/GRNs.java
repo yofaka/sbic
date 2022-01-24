@@ -38,7 +38,6 @@ public class GRNs extends javax.swing.JPanel {
     public GRNs() throws SQLException, ParseException {
         initComponents();
         loadData();
-        loadItemField();
 
     }
 
@@ -416,7 +415,7 @@ public class GRNs extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "The supplier name can not be greater than 30 characters!", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                }  else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
+                } else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
 
                     JOptionPane.showMessageDialog(this, "The telephone number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
@@ -472,20 +471,20 @@ public class GRNs extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         try {
-            
-            if(itemField.getItemCount()>0){ 
-            clearForm();
-            loadItemField();
 
-            newForm = true;
+            if (itemField.getItemCount() > 0) {
+                clearForm();
+                loadItemField();
 
-            grnNumberField.setEnabled(true);
-            dateField.setEnabled(true);
-            itemField.setEnabled(true);
-            receivedQuantityField.setEnabled(true);
-            form.setVisible(true);
-            }else{
-            
+                newForm = true;
+
+                grnNumberField.setEnabled(true);
+                dateField.setEnabled(true);
+                itemField.setEnabled(true);
+                receivedQuantityField.setEnabled(true);
+                form.setVisible(true);
+            } else {
+
                 JOptionPane.showMessageDialog(this, "You can't add GRN because there are no items.", "Add GRN", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
@@ -615,6 +614,7 @@ public class GRNs extends javax.swing.JPanel {
 
     void loadData() throws SQLException, ParseException {
 
+        loadItemField();
         editBtn.setEnabled(false);
 
         deleteBtn.setEnabled(false);
@@ -701,10 +701,11 @@ public class GRNs extends javax.swing.JPanel {
         supplierTINNumberField.setText("");
 
         dateField.setValue(new Date());
-        
-        if(itemField.getItemCount()>0)
-        itemField.setSelectedIndex(0);
-        
+
+        if (itemField.getItemCount() > 0) {
+            itemField.setSelectedIndex(0);
+        }
+
         receivedQuantityField.setValue(0);
         unitCostField.setValue(0);
         totalCostField.setValue(0);

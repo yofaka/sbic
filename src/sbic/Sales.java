@@ -38,7 +38,6 @@ public class Sales extends javax.swing.JPanel {
     public Sales() throws SQLException, ParseException {
         initComponents();
         loadData();
-        loadItemField();
 
     }
 
@@ -552,6 +551,7 @@ public class Sales extends javax.swing.JPanel {
 
     void loadData() throws SQLException, ParseException {
 
+        loadItemField();
         editBtn.setEnabled(false);
 
         deleteBtn.setEnabled(false);
