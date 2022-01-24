@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -98,13 +99,22 @@ public class ThemeSetting extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveThemeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveThemeBtnActionPerformed
+
+
         try {
+
+            if(primaryColorField.getSelectedItem().equals(secondaryColorField.getSelectedItem())){
             // TODO add your handling code here:
 
             ProgramWindow.setThemeConfig(primaryColorField.getSelectedItem().toString(), secondaryColorField.getSelectedItem().toString());
             ProgramWindow.restartWindow();
             ProgramWindow.mainTab.setSelectedIndex(8); 
             loadConfig();
+            }else{
+            
+              JOptionPane.showMessageDialog(this, "The 2 colors can't be the same.", "Theme Settings", JOptionPane.ERROR_MESSAGE);
+            
+            }
 
         } catch (Exception ex) {
             Logger.getLogger(ThemeSetting.class.getName()).log(Level.SEVERE, null, ex);

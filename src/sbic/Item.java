@@ -140,7 +140,7 @@ public class Item {
 
     public static Item[] findAll() throws SQLException {
 
-        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1");
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "");
 
         ResultSet results = DBConnection.select(TABLE_NAME, "id, code, name, itemCategoryId, uom, unitPrice, quantityAtHand, minStockLevel, description", "1=1  Order By id");
 
@@ -225,10 +225,19 @@ public class Item {
 
     boolean canDelete() throws SQLException {
 
-        ResultSet resultsCounter = DBConnection.select(GRN.TABLE_NAME + ", " + Sales.TABLE_NAME + "," + Disposal.TABLE_NAME, "count(*) as rowCount", "grn.itemId = " + this.id + " OR sales.itemId = " + this.id + " OR disposal.itemId = " + this.id);
-
+        ResultSet resultsCounter = DBConnection.select(GRN.TABLE_NAME, "count(*) as rowCount", "grn.itemId = " + this.id);
         resultsCounter.next();
-        int rowCount = resultsCounter.getInt("rowCount");
+        int GRNRowCount = resultsCounter.getInt("rowCount");
+
+        resultsCounter = DBConnection.select(Sale.TABLE_NAME, "count(*) as rowCount", "sales.itemId = " + this.id);
+        resultsCounter.next();
+        int SaleRowCount = resultsCounter.getInt("rowCount");
+
+        resultsCounter = DBConnection.select(Disposal.TABLE_NAME, "count(*) as rowCount", "disposal.itemId = " + this.id);
+        resultsCounter.next();
+        int DisposalRowCount = resultsCounter.getInt("rowCount");
+
+        int rowCount = GRNRowCount + SaleRowCount + DisposalRowCount;
 
         if (rowCount > 0) {
             return false;

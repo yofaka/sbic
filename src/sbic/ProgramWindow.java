@@ -7,10 +7,7 @@ package sbic;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -24,12 +21,12 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
@@ -49,6 +46,9 @@ public class ProgramWindow {
     static JLabel userInfo;
     static JButton logoutButton;
 
+    static JPanel usersPanel;
+    static JPanel disposalPanel;
+    static JPanel salesPanel;
     static JPanel grnsPanel;
     static JPanel itemsPanel;
     static JPanel itemCategoriesPanel;
@@ -74,7 +74,7 @@ public class ProgramWindow {
     static JLabel loginUserNameLabel;
     static JLabel loginPasswordLabel;
     static JTextField loginUserNameField;
-    static JTextField loginPasswordField;
+    static JPasswordField loginPasswordField;
     static JButton loginButton;
     static JButton aboutButton;
 
@@ -91,15 +91,16 @@ public class ProgramWindow {
 
     static void destroyWindow() {
 
+        if(mainWindow!=null){
         mainWindow.setVisible(false);
         mainWindow.dispose();
         mainWindow = null;
-
+        }
     }
 
     static void restartWindow() throws SQLException, IOException, ParseException {
 
-        destroyWindow();
+        destroyWindow(); 
         startWindow();
     }
 
@@ -130,7 +131,7 @@ public class ProgramWindow {
         PrintWriter themeConfigFilePrintWriter = new PrintWriter(themeConfigFileWriter);
 
         themeConfigFilePrintWriter.println(primaryColor);
-        themeConfigFilePrintWriter.println(secondaryColor);
+        themeConfigFilePrintWriter.print(secondaryColor);
 
         themeConfigFilePrintWriter.flush();
         themeConfigFilePrintWriter.close();
@@ -167,7 +168,13 @@ public class ProgramWindow {
         itemsPanel = new Items();
 
         grnsPanel = new GRNs();
-        
+
+        salesPanel = new Sales();
+
+        disposalPanel = new Disposals();
+
+        usersPanel = new Users();
+
         mainTab = new JTabbedPane();
         mainTab.setBackground(primaryColor);
         mainTab.setForeground(secondaryColor);
@@ -175,10 +182,10 @@ public class ProgramWindow {
         mainTab.addTab("Item Categories", itemCategoriesPanel);
         mainTab.addTab("Items", itemsPanel);
         mainTab.addTab("GRN", grnsPanel);
-        mainTab.addTab("Sales", new JPanel());
-        mainTab.addTab("Disposal", new JPanel());
-        mainTab.addTab("Master Table", new JPanel());
-        mainTab.addTab("Users", new JPanel());
+        mainTab.addTab("Sales", salesPanel);
+        mainTab.addTab("Disposal", disposalPanel);
+        //mainTab.addTab("Master Table", new JPanel());
+        mainTab.addTab("Users", usersPanel);
         mainTab.addTab("Theme Settings", themeSetting);
         mainTab.addTab("Database Settings", databaseSetting);
 
@@ -199,11 +206,12 @@ public class ProgramWindow {
 
         mainWindow = new JFrame("Small Business Management Software");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setSize(1000, 1000);
+
         mainWindow.setLayout(new BorderLayout());
         mainWindow.add(headerPanel, BorderLayout.NORTH);
         mainWindow.add(mainTab, BorderLayout.CENTER);
         mainWindow.add(footerPanel, BorderLayout.SOUTH);
+        mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         mainWindow.setVisible(true);
 
     }
@@ -225,7 +233,7 @@ public class ProgramWindow {
         loginPasswordLabel = new JLabel("Password");
         loginPasswordLabel.setBounds(125, 80, 250, 20);
 
-        loginPasswordField = new JTextField();
+        loginPasswordField = new JPasswordField();
         loginPasswordField.setColumns(10);
         loginPasswordField.setBounds(125, 100, 250, 30);
 

@@ -25,6 +25,7 @@ public class DBConnectionConfiguration extends javax.swing.JPanel {
     public DBConnectionConfiguration() throws IOException {
         initComponents();
         loadConfigToForm();
+     
     }
 
     /**
@@ -190,7 +191,13 @@ public class DBConnectionConfiguration extends javax.swing.JPanel {
 
                     DBConnection.setDBConfig(serverNameField.getText(), portNumberField.getText(), databaseNameField.getText(), userNameField.getText(), passwordField.getText());
 
+                    if(Session.isLoggedIn()){
                     Session.logUserOut();
+                    }
+                    
+                    this.setVisible(false);
+                    DBConnection.connect();
+                    ProgramWindow.startWindow();
                     connection.close();
 
                 } catch (SQLException sqlExceprion) {

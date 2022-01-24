@@ -240,6 +240,7 @@ public class ItemCategories extends javax.swing.JPanel {
     private void additemCategoriesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_additemCategoriesBtnActionPerformed
 
         newForm = true;
+        clearItemCategoryForm();
         itemCategoryForm.setVisible(true);
     }//GEN-LAST:event_additemCategoriesBtnActionPerformed
 
@@ -433,7 +434,7 @@ public class ItemCategories extends javax.swing.JPanel {
                     editItemCategoryBtn.setEnabled(true);
 
                     deleteItemCategoryBtn.setEnabled(true);
-                    selectedItemCategory = itemCategories[e.getFirstIndex()];
+                    selectedItemCategory = itemCategories[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
                 }
             }
         });

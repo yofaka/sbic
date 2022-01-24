@@ -24,19 +24,19 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Yoftahe
  */
-public class GRNs extends javax.swing.JPanel {
+public class Disposals extends javax.swing.JPanel {
 
     static TableRowSorter tableRowSorter;
 
     static boolean newForm;
     static Item[] listedItems;
 
-    static GRN selectedGRN;
+    static Disposal selectedDisposal;
 
     /**
-     * Creates new form GRNs
+     * Creates new form Disposals
      */
-    public GRNs() throws SQLException, ParseException {
+    public Disposals() throws SQLException, ParseException {
         initComponents();
         loadData();
         loadItemField();
@@ -57,24 +57,17 @@ public class GRNs extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        grnNumberField = new javax.swing.JTextField();
+        disposalNumberField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        supplierNameField = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        supplierTelephoneNumberField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        supplierTINNumberField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         itemField = new javax.swing.JComboBox<>();
-        receivedQuantityField = new javax.swing.JSpinner();
+        disposedQuantity = new javax.swing.JSpinner();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        unitCostField = new javax.swing.JSpinner();
-        jLabel11 = new javax.swing.JLabel();
-        totalCostField = new javax.swing.JSpinner();
         saveBtn = new javax.swing.JButton();
         dateField = new javax.swing.JSpinner();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        descriptionField = new javax.swing.JTextArea();
         addBtn = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
@@ -87,35 +80,20 @@ public class GRNs extends javax.swing.JPanel {
         form.setResizable(false);
         form.setSize(new java.awt.Dimension(400, 800));
 
-        jLabel1.setText("Add \\ Edit GRN");
+        jLabel1.setText("Add \\ Edit Disposal");
 
-        jLabel2.setText("GRN Number");
+        jLabel2.setText("Disposal Number");
 
         jLabel3.setText("Date (dd/mm/yyyy)");
 
-        jLabel5.setText("Supplier Name");
-
-        jLabel6.setText("Supplier Telephone Number");
-
-        supplierTelephoneNumberField.setText("+251");
-
-        jLabel7.setText("Supplier TIN Number");
+        jLabel7.setText("Description");
 
         jLabel8.setText("Item");
 
-        receivedQuantityField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
-        receivedQuantityField.setEditor(new javax.swing.JSpinner.NumberEditor(receivedQuantityField, ""));
+        disposedQuantity.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
+        disposedQuantity.setEditor(new javax.swing.JSpinner.NumberEditor(disposedQuantity, ""));
 
         jLabel9.setText("Quantity");
-
-        jLabel10.setText("Unit Cost");
-
-        unitCostField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
-
-        jLabel11.setText("Total Cost");
-
-        totalCostField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
-        totalCostField.setEnabled(false);
 
         saveBtn.setText("Save");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +103,10 @@ public class GRNs extends javax.swing.JPanel {
         });
 
         dateField.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, new java.util.Date(), java.util.Calendar.DAY_OF_MONTH));
+
+        descriptionField.setColumns(20);
+        descriptionField.setRows(5);
+        jScrollPane2.setViewportView(descriptionField);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -139,25 +121,17 @@ public class GRNs extends javax.swing.JPanel {
                         .addComponent(saveBtn))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(totalCostField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dateField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(supplierTINNumberField)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(grnNumberField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(supplierNameField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(supplierTelephoneNumberField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(disposalNumberField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(itemField, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(receivedQuantityField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(unitCostField, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(disposedQuantity, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(146, 146, 146))
         );
@@ -171,42 +145,26 @@ public class GRNs extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(grnNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(disposalNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(supplierNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(supplierTelephoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(supplierTINNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(itemField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(receivedQuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(disposedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(unitCostField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalCostField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
                 .addComponent(saveBtn)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout formLayout = new javax.swing.GroupLayout(form.getContentPane());
@@ -217,7 +175,10 @@ public class GRNs extends javax.swing.JPanel {
         );
         formLayout.setVerticalGroup(
             formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(171, 171, 171))
         );
 
         addBtn.setText("Add");
@@ -317,157 +278,85 @@ public class GRNs extends javax.swing.JPanel {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         try {
 
-            setTotalCost();
+            setTotalPrice();
             if (newForm) {
 
-                if (grnNumberField.getText().equals("")) {
+                if (disposalNumberField.getText().equals("")) {
 
-                    JOptionPane.showMessageDialog(this, "Enter GRN Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Enter Disposal Number", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (supplierNameField.getText().equals("")) {
+                }else if (descriptionField.getText().equals("")) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Supplier Name", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Enter Description (Reason) Number", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (supplierTelephoneNumberField.getText().equals("")) {
+                } else if (disposedQuantity.getValue().equals("") || disposedQuantity.getValue() == null) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Supplier Telephone Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Enter Quantity", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (supplierTINNumberField.getText().equals("")) {
+                } else if (Disposal.disposalNumberExists(disposalNumberField.getText(), "")) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Supplier TIN Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "This Disposal Number is already in use.", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (receivedQuantityField.getValue().equals("") || receivedQuantityField.getValue() == null) {
+                } else if (!Validator.isNumberGreaterThan(disposedQuantity, 0)) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Quantity", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (unitCostField.getValue().equals("") || receivedQuantityField.getValue() == null) {
+                }  else {
 
-                    JOptionPane.showMessageDialog(this, "Enter Unit Cost", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    Disposal newDisposal = new Disposal(disposalNumberField.getText(), (Date) dateField.getValue(), descriptionField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) disposedQuantity.getValue());
 
-                } else if (GRN.GRNNumberExists(grnNumberField.getText(), "")) {
+                    if (newDisposal.save()) {
 
-                    JOptionPane.showMessageDialog(this, "This GRN Number is already in use.", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } /*
-                else if (!Validator.isProperDate(dateField)) {
-
-                    JOptionPane.showMessageDialog(this, "This date is not acceptable.", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isNotFutureDate(dateField)) {
-
-                    JOptionPane.showMessageDialog(this, "The date is a future date", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } 
-                 */ else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
-
-                    JOptionPane.showMessageDialog(this, "The telephone number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isProperTINNumber(supplierTINNumberField)) {
-
-                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isNumberGreaterThan(receivedQuantityField, 0)) {
-
-                    JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isNumberGreaterThan(unitCostField, 0)) {
-
-                    JOptionPane.showMessageDialog(this, "The unit cost needs to be a valid number greater than 0", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else {
-
-                    GRN newGRN = new GRN(grnNumberField.getText(), (Date) dateField.getValue(), supplierNameField.getText(), supplierTelephoneNumberField.getText(), supplierTINNumberField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) receivedQuantityField.getValue(), (double) unitCostField.getValue(), (double) totalCostField.getValue());
-
-                    if (newGRN.save()) {
-
-                        JOptionPane.showMessageDialog(this, "GRN Registered Succesfully", "Add GRN", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Disposal Registered Succesfully", "Add Disposal", JOptionPane.INFORMATION_MESSAGE);
                         form.setVisible(false);
                         loadData();
                     } else {
-                        JOptionPane.showMessageDialog(this, "GRN Registeration Failed", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Disposal Registeration Failed", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
                     }
 
                 }
             } else {
 
-                if (grnNumberField.getText().equals("")) {
+                if (disposalNumberField.getText().equals("")) {
 
-                    JOptionPane.showMessageDialog(this, "Enter GRN Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Enter Disposal Number", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (supplierNameField.getText().equals("")) {
+                }else if (descriptionField.getText().equals("")) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Supplier Name", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Enter Description (Reason) Number", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (supplierTelephoneNumberField.getText().equals("")) {
+                } else if (disposedQuantity.getValue().equals("") || disposedQuantity.getValue() == null) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Supplier Telephone Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Enter Quantity", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (supplierTINNumberField.getText().equals("")) {
+                } else if (Disposal.disposalNumberExists(disposalNumberField.getText(), selectedDisposal.getDisposalNumber())) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Supplier TIN Number", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "This Disposal Number is already in use.", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (receivedQuantityField.getValue().equals("") || receivedQuantityField.getValue() == null) {
+                } else if (!Validator.isNumberGreaterThan(disposedQuantity, 0)) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Quantity", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (unitCostField.getValue().equals("") || receivedQuantityField.getValue() == null) {
+                } else if (!Validator.isNumberGreaterThan(disposedQuantity, (selectedDisposal.getItem().getQuantityAtHand() + 0.1))) {
 
-                    JOptionPane.showMessageDialog(this, "Enter Unit Cost", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "You can't reduce the quantity more than the available quantity of the item!", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (GRN.GRNNumberExists(grnNumberField.getText(), selectedGRN.getGRNNumber())) {
+                }  else {
 
-                    JOptionPane.showMessageDialog(this, "This GRN Number is already in use.", "Add GRN", JOptionPane.ERROR_MESSAGE);
+                    selectedDisposal.setDisposalNumber(disposalNumberField.getText());
+                    selectedDisposal.setDate((Date) dateField.getValue());
+                    selectedDisposal.setDescription(descriptionField.getText());
+                    selectedDisposal.setItem(listedItems[itemField.getSelectedIndex()]);
+                    selectedDisposal.setDisposedQuantity((double) disposedQuantity.getValue());
+               
+                    if (selectedDisposal.save()) {
 
-                } /*
-                else if (!Validator.isProperDate(dateField)) {
-
-                    JOptionPane.showMessageDialog(this, "This date is not acceptable.", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isNotFutureDate(dateField)) {
-
-                    JOptionPane.showMessageDialog(this, "The date is a future date", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } 
-                 */ else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
-
-                    JOptionPane.showMessageDialog(this, "The telephone number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isProperTINNumber(supplierTINNumberField)) {
-
-                    JOptionPane.showMessageDialog(this, "The tin number is not acceptable", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isNumberGreaterThan(receivedQuantityField, 0)) {
-
-                    JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isNumberGreaterThan(receivedQuantityField, (selectedGRN.getItem().getQuantityAtHand() + 0.1))) {
-
-                    JOptionPane.showMessageDialog(this, "You can't reduce the quantity more than the available quantity of the item!", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else if (!Validator.isNumberGreaterThan(unitCostField, 0)) {
-
-                    JOptionPane.showMessageDialog(this, "The unit cost needs to be a valid number greater than 0", "Add GRN", JOptionPane.ERROR_MESSAGE);
-
-                } else {
-
-                    selectedGRN.setGRNNumber(grnNumberField.getText());
-                    selectedGRN.setDate((Date) dateField.getValue());
-                    selectedGRN.setSupplierName(supplierNameField.getText());
-                    selectedGRN.setSupplierTelephone(supplierTelephoneNumberField.getText());
-                    selectedGRN.setSupplierTIN(supplierTINNumberField.getText());
-                    selectedGRN.setItem(listedItems[itemField.getSelectedIndex()]);
-                    selectedGRN.setReceivedQuantity((double) receivedQuantityField.getValue());
-                    selectedGRN.setUnitCost((double) unitCostField.getValue());
-                    selectedGRN.setTotalCost((double) totalCostField.getValue());
-
-                    if (selectedGRN.save()) {
-
-                        JOptionPane.showMessageDialog(this, "GRN Updated Succesfully", "Edit GRN", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Disposal Updated Succesfully", "Edit Disposal", JOptionPane.INFORMATION_MESSAGE);
                         form.setVisible(false);
                         loadData();
                     } else {
-                        JOptionPane.showMessageDialog(this, "GRN Update Failed", "Edit GRN", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Disposal Update Failed", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
                     }
 
@@ -476,7 +365,7 @@ public class GRNs extends javax.swing.JPanel {
             }
 
         } catch (SQLException | ParseException ex) {
-            Logger.getLogger(GRNs.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Disposals.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_saveBtnActionPerformed
@@ -489,10 +378,10 @@ public class GRNs extends javax.swing.JPanel {
 
             newForm = true;
 
-            grnNumberField.setEnabled(true);
+            disposalNumberField.setEnabled(true);
             dateField.setEnabled(true);
             itemField.setEnabled(true);
-            receivedQuantityField.setEnabled(true);
+            disposedQuantity.setEnabled(true);
             form.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
@@ -506,25 +395,17 @@ public class GRNs extends javax.swing.JPanel {
             clearForm();
             loadItemField();
 
-            grnNumberField.setText(selectedGRN.getGRNNumber());
-            dateField.setValue(selectedGRN.getDate());
-            supplierNameField.setText(selectedGRN.getSupplierName());
-            supplierTelephoneNumberField.setText(selectedGRN.getSupplierTelephone());
-            supplierTINNumberField.setText(selectedGRN.getSupplierTIN());
-
-            itemField.setSelectedItem(selectedGRN.getItem().getName());
-
-            supplierTINNumberField.setText(selectedGRN.getSupplierTIN());
-
-            receivedQuantityField.setValue(selectedGRN.getReceivedQuantity());
-            unitCostField.setValue(selectedGRN.getUnitCost());
-            totalCostField.setValue(selectedGRN.getTotalCost());
+            disposalNumberField.setText(selectedDisposal.getDisposalNumber());
+            dateField.setValue(selectedDisposal.getDate());
+            itemField.setSelectedItem(selectedDisposal.getItem().getName());
+            descriptionField.setText(selectedDisposal.getDescription());
+            disposedQuantity.setValue(selectedDisposal.getDisposedQuantity());
 
             //Lock some Fields For Data Integrity Purposes
-            grnNumberField.setEnabled(false);
+            disposalNumberField.setEnabled(false);
             dateField.setEnabled(false);
             itemField.setEnabled(false);
-            receivedQuantityField.setEnabled(false);
+            disposedQuantity.setEnabled(false);
 
             form.setVisible(true);
         } catch (SQLException ex) {
@@ -535,18 +416,18 @@ public class GRNs extends javax.swing.JPanel {
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
 
         try {
-            if (!selectedGRN.canDelete()) {
+            if (!selectedDisposal.canDelete()) {
 
-                JOptionPane.showMessageDialog(this, "You can not delete this " + selectedGRN.getGRNNumber() + " because you dont have sufficient quantity of " + selectedGRN.getItem().getName() + " !", "Delete Item", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "You can not delete this " + selectedDisposal.getDisposalNumber() + " because you dont have sufficient quantity of " + selectedDisposal.getItem().getName() + " !", "Delete Disposal", JOptionPane.ERROR_MESSAGE);
             } else {
 
-                if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedGRN.getGRNNumber() + "? It will reduce the amount of " + selectedGRN.getItem().getName() + " by " + selectedGRN.getReceivedQuantity(), "Delete Item Category", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedDisposal.getDisposalNumber() + "? It will increase the amount of " + selectedDisposal.getItem().getName() + " by " + selectedDisposal.getDisposedQuantity(), "Delete Disposal", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
-                    if (selectedGRN.delete()) {
-                        JOptionPane.showMessageDialog(this, selectedGRN.getGRNNumber() + " deleted succesfully!", "Delete Item", JOptionPane.INFORMATION_MESSAGE);
+                    if (selectedDisposal.delete()) {
+                        JOptionPane.showMessageDialog(this, selectedDisposal.getDisposalNumber() + " deleted succesfully!", "Delete Disposal", JOptionPane.INFORMATION_MESSAGE);
                         loadData();
                     } else {
-                        JOptionPane.showMessageDialog(this, "Deleting " + selectedGRN.getGRNNumber() + " failed!", "Delete Item Category", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Deleting " + selectedDisposal.getDisposalNumber() + " failed!", "Delete Disposal", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
 
@@ -556,7 +437,7 @@ public class GRNs extends javax.swing.JPanel {
         } catch (SQLException e) {
 
         } catch (ParseException ex) {
-            Logger.getLogger(GRNs.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Disposals.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
@@ -567,7 +448,7 @@ public class GRNs extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(GRNs.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Disposals.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_refreshBtnActionPerformed
 
@@ -608,8 +489,8 @@ public class GRNs extends javax.swing.JPanel {
     void loadItemField() throws SQLException {
 
         listedItems = Item.findAll();
-
-        itemField.removeAllItems();
+        
+         itemField.removeAllItems();
 
         for (Item itemCategory : listedItems) {
 
@@ -625,27 +506,24 @@ public class GRNs extends javax.swing.JPanel {
 
         deleteBtn.setEnabled(false);
 
-        String tableColumns[] = {"No", "GRN Number", "Date", "Supplier Name", "Supplier Telephone", "Supplier TIN", "User", "Item", "Received Quantity", "Unit Cost", "Total Cost"};
+        String tableColumns[] = {"No", "Disposal Number", "Date", "Description", "User", "Item", "Disposed Quantity"};
 
-        GRN[] grns = GRN.findAll();
+        Disposal[] disposals = Disposal.findAll();
 
-        Object tableDataRows[][] = new Object[grns.length][11];
+        Object tableDataRows[][] = new Object[disposals.length][7];
 
         int numberOfRows = 0;
 
-        for (GRN grn : grns) {
+        for (Disposal disposal : disposals) {
 
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
-            tableDataRows[numberOfRows][1] = grn.getGRNNumber();
-            tableDataRows[numberOfRows][2] = grn.getDate();
-            tableDataRows[numberOfRows][3] = grn.getSupplierName();
-            tableDataRows[numberOfRows][4] = grn.getSupplierTelephone();
-            tableDataRows[numberOfRows][5] = grn.getSupplierTIN();
-            tableDataRows[numberOfRows][6] = grn.getUser().getUserName();
-            tableDataRows[numberOfRows][7] = grn.getItem().getName();
-            tableDataRows[numberOfRows][8] = grn.getReceivedQuantity();
-            tableDataRows[numberOfRows][9] = grn.getUnitCost();
-            tableDataRows[numberOfRows][10] = grn.getTotalCost();
+            tableDataRows[numberOfRows][1] = disposal.getDisposalNumber();
+            tableDataRows[numberOfRows][2] = disposal.getDate();
+            tableDataRows[numberOfRows][3] = disposal.getDescription();
+            tableDataRows[numberOfRows][4] = disposal.getUser().getUserName();
+            tableDataRows[numberOfRows][5] = disposal.getItem().getName();
+            tableDataRows[numberOfRows][6] = disposal.getDisposedQuantity();
+         
 
             numberOfRows++;
         }
@@ -675,9 +553,9 @@ public class GRNs extends javax.swing.JPanel {
                     editBtn.setEnabled(true);
 
                     deleteBtn.setEnabled(true);
-                    selectedGRN = grns[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
+                    selectedDisposal = disposals[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
 
-                    System.out.println(itemCategoriesTableSelectionModel.getMaxSelectionIndex() + " from " + grns.length);
+                    System.out.println(itemCategoriesTableSelectionModel.getMaxSelectionIndex() + " from " + disposals.length);
 
                 }
             }
@@ -685,10 +563,9 @@ public class GRNs extends javax.swing.JPanel {
 
     }
 
-    void setTotalCost() {
+    void setTotalPrice() {
 
-        System.out.println("total Cost Update");
-        totalCostField.setValue(((double) unitCostField.getValue() * (double) receivedQuantityField.getValue()));
+        
 
     }
 
@@ -696,50 +573,40 @@ public class GRNs extends javax.swing.JPanel {
 
         loadItemField();
 
-        grnNumberField.setText("");
+        disposalNumberField.setText("");
 
-        supplierNameField.setText("");
-        supplierTelephoneNumberField.setText("");
-        supplierTINNumberField.setText("");
+        descriptionField.setText("");
 
         dateField.setValue(new Date());
         itemField.setSelectedIndex(0);
-        receivedQuantityField.setValue(0);
-        unitCostField.setValue(0);
-        totalCostField.setValue(0);
+        disposedQuantity.setValue(0);
+    
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JSpinner dateField;
     private javax.swing.JButton deleteBtn;
+    private javax.swing.JTextArea descriptionField;
+    private javax.swing.JTextField disposalNumberField;
+    private javax.swing.JSpinner disposedQuantity;
     private javax.swing.JButton editBtn;
     private javax.swing.JFrame form;
-    private javax.swing.JTextField grnNumberField;
     private javax.swing.JComboBox<String> itemField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSpinner receivedQuantityField;
     private javax.swing.JButton refreshBtn;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField searchField;
-    private javax.swing.JTextField supplierNameField;
-    private javax.swing.JTextField supplierTINNumberField;
-    private javax.swing.JTextField supplierTelephoneNumberField;
     private javax.swing.JTable table;
-    private javax.swing.JSpinner totalCostField;
-    private javax.swing.JSpinner unitCostField;
     // End of variables declaration//GEN-END:variables
 }
