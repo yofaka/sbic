@@ -128,7 +128,7 @@ public class Disposal {
 
     boolean canDispose() throws SQLException {
 
-        if (Item.find(this.item.getId()).getQuantityAtHand() <= disposedQuantity) {
+        if (Item.find(this.item.getId()).getQuantityAtHand() >= disposedQuantity) {
             return true;
         } else {
             return false;

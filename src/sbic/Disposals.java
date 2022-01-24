@@ -31,6 +31,7 @@ public class Disposals extends javax.swing.JPanel {
     static Item[] listedItems;
 
     static Disposal selectedDisposal;
+    static Disposal[] disposals;
 
     /**
      * Creates new form Disposals
@@ -60,7 +61,7 @@ public class Disposals extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         itemField = new javax.swing.JComboBox<>();
-        disposedQuantity = new javax.swing.JSpinner();
+        disposedQuantityField = new javax.swing.JSpinner();
         jLabel9 = new javax.swing.JLabel();
         saveBtn = new javax.swing.JButton();
         dateField = new javax.swing.JSpinner();
@@ -88,8 +89,8 @@ public class Disposals extends javax.swing.JPanel {
 
         jLabel8.setText("Item");
 
-        disposedQuantity.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
-        disposedQuantity.setEditor(new javax.swing.JSpinner.NumberEditor(disposedQuantity, ""));
+        disposedQuantityField.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0E7d, 1.0d));
+        disposedQuantityField.setEditor(new javax.swing.JSpinner.NumberEditor(disposedQuantityField, ""));
 
         jLabel9.setText("Quantity");
 
@@ -129,7 +130,7 @@ public class Disposals extends javax.swing.JPanel {
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(itemField, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(disposedQuantity, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(disposedQuantityField, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(146, 146, 146))
         );
@@ -159,7 +160,7 @@ public class Disposals extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(disposedQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(disposedQuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(saveBtn)
                 .addContainerGap(104, Short.MAX_VALUE))
@@ -286,25 +287,29 @@ public class Disposals extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Description (Reason) Number", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (disposedQuantity.getValue().equals("") || disposedQuantity.getValue() == null) {
+                } else if (disposedQuantityField.getValue().equals("") || disposedQuantityField.getValue() == null) {
 
                     JOptionPane.showMessageDialog(this, "Enter Quantity", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                }  else if (!Validator.properDocumentNumber(disposalNumberField)) {
+                } else if (!Validator.properDocumentNumber(disposalNumberField)) {
 
                     JOptionPane.showMessageDialog(this, "Disposal Number can't be longer than 10 characters", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                }else if (Disposal.disposalNumberExists(disposalNumberField.getText(), "")) {
+                } else if (Disposal.disposalNumberExists(disposalNumberField.getText(), "")) {
 
                     JOptionPane.showMessageDialog(this, "This Disposal Number is already in use.", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isNumberGreaterThan(disposedQuantity, 0)) {
+                } else if (!Validator.isNumberGreaterThan(disposedQuantityField, 0)) {
 
                     JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add Disposal", JOptionPane.ERROR_MESSAGE);
 
+                } else if (Validator.isNumberGreaterThan(disposedQuantityField, listedItems[itemField.getSelectedIndex()].getQuantityAtHand())) {
+
+                    JOptionPane.showMessageDialog(this, "You don't have sufficient stock to dispose.", "Add Disposal", JOptionPane.ERROR_MESSAGE);
+
                 } else {
 
-                    Disposal newDisposal = new Disposal(disposalNumberField.getText(), (Date) dateField.getValue(), descriptionField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) disposedQuantity.getValue());
+                    Disposal newDisposal = new Disposal(disposalNumberField.getText(), (Date) dateField.getValue(), descriptionField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) disposedQuantityField.getValue());
 
                     if (newDisposal.save()) {
 
@@ -327,7 +332,7 @@ public class Disposals extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter Description (Reason) Number", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (disposedQuantity.getValue().equals("") || disposedQuantity.getValue() == null) {
+                } else if (disposedQuantityField.getValue().equals("") || disposedQuantityField.getValue() == null) {
 
                     JOptionPane.showMessageDialog(this, "Enter Quantity", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
@@ -335,25 +340,25 @@ public class Disposals extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Disposal Number can't be longer than 10 characters", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                }else if (Disposal.disposalNumberExists(disposalNumberField.getText(), selectedDisposal.getDisposalNumber())) {
+                } else if (Disposal.disposalNumberExists(disposalNumberField.getText(), selectedDisposal.getDisposalNumber())) {
 
                     JOptionPane.showMessageDialog(this, "This Disposal Number is already in use.", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isNumberGreaterThan(disposedQuantity, 0)) {
+                } /*else if (!Validator.isNumberGreaterThan(disposedQuantityField, 0)) {
 
                     JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else if (!Validator.isNumberGreaterThan(disposedQuantity, (selectedDisposal.getItem().getQuantityAtHand() + 0.1))) {
+                } else if (Validator.isNumberGreaterThan(disposedQuantityField, (selectedDisposal.getItem().getQuantityAtHand()))) {
 
                     JOptionPane.showMessageDialog(this, "You can't reduce the quantity more than the available quantity of the item!", "Edit Disposal", JOptionPane.ERROR_MESSAGE);
 
-                } else {
+                }*/ else {
 
                     selectedDisposal.setDisposalNumber(disposalNumberField.getText());
                     selectedDisposal.setDate((Date) dateField.getValue());
                     selectedDisposal.setDescription(descriptionField.getText());
                     selectedDisposal.setItem(listedItems[itemField.getSelectedIndex()]);
-                    selectedDisposal.setDisposedQuantity((double) disposedQuantity.getValue());
+                    selectedDisposal.setDisposedQuantity((double) disposedQuantityField.getValue());
 
                     if (selectedDisposal.save()) {
 
@@ -386,7 +391,7 @@ public class Disposals extends javax.swing.JPanel {
                 disposalNumberField.setEnabled(true);
                 dateField.setEnabled(true);
                 itemField.setEnabled(true);
-                disposedQuantity.setEnabled(true);
+                disposedQuantityField.setEnabled(true);
                 form.setVisible(true);
 
             } else {
@@ -409,13 +414,13 @@ public class Disposals extends javax.swing.JPanel {
             dateField.setValue(selectedDisposal.getDate());
             itemField.setSelectedItem(selectedDisposal.getItem().getName());
             descriptionField.setText(selectedDisposal.getDescription());
-            disposedQuantity.setValue(selectedDisposal.getDisposedQuantity());
+            disposedQuantityField.setValue(selectedDisposal.getDisposedQuantity());
 
             //Lock some Fields For Data Integrity Purposes
             disposalNumberField.setEnabled(false);
             dateField.setEnabled(false);
             itemField.setEnabled(false);
-            disposedQuantity.setEnabled(false);
+            disposedQuantityField.setEnabled(false);
 
             form.setVisible(true);
         } catch (SQLException ex) {
@@ -431,7 +436,7 @@ public class Disposals extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "You can not delete this " + selectedDisposal.getDisposalNumber() + " because you dont have sufficient quantity of " + selectedDisposal.getItem().getName() + " !", "Delete Disposal", JOptionPane.ERROR_MESSAGE);
             } else {
 
-                if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedDisposal.getDisposalNumber() + "? It will increase the amount of " + selectedDisposal.getItem().getName() + " by " + selectedDisposal.getDisposedQuantity(), "Delete Disposal", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(this, "Are You Sure You Want To Delete " + selectedDisposal.getDisposalNumber() + "? It will return  " + selectedDisposal.getDisposedQuantity() + " amount of " + selectedDisposal.getItem().getName() + " back to store ", "Delete Disposal", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
                     if (selectedDisposal.delete()) {
                         JOptionPane.showMessageDialog(this, selectedDisposal.getDisposalNumber() + " deleted succesfully!", "Delete Disposal", JOptionPane.INFORMATION_MESSAGE);
@@ -511,12 +516,11 @@ public class Disposals extends javax.swing.JPanel {
     }
 
     void loadData() throws SQLException, ParseException {
-        
-         if(!Session.getLoggedInUser().getRole().equals("Administrator")){
-        
+
+        if (!Session.getLoggedInUser().getRole().equals("Administrator")) {
+
             addBtn.setEnabled(false);
         }
-
 
         editBtn.setEnabled(false);
 
@@ -524,7 +528,7 @@ public class Disposals extends javax.swing.JPanel {
 
         String tableColumns[] = {"No", "Disposal Number", "Date", "Description", "User", "Item", "Disposed Quantity"};
 
-        Disposal[] disposals = Disposal.findAll();
+         disposals = Disposal.findAll();
 
         Object tableDataRows[][] = new Object[disposals.length][7];
 
@@ -543,11 +547,11 @@ public class Disposals extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel DisposalsTableModel = new DefaultTableModel(tableDataRows, tableColumns){
-        
+        TableModel DisposalsTableModel = new DefaultTableModel(tableDataRows, tableColumns) {
+
             @Override
-            public boolean isCellEditable(int row, int column){
-            return false;
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
         };
 
@@ -571,7 +575,7 @@ public class Disposals extends javax.swing.JPanel {
 
                 } else {
 
-                    if (Session.getLoggedInUser().getRole() == "Administrator") {
+                    if (Session.getLoggedInUser().getRole().equals("Administrator")) {
                         editBtn.setEnabled(true);
 
                         deleteBtn.setEnabled(true);
@@ -600,7 +604,7 @@ public class Disposals extends javax.swing.JPanel {
             itemField.setSelectedIndex(0);
         }
 
-        disposedQuantity.setValue(0);
+        disposedQuantityField.setValue(0);
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -609,7 +613,7 @@ public class Disposals extends javax.swing.JPanel {
     private javax.swing.JButton deleteBtn;
     private javax.swing.JTextArea descriptionField;
     private javax.swing.JTextField disposalNumberField;
-    private javax.swing.JSpinner disposedQuantity;
+    private javax.swing.JSpinner disposedQuantityField;
     private javax.swing.JButton editBtn;
     private javax.swing.JFrame form;
     private javax.swing.JComboBox<String> itemField;

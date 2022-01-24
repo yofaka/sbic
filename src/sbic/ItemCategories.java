@@ -27,7 +27,8 @@ public class ItemCategories extends javax.swing.JPanel {
     static TableRowSorter tableRowSorter;
     static ItemCategory selectedItemCategory; // contains Item category object from the the currently selected row of table
     static boolean newForm; // is true if form is loaded to  save new and false if form is loaded to update
-
+    static ItemCategory[] itemCategories;
+    
     /**
      * Creates new form Items
      */
@@ -398,7 +399,7 @@ public class ItemCategories extends javax.swing.JPanel {
 
         String tableColumns[] = {"No", "Name", "Description"};
 
-        ItemCategory[] itemCategories = ItemCategory.findAll();
+         itemCategories = ItemCategory.findAll();
 
         Object tableDataRows[][] = new Object[itemCategories.length][3];
 

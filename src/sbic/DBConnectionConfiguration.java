@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -195,7 +196,9 @@ public class DBConnectionConfiguration extends javax.swing.JPanel {
                     Session.logUserOut();
                     }
                     
+                    
                     this.setVisible(false);
+                    
                     DBConnection.connect();
                     ProgramWindow.startWindow();
                     connection.close();

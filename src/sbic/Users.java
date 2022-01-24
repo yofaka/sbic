@@ -33,6 +33,7 @@ public class Users extends javax.swing.JPanel {
     static Item[] listedItems;
 
     static User selectedUser;
+    static User[] users;
 
     /**
      * Creates new form Users
@@ -600,7 +601,7 @@ public class Users extends javax.swing.JPanel {
 
         String tableColumns[] = {"No", "User Name", "Role", "Active"};
 
-        User[] users = User.findAll();
+       users = User.findAll();
 
         Object tableDataRows[][] = new Object[users.length][7];
 

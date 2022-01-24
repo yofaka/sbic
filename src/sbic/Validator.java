@@ -83,7 +83,7 @@ public class Validator {
 
     static boolean isProperTINNumber(JTextField textField) {
 
-        if (textField.getText().toString().length() == 10 && textField.getText().toString().matches("[0-9]*")) {
+        if (textField.getText().toString().length() == 10 && textField.getText().toString().matches("[0-9]*{10}")) {
             return true;
         } else {
             return false;

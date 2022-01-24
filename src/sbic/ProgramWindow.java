@@ -56,6 +56,8 @@ public class ProgramWindow {
     static JPanel themeSetting;
     static JPanel databaseSetting;
 
+    static JFrame DBConfigWindow;
+    
     static boolean mainWindowStarted;
     static JFrame mainWindow;
 

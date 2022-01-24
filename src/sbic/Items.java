@@ -28,6 +28,7 @@ public class Items extends javax.swing.JPanel {
     static Item selectedItem;
     static boolean newForm;
     static ItemCategory[] listedItemCategories;
+    static Item[] items;
 
     /**
      * Creates new form Items
@@ -518,7 +519,7 @@ public class Items extends javax.swing.JPanel {
 
         String tableColumns[] = {"No", "Code", "Name", "Item Category", "Unit Of Measurement", "Unit Price", "Quantity At Hand", "Minimum Stock Level", "Description"};
 
-        Item[] items = Item.findAll();
+       items = Item.findAll();
 
         Object tableDataRows[][] = new Object[items.length][9];
 

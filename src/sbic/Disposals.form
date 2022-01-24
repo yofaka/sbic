@@ -52,7 +52,7 @@
                                   <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="itemField" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="disposedQuantity" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="disposedQuantityField" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -87,7 +87,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="disposedQuantity" min="-2" max="-2" attributes="0"/>
+                      <Component id="disposedQuantityField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="104" max="32767" attributes="0"/>
@@ -135,7 +135,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JSpinner" name="disposedQuantity">
+            <Component class="javax.swing.JSpinner" name="disposedQuantityField">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                   <SpinnerModel initial="0.0" maximum="1.0E7" minimum="0.0" numberType="java.lang.Double" stepSize="1.0" type="number"/>

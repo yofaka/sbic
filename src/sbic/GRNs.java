@@ -31,7 +31,7 @@ public class GRNs extends javax.swing.JPanel {
     static Item[] listedItems;
 
     static GRN selectedGRN;
-
+    static GRN[] grns;
     /**
      * Creates new form GRNs
      */
@@ -345,7 +345,7 @@ public class GRNs extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "GRN Number can't be longer than 10 characters", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                }else if (GRN.GRNNumberExists(grnNumberField.getText(), "")) {
+                } else if (GRN.GRNNumberExists(grnNumberField.getText(), "")) {
 
                     JOptionPane.showMessageDialog(this, "This GRN Number is already in use.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
@@ -353,7 +353,7 @@ public class GRNs extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "The supplier name can not be greater than 30 characters!", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                }  else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
+                } else if (!Validator.isProperTelephoneNumber(supplierTelephoneNumberField)) {
 
                     JOptionPane.showMessageDialog(this, "The telephone number is not acceptable. it needs to have 12 digit numbers with '+' sign for the country code.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
@@ -361,7 +361,7 @@ public class GRNs extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "The tin number is not acceptable. it needs to be a 10 digit number.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                }  else if (!Validator.isNumberGreaterThan(receivedQuantityField, 0)) {
+                } else if (!Validator.isNumberGreaterThan(receivedQuantityField, 0)) {
 
                     JOptionPane.showMessageDialog(this, "The quantity needs to be a valid number greater than 0", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
@@ -415,7 +415,7 @@ public class GRNs extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "GRN Number can't be longer than 10 characters", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
-                }else if (GRN.GRNNumberExists(grnNumberField.getText(), selectedGRN.getGRNNumber())) {
+                } else if (GRN.GRNNumberExists(grnNumberField.getText(), selectedGRN.getGRNNumber())) {
 
                     JOptionPane.showMessageDialog(this, "This GRN Number is already in use.", "Add GRN", JOptionPane.ERROR_MESSAGE);
 
@@ -619,12 +619,11 @@ public class GRNs extends javax.swing.JPanel {
     }
 
     void loadData() throws SQLException, ParseException {
-        
-         if(!Session.getLoggedInUser().getRole().equals("Administrator")){
-        
+
+        if (!Session.getLoggedInUser().getRole().equals("Administrator")) {
+
             addBtn.setEnabled(false);
         }
-
 
         editBtn.setEnabled(false);
 
@@ -632,7 +631,7 @@ public class GRNs extends javax.swing.JPanel {
 
         String tableColumns[] = {"No", "GRN Number", "Date", "Supplier Name", "Supplier Telephone", "Supplier TIN", "User", "Item", "Received Quantity", "Unit Cost", "Total Cost"};
 
-        GRN[] grns = GRN.findAll();
+         grns = GRN.findAll();
 
         Object tableDataRows[][] = new Object[grns.length][11];
 
@@ -655,11 +654,11 @@ public class GRNs extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel GRNsTableModel = new DefaultTableModel(tableDataRows, tableColumns){
-        
+        TableModel GRNsTableModel = new DefaultTableModel(tableDataRows, tableColumns) {
+
             @Override
-            public boolean isCellEditable(int row, int column){
-            return false;
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
         };
 
@@ -683,10 +682,13 @@ public class GRNs extends javax.swing.JPanel {
 
                 } else {
 
-                    if(Session.getLoggedInUser().getRole()=="Administrator"){
-                    editBtn.setEnabled(true);
+                    System.out.println("Some GRN selected");
 
-                    deleteBtn.setEnabled(true);
+                    if (Session.getLoggedInUser().getRole().equals("Administrator")) {
+                        System.out.println("Some GRN selected -> by admin");
+                        editBtn.setEnabled(true);
+
+                        deleteBtn.setEnabled(true);
                     }
                     selectedGRN = grns[GRNsTableSelectionModel.getMaxSelectionIndex()];
 
