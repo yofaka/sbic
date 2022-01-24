@@ -32,7 +32,7 @@ public class SBIC {
             JFrame DBConfigWindow = new JFrame("Database Configuration Window");
             if (JOptionPane.showConfirmDialog(DBConfigWindow, "There seems to be a problem connecting to the database. Would you like to modify your database connection configuration?", "Database Connection Error", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
-            s
+            
                 
                 DBConnectionConfiguration dbcc = new DBConnectionConfiguration();
 
