@@ -222,6 +222,30 @@ public class Disposal {
         return foundDisposals;
     }
 
+    
+        static Disposal[] findAllToday() throws SQLException, ParseException {
+
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "date = CURDATE()");
+
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, disposalNumber, date, description, userId, itemId, disposedQuantity", "date = CURDATE()  Order By id");
+
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+
+        Disposal[] foundDisposals = new Disposal[rowCount];
+
+        int rowCounter = 0;
+
+        while (results.next()) {
+
+            foundDisposals[rowCounter] = new Disposal(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)));
+
+            rowCounter++;
+        }
+
+        return foundDisposals;
+    }
+
     boolean canDelete() {
 
         return true;

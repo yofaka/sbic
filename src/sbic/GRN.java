@@ -268,6 +268,31 @@ public class GRN {
         return foundGRNs;
     }
 
+    
+    static GRN[] findAllToday() throws SQLException, ParseException {
+
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "date = CURDATE()");
+
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, GRNNumber, date, supplierName, supplierTelephone, supplierTIN, userId, itemId, receivedQuantity, unitCost, totalCost", "date = CURDATE()  Order By id");
+
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+
+        GRN[] foundGRNs = new GRN[rowCount];
+
+        int rowCounter = 0;
+
+        while (results.next()) {
+
+            foundGRNs[rowCounter] = new GRN(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), results.getString(5), results.getString(6), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
+
+            rowCounter++;
+        }
+
+        return foundGRNs;
+    }
+
+    
     boolean canDelete() {
 
         if (this.getItem().getQuantityAtHand() >= this.receivedQuantity) {

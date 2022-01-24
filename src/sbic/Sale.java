@@ -226,6 +226,31 @@ public class Sale {
         return foundSales;
     }
 
+    
+    
+    static Sale[] findAllToday() throws SQLException, ParseException {
+
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "date = CURDATE()");
+
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, invoiceNumber, date, customerTIN, userId, itemId, soldQuantity, unitPrice, totalPrice", "date = CURDATE()  Order By id");
+
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+
+        Sale[] foundSales = new Sale[rowCount];
+
+        int rowCounter = 0;
+
+        while (results.next()) {
+
+            foundSales[rowCounter] = new Sale(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), Double.parseDouble(results.getString(9)));
+
+            rowCounter++;
+        }
+
+        return foundSales;
+    }
+
     boolean canDelete() {
 
         return true;

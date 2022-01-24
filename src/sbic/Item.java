@@ -162,6 +162,56 @@ public class Item {
 
     }
 
+    
+    public static Item[] findOutOfStock() throws SQLException {
+
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "quantityAtHand < 1");
+
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, code, name, itemCategoryId, uom, unitPrice, quantityAtHand, minStockLevel, description", "quantityAtHand < 1  Order By id");
+
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+
+        Item[] foundItems = new Item[rowCount];
+
+        int rowCounter = 0;
+
+        while (results.next()) {
+
+            foundItems[rowCounter] = new Item(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3), ItemCategory.find(Integer.valueOf(results.getString(4))), results.getString(5), Double.parseDouble(results.getString(6)), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), results.getString(9));
+
+            rowCounter++;
+        }
+
+        return foundItems;
+
+    }
+
+     public static Item[] findBelowMinStock() throws SQLException {
+
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "quantityAtHand < minStockLevel");
+
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, code, name, itemCategoryId, uom, unitPrice, quantityAtHand, minStockLevel, description", "quantityAtHand < minStockLevel Order By id");
+
+        resultsCounter.next();
+        int rowCount = resultsCounter.getInt("rowCount");
+
+        Item[] foundItems = new Item[rowCount];
+
+        int rowCounter = 0;
+
+        while (results.next()) {
+
+            foundItems[rowCounter] = new Item(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3), ItemCategory.find(Integer.valueOf(results.getString(4))), results.getString(5), Double.parseDouble(results.getString(6)), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), results.getString(9));
+
+            rowCounter++;
+        }
+
+        return foundItems;
+
+    }
+
+    
     public static Item find(int id) throws SQLException {
 
         ResultSet results = DBConnection.select(TABLE_NAME, "id, code, name, itemCategoryId, uom, unitPrice, quantityAtHand, minStockLevel, description", "id = " + id);

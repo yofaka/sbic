@@ -16,29 +16,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" max="32767" attributes="0"/>
-          <Group type="102" attributes="0">
-              <Component id="refreshTablesBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-          <Component id="jSeparator1" max="32767" attributes="0"/>
+          <Component id="homeTab" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
-              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="refreshTablesBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" min="-2" pref="191" max="-2" attributes="0"/>
-          </Group>
+          <Component id="homeTab" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="homeTab">
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="homeTabStateChanged"/>
+      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -59,7 +50,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="163" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" pref="264" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -99,10 +90,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane2" min="-2" pref="232" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jScrollPane2" alignment="0" pref="264" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -142,7 +130,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane3" alignment="0" pref="163" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" alignment="0" pref="264" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -182,7 +170,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane4" alignment="0" pref="163" max="32767" attributes="0"/>
+                  <Component id="jScrollPane4" alignment="0" pref="264" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -222,7 +210,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane5" alignment="0" pref="163" max="32767" attributes="0"/>
+                  <Component id="jScrollPane5" alignment="0" pref="264" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -247,15 +235,5 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="refreshTablesBtn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Refresh"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshTablesBtnActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator1">
-    </Component>
   </SubComponents>
 </Form>

@@ -38,7 +38,7 @@ public class Home extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        homeTab = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         todaySalesTable = new javax.swing.JTable();
@@ -54,8 +54,12 @@ public class Home extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         belowMinStockItemsTable = new javax.swing.JTable();
-        refreshTablesBtn = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
+
+        homeTab.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                homeTabStateChanged(evt);
+            }
+        });
 
         todaySalesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,10 +82,10 @@ public class Home extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Today's Sales", jPanel1);
+        homeTab.addTab("Today's Sales", jPanel1);
 
         todayGRNsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,12 +108,10 @@ public class Home extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Today's GRNs", jPanel2);
+        homeTab.addTab("Today's GRNs", jPanel2);
 
         todayDisposalsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,10 +134,10 @@ public class Home extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Today's Disposals", jPanel3);
+        homeTab.addTab("Today's Disposals", jPanel3);
 
         outOfStockItemsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -158,10 +160,10 @@ public class Home extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Out Of Stock Items", jPanel4);
+        homeTab.addTab("Out Of Stock Items", jPanel4);
 
         belowMinStockItemsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -184,50 +186,33 @@ public class Home extends javax.swing.JPanel {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Below Inventory Level Items", jPanel5);
-
-        refreshTablesBtn.setText("Refresh");
-        refreshTablesBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshTablesBtnActionPerformed(evt);
-            }
-        });
+        homeTab.addTab("Below Inventory Level Items", jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(refreshTablesBtn)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jSeparator1)
+            .addComponent(homeTab)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 5, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(refreshTablesBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(homeTab, javax.swing.GroupLayout.Alignment.TRAILING)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void refreshTablesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTablesBtnActionPerformed
+    private void homeTabStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_homeTabStateChanged
 
         try {
-            loadHomeTables();
+            loadHomeTables();        // TODO add your handling code here:
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_refreshTablesBtnActionPerformed
+    }//GEN-LAST:event_homeTabStateChanged
 
     void loadHomeTables() throws SQLException, ParseException {
 
@@ -242,6 +227,7 @@ public class Home extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable belowMinStockItemsTable;
+    private javax.swing.JTabbedPane homeTab;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -252,10 +238,7 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable outOfStockItemsTable;
-    private javax.swing.JButton refreshTablesBtn;
     private javax.swing.JTable todayDisposalsTable;
     private javax.swing.JTable todayGRNsTable;
     private javax.swing.JTable todaySalesTable;
@@ -265,7 +248,7 @@ public class Home extends javax.swing.JPanel {
 
         String tableColumns[] = {"No", "Invoice Number", "Date", "Customer TIN", "User", "Item", "Sold Quantity", "Unit Price", "Total Price"};
 
-        Sale[] sales = Sale.findAll();
+        Sale[] sales = Sale.findAllToday();
 
         Object tableDataRows[][] = new Object[sales.length][9];
 
@@ -300,7 +283,7 @@ public class Home extends javax.swing.JPanel {
 
         String tableColumns[] = {"No", "GRN Number", "Date", "Supplier Name", "Supplier Telephone", "Supplier TIN", "User", "Item", "Received Quantity", "Unit Cost", "Total Cost"};
 
-        GRN[] grns = GRN.findAll();
+        GRN[] grns = GRN.findAllToday();
 
         Object tableDataRows[][] = new Object[grns.length][11];
 
@@ -336,7 +319,7 @@ public class Home extends javax.swing.JPanel {
     void loadDisposalsTable() throws SQLException, ParseException {
         String tableColumns[] = {"No", "Disposal Number", "Date", "Description", "User", "Item", "Disposed Quantity"};
 
-        Disposal[] disposals = Disposal.findAll();
+        Disposal[] disposals = Disposal.findAllToday();
 
         Object tableDataRows[][] = new Object[disposals.length][7];
 
@@ -371,7 +354,7 @@ public class Home extends javax.swing.JPanel {
 
         String tableColumns[] = {"No", "Code", "Name", "Item Category", "Unit Of Measurement", "Unit Price", "Quantity At Hand", "Minimum Stock Level", "Description"};
 
-        Item[] items = Item.findAll();
+        Item[] items = Item.findOutOfStock();
 
         Object tableDataRows[][] = new Object[items.length][9];
 
@@ -406,7 +389,7 @@ public class Home extends javax.swing.JPanel {
 
         String tableColumns[] = {"No", "Code", "Name", "Item Category", "Unit Of Measurement", "Unit Price", "Quantity At Hand", "Minimum Stock Level", "Description"};
 
-        Item[] items = Item.findAll();
+        Item[] items = Item.findBelowMinStock();
 
         Object tableDataRows[][] = new Object[items.length][9];
 
