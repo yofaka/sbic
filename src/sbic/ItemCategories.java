@@ -413,7 +413,13 @@ public class ItemCategories extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel itemCategoriesTableModel = new DefaultTableModel(tableDataRows, tableColumns){
+        
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
 
         itemCategoriesTable.setModel(itemCategoriesTableModel);
 

@@ -313,7 +313,13 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns){
+        
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
 
         todayGRNsTable.setModel(homeTableModel);
 
@@ -346,7 +352,13 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns){
+        
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
 
         todayDisposalsTable.setModel(homeTableModel);
 
@@ -384,7 +396,13 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns){
+        
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
 
         outOfStockItemsTable.setModel(homeTableModel);
 
@@ -420,7 +438,13 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns){
+        
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
 
         belowMinStockItemsTable.setModel(homeTableModel);
 

@@ -655,7 +655,13 @@ public class GRNs extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel GRNsTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel GRNsTableModel = new DefaultTableModel(tableDataRows, tableColumns){
+        
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
 
         table.setModel(GRNsTableModel);
 

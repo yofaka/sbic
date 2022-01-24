@@ -539,7 +539,13 @@ public class Items extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel itemsTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel itemsTableModel = new DefaultTableModel(tableDataRows, tableColumns){
+        
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
 
         table.setModel(itemsTableModel);
 

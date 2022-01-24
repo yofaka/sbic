@@ -385,7 +385,7 @@ public class Users extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Confirm Password", "Add User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (Validator.isProperUserName(userNameField)) {
+                } else if (!Validator.isProperUserName(userNameField)) {
 
                     JOptionPane.showMessageDialog(this, "This User Name can't have longer than 25 digits.", "Add User", JOptionPane.ERROR_MESSAGE);
 
@@ -419,7 +419,7 @@ public class Users extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Enter User Number", "Edit User", JOptionPane.ERROR_MESSAGE);
 
-                } else if (Validator.isProperUserName(userNameField)) {
+                } else if (!Validator.isProperUserName(userNameField)) {
 
                     JOptionPane.showMessageDialog(this, "This User Name can't have longer than 25 digits.", "Add User", JOptionPane.ERROR_MESSAGE);
 
@@ -616,7 +616,13 @@ public class Users extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel UsersTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel UsersTableModel = new DefaultTableModel(tableDataRows, tableColumns){
+        
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
 
         table.setModel(UsersTableModel);
 

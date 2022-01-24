@@ -585,7 +585,13 @@ public class Sales extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel SalesTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel SalesTableModel = new DefaultTableModel(tableDataRows, tableColumns){
+        
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
 
         table.setModel(SalesTableModel);
 

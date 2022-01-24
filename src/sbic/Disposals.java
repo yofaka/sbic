@@ -543,7 +543,13 @@ public class Disposals extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel DisposalsTableModel = new DefaultTableModel(tableDataRows, tableColumns);
+        TableModel DisposalsTableModel = new DefaultTableModel(tableDataRows, tableColumns){
+        
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
 
         table.setModel(DisposalsTableModel);
 
