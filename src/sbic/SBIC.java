@@ -36,6 +36,7 @@ public class SBIC {
 
                 ProgramWindow.DBConfigWindow.add(dbcc);
                 ProgramWindow.DBConfigWindow.setSize(400, 400);
+                ProgramWindow.DBConfigWindow.setIconImage(ProgramWindow.windowIcon.getImage());
                 ProgramWindow.DBConfigWindow.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(ProgramWindow.DBConfigWindow, "System is going to exit!!!", "Database Error", JOptionPane.ERROR_MESSAGE);

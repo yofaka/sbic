@@ -8,6 +8,7 @@ package sbic;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -23,6 +24,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -35,10 +37,12 @@ import javax.swing.JTextField;
 
 public class ProgramWindow {
 
+    final static String WINDOW_FAV_ICON_FILE_NAME = "config/icon.jpg";
     final static String THEME_CONFIG_FILE_NAME = "config/themeconfig";
     final static String DEFAULT_PRIMARY_COLOR = "White";
     final static String DEFAULT_SECONDARY_COLOR = "White";
 
+    static ImageIcon  windowIcon = new ImageIcon(WINDOW_FAV_ICON_FILE_NAME);
     static Color primaryColor;
     static Color secondaryColor;
 
@@ -266,6 +270,8 @@ public class ProgramWindow {
         footerPanel = new JPanel();
         footerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         footerPanel.add(aboutButton);
+        
+      
 
         mainWindow = new JFrame("Small Business Management Software");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -275,6 +281,7 @@ public class ProgramWindow {
         mainWindow.add(mainTab, BorderLayout.CENTER);
         mainWindow.add(footerPanel, BorderLayout.SOUTH);
         mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        mainWindow.setIconImage(windowIcon.getImage());
         mainWindow.setVisible(true);
 
     }
@@ -360,6 +367,9 @@ public class ProgramWindow {
         loginFooter = new JPanel();
         loginFooter.add(aboutButton);
 
+        
+        
+        
         loginWindow = new JFrame("Login - Small Business Management Software");
         loginWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginWindow.setResizable(false);
@@ -368,7 +378,7 @@ public class ProgramWindow {
         loginWindow.add(loginHeader, BorderLayout.NORTH);
         loginWindow.add(loginForm, BorderLayout.CENTER);
         loginWindow.add(loginFooter, BorderLayout.SOUTH);
-
+        loginWindow.setIconImage(windowIcon.getImage());
         loginWindow.setVisible(true);
 
 //        main.add()

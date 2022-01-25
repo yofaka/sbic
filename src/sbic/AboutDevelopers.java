@@ -13,6 +13,7 @@ public class AboutDevelopers extends javax.swing.JFrame {
      */
     public AboutDevelopers() {
         initComponents();
+        this.setIconImage(ProgramWindow.windowIcon.getImage());
     }
 
     /**
