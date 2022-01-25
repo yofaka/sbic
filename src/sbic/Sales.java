@@ -566,25 +566,26 @@ public class Sales extends javax.swing.JPanel {
 
         deleteBtn.setEnabled(false);
 
-        String tableColumns[] = {"No", "Invoice Number", "Date", "Customer TIN", "User", "Item", "Sold Quantity", "Unit Price", "Total Price"};
+        String tableColumns[] = {"No", "Serial", "Invoice Number", "Date", "Customer TIN", "User", "Item", "Sold Quantity", "Unit Price", "Total Price"};
 
         sales = Sale.findAll();
 
-        Object tableDataRows[][] = new Object[sales.length][9];
+        Object tableDataRows[][] = new Object[sales.length][10];
 
         int numberOfRows = 0;
 
         for (Sale sale : sales) {
 
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
-            tableDataRows[numberOfRows][1] = sale.getInvoiceNumber();
-            tableDataRows[numberOfRows][2] = sale.getDate();
-            tableDataRows[numberOfRows][3] = sale.getCustomerTIN();
-            tableDataRows[numberOfRows][4] = sale.getUser().getUserName();
-            tableDataRows[numberOfRows][5] = sale.getItem().getName();
-            tableDataRows[numberOfRows][6] = sale.getSoldQuantity();
-            tableDataRows[numberOfRows][7] = sale.getUnitPrice();
-            tableDataRows[numberOfRows][8] = sale.getTotalPrice();
+            tableDataRows[numberOfRows][1] = sale.getId();
+            tableDataRows[numberOfRows][2] = sale.getInvoiceNumber();
+            tableDataRows[numberOfRows][3] = sale.getDate();
+            tableDataRows[numberOfRows][4] = sale.getCustomerTIN();
+            tableDataRows[numberOfRows][5] = sale.getUser().getUserName();
+            tableDataRows[numberOfRows][6] = sale.getItem().getName();
+            tableDataRows[numberOfRows][7] = sale.getSoldQuantity();
+            tableDataRows[numberOfRows][8] = sale.getUnitPrice();
+            tableDataRows[numberOfRows][9] = sale.getTotalPrice();
 
             numberOfRows++;
         }
@@ -617,14 +618,18 @@ public class Sales extends javax.swing.JPanel {
 
                 } else {
 
-                    //   if (Session.getLoggedInUser().getRole() == "Administrator") {
-                    editBtn.setEnabled(true);
-                    deleteBtn.setEnabled(true);
-                    //   }
-                    selectedSale = sales[SalesTableSelectionModel.getMaxSelectionIndex()];
-                    System.out.println(sales.length+" ->> "+selectedSale.getInvoiceNumber()+"selected at "+SalesTableSelectionModel.getMaxSelectionIndex());
-                    System.out.println(SalesTableSelectionModel.getMaxSelectionIndex() + " from " + sales.length);
-
+                    try {
+                        //   if (Session.getLoggedInUser().getRole() == "Administrator") {
+                        editBtn.setEnabled(true);
+                        deleteBtn.setEnabled(true);
+                        //   }
+                        selectedSale = Sale.find((int) table.getValueAt(table.getSelectedRow(),1));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Sales.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Sales.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+         
                 }
             }
         });

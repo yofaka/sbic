@@ -21,14 +21,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-
 public class Users extends javax.swing.JPanel {
 
     static TableRowSorter tableRowSorter;
 
     static boolean newForm;
-    static Item[] listedItems;
-
     static User selectedUser;
     static User[] users;
 
@@ -596,29 +593,30 @@ public class Users extends javax.swing.JPanel {
 
         deleteBtn.setEnabled(false);
 
-        String tableColumns[] = {"No", "User Name", "Role", "Active"};
+        String tableColumns[] = {"No", "Serial", "User Name", "Role", "Active"};
 
-       users = User.findAll();
+        users = User.findAll();
 
-        Object tableDataRows[][] = new Object[users.length][7];
+        Object tableDataRows[][] = new Object[users.length][5];
 
         int numberOfRows = 0;
 
         for (User user : users) {
 
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
-            tableDataRows[numberOfRows][1] = user.getUserName();
-            tableDataRows[numberOfRows][2] = user.getRole();
-            tableDataRows[numberOfRows][3] = user.getActive();
+            tableDataRows[numberOfRows][1] = user.getId();
+            tableDataRows[numberOfRows][2] = user.getUserName();
+            tableDataRows[numberOfRows][3] = user.getRole();
+            tableDataRows[numberOfRows][4] = user.getActive();
 
             numberOfRows++;
         }
 
-        TableModel UsersTableModel = new DefaultTableModel(tableDataRows, tableColumns){
-        
+        TableModel UsersTableModel = new DefaultTableModel(tableDataRows, tableColumns) {
+
             @Override
-            public boolean isCellEditable(int row, int column){
-            return false;
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
         };
 
@@ -642,12 +640,14 @@ public class Users extends javax.swing.JPanel {
 
                 } else {
 
-                    editBtn.setEnabled(true);
-                    resetPasswordBtn.setEnabled(true);
-                    deleteBtn.setEnabled(true);
-                    selectedUser = users[UsersTableSelectionModel.getMaxSelectionIndex()];
-
-                    System.out.println(UsersTableSelectionModel.getMaxSelectionIndex() + " from " + users.length);
+                    try {
+                        editBtn.setEnabled(true);
+                        resetPasswordBtn.setEnabled(true);
+                        deleteBtn.setEnabled(true);
+                        selectedUser = User.find((int) table.getValueAt(table.getSelectedRow(), 1));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
                 }
             }

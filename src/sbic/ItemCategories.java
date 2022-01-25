@@ -385,6 +385,8 @@ public class ItemCategories extends javax.swing.JPanel {
 
     void loadItemCategories() throws SQLException {
         
+        searchField.setText("");
+        
         if(!Session.getLoggedInUser().getRole().equals("Administrator")){
         
             addBtn.setEnabled(false);
@@ -430,10 +432,7 @@ public class ItemCategories extends javax.swing.JPanel {
 
         itemCategoriesTable.setRowSorter(tableRowSorter);
         
-        itemCategoriesTableSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        
-        //itemCategoriesTable.add
+       
         itemCategoriesTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -446,22 +445,23 @@ public class ItemCategories extends javax.swing.JPanel {
 
                 } else {
 
-                    if(Session.getLoggedInUser().getRole().equals("Administrator") )  {
-                        editItemCategoryBtn.setEnabled(true);
+                    try {
+                        if(Session.getLoggedInUser().getRole().equals("Administrator") )  {
+                            editItemCategoryBtn.setEnabled(true);
+                            
+                            deleteItemCategoryBtn.setEnabled(true);
+                            
+                        }
                         
-                        deleteItemCategoryBtn.setEnabled(true);
-                        
+                      
+                        selectedItemCategory = ItemCategory.find((int) itemCategoriesTable.getValueAt(itemCategoriesTable.getSelectedRow(),1));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ItemCategories.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                    //   selectedItemCategory = ItemCategory.find((int) itemCategoriesTable.getValueAt(itemCategoriesTable.getSelectedRow(),3));
                 }
             }
         });
-        
-
-            itemCategoriesTable.getColumnModel().setColumnSelectionAllowed(false);
-            itemCategoriesTable.setCellSelectionEnabled(false);
-    }
+            }
 
     void clearItemCategoryForm() {
 

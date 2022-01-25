@@ -514,25 +514,26 @@ public class Items extends javax.swing.JPanel {
 
         deleteBtn.setEnabled(false);
 
-        String tableColumns[] = {"No", "Code", "Name", "Item Category", "Unit Of Measurement", "Unit Price", "Quantity At Hand", "Minimum Stock Level", "Description"};
+        String tableColumns[] = {"No", "Serial", "Code", "Name", "Item Category", "Unit Of Measurement", "Unit Price", "Quantity At Hand", "Minimum Stock Level", "Description"};
 
        items = Item.findAll();
 
-        Object tableDataRows[][] = new Object[items.length][9];
+        Object tableDataRows[][] = new Object[items.length][10];
 
         int numberOfRows = 0;
 
         for (Item item : items) {
 
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
-            tableDataRows[numberOfRows][1] = item.getCode();
-            tableDataRows[numberOfRows][2] = item.getName();
-            tableDataRows[numberOfRows][3] = item.getItemCategory().getName();
-            tableDataRows[numberOfRows][4] = item.getUom();
-            tableDataRows[numberOfRows][5] = item.getUnitPrice();
-            tableDataRows[numberOfRows][6] = item.getQuantityAtHand();
-            tableDataRows[numberOfRows][7] = item.getMinStockLevel();
-            tableDataRows[numberOfRows][8] = item.getDescription();
+            tableDataRows[numberOfRows][1] = item.getId();
+            tableDataRows[numberOfRows][2] = item.getCode();
+            tableDataRows[numberOfRows][3] = item.getName();
+            tableDataRows[numberOfRows][4] = item.getItemCategory().getName();
+            tableDataRows[numberOfRows][5] = item.getUom();
+            tableDataRows[numberOfRows][6] = item.getUnitPrice();
+            tableDataRows[numberOfRows][7] = item.getQuantityAtHand();
+            tableDataRows[numberOfRows][8] = item.getMinStockLevel();
+            tableDataRows[numberOfRows][9] = item.getDescription();
 
             numberOfRows++;
         }
@@ -565,13 +566,17 @@ public class Items extends javax.swing.JPanel {
 
                 } else {
 
-                    if (Session.getLoggedInUser().getRole().equals("Administrator")) {
-                        editBtn.setEnabled(true);
-
-                        deleteBtn.setEnabled(true);
+                    try {
+                        if (Session.getLoggedInUser().getRole().equals("Administrator")) {
+                            editBtn.setEnabled(true);
+                            
+                            deleteBtn.setEnabled(true);
+                        }
+                        
+                        selectedItem = Item.find((int) table.getValueAt(table.getSelectedRow(),1));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
-                    selectedItem = items[itemsTableSelectionModel.getMaxSelectionIndex()];
                 }
             }
         });

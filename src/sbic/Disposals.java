@@ -523,11 +523,11 @@ public class Disposals extends javax.swing.JPanel {
 
         deleteBtn.setEnabled(false);
 
-        String tableColumns[] = {"No", "Disposal Number", "Date", "Description", "User", "Item", "Disposed Quantity"};
+        String tableColumns[] = {"No", "Serial", "Disposal Number", "Date", "Description", "User", "Item", "Disposed Quantity"};
 
          disposals = Disposal.findAll();
 
-        Object tableDataRows[][] = new Object[disposals.length][7];
+        Object tableDataRows[][] = new Object[disposals.length][8];
 
         int numberOfRows = 0;
 
@@ -535,11 +535,12 @@ public class Disposals extends javax.swing.JPanel {
 
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
             tableDataRows[numberOfRows][1] = disposal.getDisposalNumber();
-            tableDataRows[numberOfRows][2] = disposal.getDate();
-            tableDataRows[numberOfRows][3] = disposal.getDescription();
-            tableDataRows[numberOfRows][4] = disposal.getUser().getUserName();
-            tableDataRows[numberOfRows][5] = disposal.getItem().getName();
-            tableDataRows[numberOfRows][6] = disposal.getDisposedQuantity();
+            tableDataRows[numberOfRows][2] = disposal.getDisposalNumber();
+            tableDataRows[numberOfRows][3] = disposal.getDate();
+            tableDataRows[numberOfRows][4] = disposal.getDescription();
+            tableDataRows[numberOfRows][5] = disposal.getUser().getUserName();
+            tableDataRows[numberOfRows][6] = disposal.getItem().getName();
+            tableDataRows[numberOfRows][7] = disposal.getDisposedQuantity();
 
             numberOfRows++;
         }
@@ -572,14 +573,20 @@ public class Disposals extends javax.swing.JPanel {
 
                 } else {
 
-                    if (Session.getLoggedInUser().getRole().equals("Administrator")) {
-                        editBtn.setEnabled(true);
-
-                        deleteBtn.setEnabled(true);
+                    try {
+                        if (Session.getLoggedInUser().getRole().equals("Administrator")) {
+                            editBtn.setEnabled(true);
+                            
+                            deleteBtn.setEnabled(true);
+                        }
+                        selectedDisposal =  Disposal.find((int) table.getValueAt(table.getSelectedRow(),1));
+                        
+                        System.out.println(DisposalsTableSelectionModel.getMaxSelectionIndex() + " from " + disposals.length);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Disposals.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Disposals.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    selectedDisposal = disposals[DisposalsTableSelectionModel.getMaxSelectionIndex()];
-
-                    System.out.println(DisposalsTableSelectionModel.getMaxSelectionIndex() + " from " + disposals.length);
 
                 }
             }

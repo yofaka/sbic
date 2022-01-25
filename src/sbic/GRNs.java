@@ -626,27 +626,28 @@ public class GRNs extends javax.swing.JPanel {
 
         deleteBtn.setEnabled(false);
 
-        String tableColumns[] = {"No", "GRN Number", "Date", "Supplier Name", "Supplier Telephone", "Supplier TIN", "User", "Item", "Received Quantity", "Unit Cost", "Total Cost"};
+        String tableColumns[] = {"No", "Serial", "GRN Number", "Date", "Supplier Name", "Supplier Telephone", "Supplier TIN", "User", "Item", "Received Quantity", "Unit Cost", "Total Cost"};
 
          grns = GRN.findAll();
 
-        Object tableDataRows[][] = new Object[grns.length][11];
+        Object tableDataRows[][] = new Object[grns.length][12];
 
         int numberOfRows = 0;
 
         for (GRN grn : grns) {
 
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
-            tableDataRows[numberOfRows][1] = grn.getGRNNumber();
-            tableDataRows[numberOfRows][2] = grn.getDate();
-            tableDataRows[numberOfRows][3] = grn.getSupplierName();
-            tableDataRows[numberOfRows][4] = grn.getSupplierTelephone();
-            tableDataRows[numberOfRows][5] = grn.getSupplierTIN();
-            tableDataRows[numberOfRows][6] = grn.getUser().getUserName();
-            tableDataRows[numberOfRows][7] = grn.getItem().getName();
-            tableDataRows[numberOfRows][8] = grn.getReceivedQuantity();
-            tableDataRows[numberOfRows][9] = grn.getUnitCost();
-            tableDataRows[numberOfRows][10] = grn.getTotalCost();
+            tableDataRows[numberOfRows][1] = grn.getId();
+            tableDataRows[numberOfRows][2] = grn.getGRNNumber();
+            tableDataRows[numberOfRows][3] = grn.getDate();
+            tableDataRows[numberOfRows][4] = grn.getSupplierName();
+            tableDataRows[numberOfRows][5] = grn.getSupplierTelephone();
+            tableDataRows[numberOfRows][6] = grn.getSupplierTIN();
+            tableDataRows[numberOfRows][7] = grn.getUser().getUserName();
+            tableDataRows[numberOfRows][8] = grn.getItem().getName();
+            tableDataRows[numberOfRows][9] = grn.getReceivedQuantity();
+            tableDataRows[numberOfRows][10] = grn.getUnitCost();
+            tableDataRows[numberOfRows][11] = grn.getTotalCost();
 
             numberOfRows++;
         }
@@ -679,17 +680,22 @@ public class GRNs extends javax.swing.JPanel {
 
                 } else {
 
-                    System.out.println("Some GRN selected");
-
-                    if (Session.getLoggedInUser().getRole().equals("Administrator")) {
-                        System.out.println("Some GRN selected -> by admin");
-                        editBtn.setEnabled(true);
-
-                        deleteBtn.setEnabled(true);
+                    try {
+                        System.out.println("Some GRN selected");
+                        
+                        if (Session.getLoggedInUser().getRole().equals("Administrator")) {
+                            System.out.println("Some GRN selected -> by admin");
+                            editBtn.setEnabled(true);
+                            
+                            deleteBtn.setEnabled(true);
+                        }
+                        
+                        selectedGRN = GRN.find((int) table.getValueAt(table.getSelectedRow(),1));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(GRNs.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    selectedGRN = grns[GRNsTableSelectionModel.getMaxSelectionIndex()];
 
-                    System.out.println(GRNsTableSelectionModel.getMaxSelectionIndex() + " from " + grns.length);
+                   
 
                 }
             }
