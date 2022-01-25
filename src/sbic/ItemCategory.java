@@ -11,10 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Yoftahe
- */
+
 public class ItemCategory {
 
     private int id;

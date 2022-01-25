@@ -11,10 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 
-/**
- *
- * @author Yoftahe
- */
+
 public class User {
 
     private int id;

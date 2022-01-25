@@ -13,10 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Yoftahe
- */
+
 public class GRN {
 
     private int id;

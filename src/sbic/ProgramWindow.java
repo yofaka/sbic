@@ -30,10 +30,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Yoftahe
- */
+
 public class ProgramWindow {
 
     final static String THEME_CONFIG_FILE_NAME = "config/themeconfig";

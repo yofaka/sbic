@@ -10,10 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JComboBox;
 
-/**
- *
- * @author Yoftahe
- */
+
 public class DateFieldHelper {
 
 

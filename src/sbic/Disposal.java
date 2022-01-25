@@ -12,10 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author Yoftahe
- */
 public class Disposal {
 
     private int id;

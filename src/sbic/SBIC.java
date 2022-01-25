@@ -12,10 +12,7 @@ import java.text.ParseException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Yoftahe
- */
+
 public class SBIC {
 
     /**

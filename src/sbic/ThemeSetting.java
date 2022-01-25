@@ -11,10 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Yoftahe
- */
+
 public class ThemeSetting extends javax.swing.JPanel {
 
     /**

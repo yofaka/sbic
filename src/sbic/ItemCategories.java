@@ -18,10 +18,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import static sbic.ItemCategories.tableRowSorter;
 
-/**
- *
- * @author Yoftahe
- */
+
 public class ItemCategories extends javax.swing.JPanel {
 
     static TableRowSorter tableRowSorter;

@@ -8,10 +8,7 @@ package sbic;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Yoftahe
- */
+
 public class Validator {
 
     static boolean isNumber(JTextField textField) {

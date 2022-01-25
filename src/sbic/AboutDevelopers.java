@@ -5,10 +5,7 @@
  */
 package sbic;
 
-/**
- *
- * @author Yoftahe
- */
+
 public class AboutDevelopers extends javax.swing.JFrame {
 
     /**

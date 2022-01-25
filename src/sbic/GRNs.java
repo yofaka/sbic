@@ -19,10 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author Yoftahe
- */
+
 public class GRNs extends javax.swing.JPanel {
 
     static TableRowSorter tableRowSorter;

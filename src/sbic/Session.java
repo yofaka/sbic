@@ -10,10 +10,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Mebrea
- */
+
 public class Session {
 
     private static boolean loggedIn;

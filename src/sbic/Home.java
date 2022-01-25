@@ -5,7 +5,6 @@
  */
 package sbic;
 
-import java.awt.Color;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -16,10 +15,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import static sbic.Items.tableRowSorter;
 
-/**
- *
- * @author YofA
- */
+
 public class Home extends javax.swing.JPanel {
 
     /**
@@ -452,7 +448,7 @@ public class Home extends javax.swing.JPanel {
 
         belowMinStockItemsTable.setRowSorter(tableRowSorter);
         
-         homeTab.setTitleAt(4, "Below Inventory Level Items (" + items.length + ")");
+        homeTab.setTitleAt(4, "Below Inventory Level Items (" + items.length + ")");
 
     }
 }
