@@ -394,11 +394,11 @@ public class ItemCategories extends javax.swing.JPanel {
 
         deleteItemCategoryBtn.setEnabled(false);
 
-        String tableColumns[] = {"No", "Name", "Description"};
+        String tableColumns[] = {"No", "Name", "Description", "id"};
 
          itemCategories = ItemCategory.findAll();
 
-        Object tableDataRows[][] = new Object[itemCategories.length][3];
+        Object tableDataRows[][] = new Object[itemCategories.length][4];
 
         int numberOfRows = 0;
 
@@ -407,7 +407,7 @@ public class ItemCategories extends javax.swing.JPanel {
             tableDataRows[numberOfRows][0] = (numberOfRows+1);
             tableDataRows[numberOfRows][1] = itemCategory.getName();
             tableDataRows[numberOfRows][2] = itemCategory.getDescription();
-            //tableDataRows[numberOfRows][3] = (Object) new JButton("Edit");
+            tableDataRows[numberOfRows][3] = itemCategory.getId();
             numberOfRows++;
         }
 
@@ -419,8 +419,10 @@ public class ItemCategories extends javax.swing.JPanel {
             }
         };
 
+        
         itemCategoriesTable.setModel(itemCategoriesTableModel);
 
+        
         ListSelectionModel itemCategoriesTableSelectionModel = itemCategoriesTable.getSelectionModel();
 
         tableRowSorter = new TableRowSorter(itemCategoriesTable.getModel());
@@ -445,13 +447,16 @@ public class ItemCategories extends javax.swing.JPanel {
                     deleteItemCategoryBtn.setEnabled(true);
                     
                 }
+                
+                    System.out.println(itemCategoriesTable.getValueAt(itemCategoriesTable.getSelectedRow(),3));
+                    System.out.println("selected row : "+itemCategoriesTable.getSelectedRow()+"max index :"+itemCategoriesTableSelectionModel.getMaxSelectionIndex());
                     selectedItemCategory = itemCategories[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
                 }
             }
         });
         
 
-        
+            itemCategoriesTable.getColumnModel().removeColumn(itemCategoriesTable.getColumnModel().getColumn(3));
     }
 
     void clearItemCategoryForm() {
