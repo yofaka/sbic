@@ -433,7 +433,7 @@ public class ItemCategories extends javax.swing.JPanel {
         itemCategoriesTableSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         
-        
+        //itemCategoriesTable.add
         itemCategoriesTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
