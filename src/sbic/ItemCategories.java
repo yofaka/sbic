@@ -394,7 +394,7 @@ public class ItemCategories extends javax.swing.JPanel {
 
         deleteItemCategoryBtn.setEnabled(false);
 
-        String tableColumns[] = {"No", "Name", "Description", "id"};
+        String tableColumns[] = {"No", "Serial", "Name", "Description"};
 
          itemCategories = ItemCategory.findAll();
 
@@ -405,9 +405,10 @@ public class ItemCategories extends javax.swing.JPanel {
         for (ItemCategory itemCategory : itemCategories) {
 
             tableDataRows[numberOfRows][0] = (numberOfRows+1);
-            tableDataRows[numberOfRows][1] = itemCategory.getName();
-            tableDataRows[numberOfRows][2] = itemCategory.getDescription();
-            tableDataRows[numberOfRows][3] = itemCategory.getId();
+            tableDataRows[numberOfRows][1] = itemCategory.getId();
+            tableDataRows[numberOfRows][2] = itemCategory.getName();
+            tableDataRows[numberOfRows][3] = itemCategory.getDescription();
+           
             numberOfRows++;
         }
 
@@ -429,6 +430,10 @@ public class ItemCategories extends javax.swing.JPanel {
 
         itemCategoriesTable.setRowSorter(tableRowSorter);
         
+        itemCategoriesTableSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        
+        
         itemCategoriesTableSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -441,22 +446,21 @@ public class ItemCategories extends javax.swing.JPanel {
 
                 } else {
 
-                if(Session.getLoggedInUser().getRole().equals("Administrator") )  {  
-                    editItemCategoryBtn.setEnabled(true);
-
-                    deleteItemCategoryBtn.setEnabled(true);
+                    if(Session.getLoggedInUser().getRole().equals("Administrator") )  {
+                        editItemCategoryBtn.setEnabled(true);
+                        
+                        deleteItemCategoryBtn.setEnabled(true);
+                        
+                    }
                     
-                }
-                
-                    System.out.println(itemCategoriesTable.getValueAt(itemCategoriesTable.getSelectedRow(),3));
-                    System.out.println("selected row : "+itemCategoriesTable.getSelectedRow()+"max index :"+itemCategoriesTableSelectionModel.getMaxSelectionIndex());
-                    selectedItemCategory = itemCategories[itemCategoriesTableSelectionModel.getMaxSelectionIndex()];
+                    //   selectedItemCategory = ItemCategory.find((int) itemCategoriesTable.getValueAt(itemCategoriesTable.getSelectedRow(),3));
                 }
             }
         });
         
 
-            itemCategoriesTable.getColumnModel().removeColumn(itemCategoriesTable.getColumnModel().getColumn(3));
+            itemCategoriesTable.getColumnModel().setColumnSelectionAllowed(false);
+            itemCategoriesTable.setCellSelectionEnabled(false);
     }
 
     void clearItemCategoryForm() {
