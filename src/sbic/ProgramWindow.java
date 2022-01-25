@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,13 +45,13 @@ public class ProgramWindow {
     static JLabel userInfo;
     static JButton logoutButton;
 
-    static JPanel homePanel;
-    static JPanel usersPanel;
-    static JPanel disposalPanel;
-    static JPanel salesPanel;
-    static JPanel grnsPanel;
-    static JPanel itemsPanel;
-    static JPanel itemCategoriesPanel;
+    static Home homePanel;
+    static Users usersPanel;
+    static Disposals disposalsPanel;
+    static Sales salesPanel;
+    static GRNs grnsPanel;
+    static Items itemsPanel;
+    static ItemCategories itemCategoriesPanel;
     static JPanel themeSetting;
     static JPanel databaseSetting;
 
@@ -171,7 +173,7 @@ public class ProgramWindow {
 
         salesPanel = new Sales();
 
-        disposalPanel = new Disposals();
+        disposalsPanel = new Disposals();
 
         usersPanel = new Users();
 
@@ -187,7 +189,7 @@ public class ProgramWindow {
             mainTab.addTab("Items", itemsPanel);
             mainTab.addTab("GRN", grnsPanel);
             mainTab.addTab("Sales", salesPanel);
-            mainTab.addTab("Disposal", disposalPanel);
+            mainTab.addTab("Disposal", disposalsPanel);
             mainTab.addTab("Users", usersPanel);
             mainTab.addTab("Theme Settings", themeSetting);
             mainTab.addTab("Database Settings", databaseSetting);
@@ -198,12 +200,58 @@ public class ProgramWindow {
             mainTab.addTab("Items", itemsPanel);
             mainTab.addTab("GRN", grnsPanel);
             mainTab.addTab("Sales", salesPanel);
-            mainTab.addTab("Disposal", disposalPanel);
+            mainTab.addTab("Disposal", disposalsPanel);
             // mainTab.addTab("Users", usersPanel);
             mainTab.addTab("Theme Settings", themeSetting);
             mainTab.addTab("Database Settings", databaseSetting);
 
         }
+       
+        
+        mainTab.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+                try {
+                    homePanel.loadHomeTables();
+                    itemCategoriesPanel.loadItemCategories();
+                    itemsPanel.loadData();
+                    grnsPanel.loadData();
+                    salesPanel.loadData();
+                    disposalsPanel.loadData();
+                    usersPanel.loadData();
+                    
+                    //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ProgramWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+          //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+          //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+          //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+          //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        
+        
+        
         centerPanel = new JPanel();
         //centerPanel.add(mainTab);
 
