@@ -23,7 +23,7 @@ public class SBIC {
 
         if (DBConnection.connect()) {
             ProgramWindow.startWindow();
-            Session.logUserIn(User.find(1));
+           // Session.logUserIn(User.find(1));
         } else {
             
             ProgramWindow.DBConfigWindow = new JFrame("Database Configuration Window");

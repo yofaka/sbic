@@ -71,7 +71,7 @@ public class AboutDevelopers extends javax.swing.JFrame {
                 {"Class", "MSCS B4-A"},
                 {"Course", "Modern Programming Practices In Java (MSCS501)"},
                 {"Submitted To", "Dr. Abebe Assefa"},
-                {"Submission Date", null}
+                {"Submission Date", "26/01/2022"}
             },
             new String [] {
                 "-", "-"
