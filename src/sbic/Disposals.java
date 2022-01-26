@@ -534,7 +534,7 @@ public class Disposals extends javax.swing.JPanel {
         for (Disposal disposal : disposals) {
 
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
-            tableDataRows[numberOfRows][1] = disposal.getDisposalNumber();
+            tableDataRows[numberOfRows][1] = disposal.getId();
             tableDataRows[numberOfRows][2] = disposal.getDisposalNumber();
             tableDataRows[numberOfRows][3] = disposal.getDate();
             tableDataRows[numberOfRows][4] = disposal.getDescription();
