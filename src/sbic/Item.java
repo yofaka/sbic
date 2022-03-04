@@ -16,7 +16,7 @@ public class Item {
     private String code;
     private String name;
     private ItemCategory itemCategory;
-    private String uom;
+    private ItemUnit[] uom;
     private double unitPrice;
     private double quantityAtHand;
     private double minStockLevel;
@@ -30,7 +30,7 @@ public class Item {
         this.isNew = true;
     }
 
-    Item(String code, String name, ItemCategory itemCategory, String uom, double unitPrice, double quantityAtHand, double minStockLevel, String description) {
+    Item(String code, String name, ItemCategory itemCategory, ItemUnit[] uom, double unitPrice, double quantityAtHand, double minStockLevel, String description) {
 
         this.code = code;
         this.name = name;
@@ -44,7 +44,7 @@ public class Item {
         this.isNew = true;
     }
 
-    Item(int id, String code, String name, ItemCategory itemCategory, String uom, double unitPrice, double quantityAtHand, double minStockLevel, String description) {
+    Item(int id, String code, String name, ItemCategory itemCategory, ItemUnit[] uom, double unitPrice, double quantityAtHand, double minStockLevel, String description) {
 
         this.id = id;
         this.code = code;
@@ -75,7 +75,7 @@ public class Item {
         return itemCategory;
     }
 
-    public String getUom() {
+    public ItemUnit[] getUom() {
         return uom;
     }
 
@@ -115,7 +115,7 @@ public class Item {
         this.itemCategory = itemCategory;
     }
 
-    public void setUom(String uom) {
+    public void setUom(ItemUnit[] uom) {
         this.uom = uom;
     }
 
@@ -150,7 +150,7 @@ public class Item {
 
         while (results.next()) {
 
-            foundItems[rowCounter] = new Item(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3), ItemCategory.find(Integer.valueOf(results.getString(4))), results.getString(5), Double.parseDouble(results.getString(6)), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), results.getString(9));
+            foundItems[rowCounter] = new Item(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3), ItemCategory.find(Integer.valueOf(results.getString(4))), ItemUnit.findUnitsForItem(Item.find(Integer.valueOf(results.getString(5)))), Double.parseDouble(results.getString(6)), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), results.getString(9));
 
             rowCounter++;
         }
@@ -175,7 +175,7 @@ public class Item {
 
         while (results.next()) {
 
-            foundItems[rowCounter] = new Item(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3), ItemCategory.find(Integer.valueOf(results.getString(4))), results.getString(5), Double.parseDouble(results.getString(6)), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), results.getString(9));
+            foundItems[rowCounter] = new Item(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3), ItemCategory.find(Integer.valueOf(results.getString(4))), ItemUnit.findUnitsForItem(Item.find(Integer.valueOf(results.getString(5)))), Double.parseDouble(results.getString(6)), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), results.getString(9));
 
             rowCounter++;
         }
@@ -199,7 +199,7 @@ public class Item {
 
         while (results.next()) {
 
-            foundItems[rowCounter] = new Item(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3), ItemCategory.find(Integer.valueOf(results.getString(4))), results.getString(5), Double.parseDouble(results.getString(6)), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), results.getString(9));
+            foundItems[rowCounter] = new Item(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3), ItemCategory.find(Integer.valueOf(results.getString(4))), ItemUnit.findUnitsForItem(Item.find(Integer.valueOf(results.getString(5)))), Double.parseDouble(results.getString(6)), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), results.getString(9));
 
             rowCounter++;
         }
@@ -215,7 +215,7 @@ public class Item {
 
         results.next();
 
-        Item foundItem = new Item(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3), ItemCategory.find(Integer.valueOf(results.getString(4))), results.getString(5), Double.parseDouble(results.getString(6)), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), results.getString(9));
+        Item foundItem = new Item(Integer.valueOf(results.getString(1)), results.getString(2), results.getString(3), ItemCategory.find(Integer.valueOf(results.getString(4))), ItemUnit.findUnitsForItem(Item.find(Integer.valueOf(results.getString(5)))), Double.parseDouble(results.getString(6)), Double.parseDouble(results.getString(7)), Double.parseDouble(results.getString(8)), results.getString(9));
 
         return foundItem;
     }
