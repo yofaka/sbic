@@ -12,47 +12,53 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Disposal {
+/**
+ *
+ * @author Yoftahe
+ */
+public class Transfer {
 
     private int id;
-    private String disposalNumber;
+    private String transferNumber;
     private Date date;
+    private Location fromLocation;
+    private Location toLocation;
     private String description;
     private User user;
     private Item item;
-    private double disposedQuantity;
-    
-    final static String TABLE_NAME = "disposals";
+    private double transferedQuantity;
+
+    final static String TABLE_NAME = "transfers";
     private boolean isNew;
 
-    Disposal() {
+    Transfer() {
 
         this.isNew = true;
     }
 
-    Disposal(String disposalNumber, Date date, String description, User user, Item item, double disposedQuantity){
-    
-        this.disposalNumber = disposalNumber;
+    Transfer(String transferNumber, Date date, Location fromLocation, Location toLocation, String description, User user, Item item, double transferedQuantity) {
+
+        this.transferNumber = transferNumber;
         this.date = date;
         this.description = description;
         this.user = user;
         this.item = item;
-        this.disposedQuantity = disposedQuantity;
-    
+        this.transferedQuantity = transferedQuantity;
+
         this.isNew = true;
     }
-    
-        Disposal(int id, String disposalNumber, Date date, String description, User user, Item item, double disposedQuantity){
-    
+
+    Transfer(int id, String transferNumber, Date date, Location fromLocation, Location toLocation, String description, User user, Item item, double transferedQuantity) {
+
         this.id = id;
-        
-        this.disposalNumber = disposalNumber;
+
+        this.transferNumber = transferNumber;
         this.date = date;
         this.description = description;
         this.user = user;
         this.item = item;
-        this.disposedQuantity = disposedQuantity;
-    
+        this.transferedQuantity = transferedQuantity;
+
         this.isNew = false;
     }
 
@@ -64,12 +70,12 @@ public class Disposal {
         this.id = id;
     }
 
-    public String getDisposalNumber() {
-        return disposalNumber;
+    public String getTransferNumber() {
+        return transferNumber;
     }
 
-    public void setDisposalNumber(String disposalNumber) {
-        this.disposalNumber = disposalNumber;
+    public void setTransferNumber(String transferNumber) {
+        this.transferNumber = transferNumber;
     }
 
     public Date getDate() {
@@ -105,11 +111,11 @@ public class Disposal {
     }
 
     public double getDisposedQuantity() {
-        return disposedQuantity;
+        return transferedQuantity;
     }
 
-    public void setDisposedQuantity(double disposedQuantity) {
-        this.disposedQuantity = disposedQuantity;
+    public void setDisposedQuantity(double transferedQuantity) {
+        this.transferedQuantity = transferedQuantity;
     }
 
     public boolean isIsNew() {
@@ -119,12 +125,10 @@ public class Disposal {
     public void setIsNew(boolean isNew) {
         this.isNew = isNew;
     }
-        
-    
 
     boolean canDispose() throws SQLException {
 
-        if (Item.find(this.item.getId()).getQuantityAtHand() >= disposedQuantity) {
+        if (Item.find(this.item.getId()).getQuantityAtHand() >= transferedQuantity) {
             return true;
         } else {
             return false;
@@ -140,14 +144,14 @@ public class Disposal {
         if (this.isNew) {
             ArrayList dataToInsert = new ArrayList();
             dataToInsert.add("null");
-            dataToInsert.add(this.disposalNumber);
+            dataToInsert.add(this.transferNumber);
             dataToInsert.add(simpleDateFormat.format(this.date));
             dataToInsert.add(this.getDescription());
             dataToInsert.add(Session.getLoggedInUser().getId());
             dataToInsert.add(this.getItem().getId());
             dataToInsert.add(this.getDisposedQuantity());
 
-            this.getItem().setQuantityAtHand((this.getItem().getQuantityAtHand() - this.disposedQuantity)); // update quantity and save wih new Disposal
+            this.getItem().setQuantityAtHand((this.getItem().getQuantityAtHand() - this.transferedQuantity)); // update quantity and save wih new Transfer
 
             if (canDispose()) {
                 if (DBConnection.insert(TABLE_NAME, dataToInsert) == 1 && this.getItem().save()) {
@@ -161,22 +165,20 @@ public class Disposal {
 
         } else {
             ArrayList columnNames = new ArrayList();
-            //columnNames.add("DisposalNumber");
+            //columnNames.add("TransferNumber");
             //columnNames.add("date");
             columnNames.add("description");
             //columnNames.add("userId");
             //columnNames.add("itemId");
-            //columnNames.add("disposedQuantity");
-         
+            //columnNames.add("transferedQuantity");
 
             ArrayList columnValues = new ArrayList();
-            //coulumnValues.add(this.disposalNumber);
+            //coulumnValues.add(this.transferNumber);
             //columnValues.add(simpleDateFormat.format(this.date));
             columnValues.add(this.getDescription());
             //columnValues.add(Session.getLoggedInUser().getId());
             //columnValues.add(this.getItem().getId());
             //columnValues.add(this.getDisposedQuantity());
-          
 
             if (DBConnection.update(TABLE_NAME, columnNames, columnValues, "id = " + this.id + "") == 1) {
                 return true;
@@ -186,60 +188,59 @@ public class Disposal {
         }
     }
 
-    static Disposal find(int id) throws SQLException, ParseException {
+    static Transfer find(int id) throws SQLException, ParseException {
 
-        ResultSet results = DBConnection.select(TABLE_NAME, "id, disposalNumber, date, description, userId, itemId, disposedQuantity", "id = "+id+"  Order By id");
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, transferNumber, date, description, userId, itemId, transferedQuantity", "id = " + id + "  Order By id");
         results.next();
 
-        Disposal foundDisposal = new Disposal(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)));
-        return foundDisposal;
+        Transfer foundTransfer = new Transfer();//Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), Location.find(Integer.valueOf(results.getString(4)), Location.find(Integer.valueOf(results.getString(4)), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)));
+        return foundTransfer;
     }
 
-    static Disposal[] findAll() throws SQLException, ParseException {
+    static Transfer[] findAll() throws SQLException, ParseException {
 
         ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "1=1");
 
-        ResultSet results = DBConnection.select(TABLE_NAME, "id, disposalNumber, date, description, userId, itemId, disposedQuantity", "1=1  Order By id");
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, transferNumber, date, description, userId, itemId, transferedQuantity", "1=1  Order By id");
 
         resultsCounter.next();
         int rowCount = resultsCounter.getInt("rowCount");
 
-        Disposal[] foundDisposals = new Disposal[rowCount];
+        Transfer[] foundTransfers = new Transfer[rowCount];
 
         int rowCounter = 0;
 
         while (results.next()) {
 
-            foundDisposals[rowCounter] = new Disposal(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)));
+            foundTransfers[rowCounter] = new Transfer();//Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)));
 
             rowCounter++;
         }
 
-        return foundDisposals;
+        return foundTransfers;
     }
 
-    
-        static Disposal[] findAllToday() throws SQLException, ParseException {
+    static Transfer[] findAllToday() throws SQLException, ParseException {
 
         ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "date = CURDATE()");
 
-        ResultSet results = DBConnection.select(TABLE_NAME, "id, disposalNumber, date, description, userId, itemId, disposedQuantity", "date = CURDATE()  Order By id");
+        ResultSet results = DBConnection.select(TABLE_NAME, "id, transferNumber, date, description, userId, itemId, transferedQuantity", "date = CURDATE()  Order By id");
 
         resultsCounter.next();
         int rowCount = resultsCounter.getInt("rowCount");
 
-        Disposal[] foundDisposals = new Disposal[rowCount];
+        Transfer[] foundTransfers = new Transfer[rowCount];
 
         int rowCounter = 0;
 
         while (results.next()) {
 
-            foundDisposals[rowCounter] = new Disposal(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)));
+            foundTransfers[rowCounter] = new Transfer();//Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), User.find(Integer.valueOf(results.getString(5))), Item.find(Integer.valueOf(results.getString(6))), Double.parseDouble(results.getString(7)));
 
             rowCounter++;
         }
 
-        return foundDisposals;
+        return foundTransfers;
     }
 
     boolean canDelete() {
@@ -252,7 +253,7 @@ public class Disposal {
 
         if (canDelete()) {
 
-            double newQuantity = this.getItem().getQuantityAtHand() + this.disposedQuantity;
+            double newQuantity = this.getItem().getQuantityAtHand() + this.transferedQuantity;
             this.getItem().setQuantityAtHand(newQuantity);
 
             if (DBConnection.delete(TABLE_NAME, "id = " + this.id) == 1 && this.getItem().save()) {
@@ -267,14 +268,14 @@ public class Disposal {
 
     }
 
-    static boolean disposalNumberExists(String disposalNumber, String Except) throws SQLException {
+    static boolean transferNumberExists(String transferNumber, String Except) throws SQLException {
 
-        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "disposalNumber ='" + disposalNumber + "'");
+        ResultSet resultsCounter = DBConnection.select(TABLE_NAME, "count(id) as rowCount", "transferNumber ='" + transferNumber + "'");
         resultsCounter.next();
         int rowCount = resultsCounter.getInt("rowCount");
         if (rowCount > 0) {
 
-            if (Except.equals(disposalNumber)) {
+            if (Except.equals(transferNumber)) {
                 return false;
             } else {
                 return true;
@@ -284,6 +285,6 @@ public class Disposal {
             return false;
         }
 
-    }    
-        
+    }
+
 }

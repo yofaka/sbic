@@ -10,7 +10,7 @@ package sbic;
  * @author Yoftahe
  */
 public class ItemLocation {
- 
+
     private int id;
     private Item item;
     private Location location;
@@ -29,7 +29,7 @@ public class ItemLocation {
         this.item = item;
         this.location = location;
         this.quantity = quantity;
-        
+
         this.isNew = true;
 
     }
@@ -40,10 +40,7 @@ public class ItemLocation {
         this.item = item;
         this.location = location;
         this.quantity = quantity;
-        
 
-    
-      
         this.isNew = false;
 
     }
@@ -87,8 +84,8 @@ public class ItemLocation {
     public void setIsNew(boolean isNew) {
         this.isNew = isNew;
     }
-    
-      public static ItemLocation find(int id) {
+
+    public static ItemLocation find(int id) {
 
         return new ItemLocation();
     }
@@ -99,8 +96,6 @@ public class ItemLocation {
         return itemLocation;
     }
 
-      
-    
     public boolean save() {
         return false;
     }
@@ -115,6 +110,6 @@ public class ItemLocation {
 
     public boolean nameExists(String name, String except) {
         return false;
-    }    
+    }
 
 }

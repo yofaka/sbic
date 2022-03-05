@@ -369,7 +369,7 @@ public class GRNs extends javax.swing.JPanel {
                 } else {
 
                     setTotalCost();
-                    GRN newGRN = new GRN(grnNumberField.getText(), (Date) dateField.getValue(), supplierNameField.getText(), supplierTelephoneNumberField.getText(), supplierTINNumberField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) receivedQuantityField.getValue(), (double) unitCostField.getValue(), (double) totalCostField.getValue());
+                   GRN newGRN = new GRN();//grnNumberField.getText(), (Date) dateField.getValue(), supplierNameField.getText(), supplierTelephoneNumberField.getText(), supplierTINNumberField.getText(), Session.getLoggedInUser(), listedItems[itemField.getSelectedIndex()], (double) receivedQuantityField.getValue(), (double) unitCostField.getValue(), (double) totalCostField.getValue());
 
                     if (newGRN.save()) {
 
@@ -445,9 +445,9 @@ public class GRNs extends javax.swing.JPanel {
                     setTotalCost();
                     selectedGRN.setGRNNumber(grnNumberField.getText());
                     selectedGRN.setDate((Date) dateField.getValue());
-                    selectedGRN.setSupplierName(supplierNameField.getText());
-                    selectedGRN.setSupplierTelephone(supplierTelephoneNumberField.getText());
-                    selectedGRN.setSupplierTIN(supplierTINNumberField.getText());
+//                    selectedGRN.setSupplierName(supplierNameField.getText());
+ //                   selectedGRN.setSupplierTelephone(supplierTelephoneNumberField.getText());
+ //                   selectedGRN.setSupplierTIN(supplierTINNumberField.getText());
                     selectedGRN.setItem(listedItems[itemField.getSelectedIndex()]);
                     selectedGRN.setReceivedQuantity((double) receivedQuantityField.getValue());
                     selectedGRN.setUnitCost((double) unitCostField.getValue());
@@ -504,13 +504,13 @@ public class GRNs extends javax.swing.JPanel {
 
             grnNumberField.setText(selectedGRN.getGRNNumber());
             dateField.setValue(selectedGRN.getDate());
-            supplierNameField.setText(selectedGRN.getSupplierName());
-            supplierTelephoneNumberField.setText(selectedGRN.getSupplierTelephone());
-            supplierTINNumberField.setText(selectedGRN.getSupplierTIN());
+//            supplierNameField.setText(selectedGRN.getSupplierName());
+ //           supplierTelephoneNumberField.setText(selectedGRN.getSupplierTelephone());
+ //           supplierTINNumberField.setText(selectedGRN.getSupplierTIN());
 
             itemField.setSelectedItem(selectedGRN.getItem().getName());
 
-            supplierTINNumberField.setText(selectedGRN.getSupplierTIN());
+    //        supplierTINNumberField.setText(selectedGRN.getSupplierTIN());
 
             receivedQuantityField.setValue(selectedGRN.getReceivedQuantity());
             unitCostField.setValue(selectedGRN.getUnitCost());
@@ -640,9 +640,9 @@ public class GRNs extends javax.swing.JPanel {
             tableDataRows[numberOfRows][1] = grn.getId();
             tableDataRows[numberOfRows][2] = grn.getGRNNumber();
             tableDataRows[numberOfRows][3] = grn.getDate();
-            tableDataRows[numberOfRows][4] = grn.getSupplierName();
-            tableDataRows[numberOfRows][5] = grn.getSupplierTelephone();
-            tableDataRows[numberOfRows][6] = grn.getSupplierTIN();
+//            tableDataRows[numberOfRows][4] = grn.getSupplierName();
+//            tableDataRows[numberOfRows][5] = grn.getSupplierTelephone();
+ //           tableDataRows[numberOfRows][6] = grn.getSupplierTIN();
             tableDataRows[numberOfRows][7] = grn.getUser().getUserName();
             tableDataRows[numberOfRows][8] = grn.getItem().getName();
             tableDataRows[numberOfRows][9] = grn.getReceivedQuantity();

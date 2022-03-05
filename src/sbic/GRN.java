@@ -19,9 +19,7 @@ public class GRN {
     private int id;
     private String GRNNumber;
     private Date date;
-    private String supplierName;
-    private String supplierTelephone;
-    private String supplierTIN;
+    private Supplier supplier;
     private User user;
     private Item item;
     private double receivedQuantity;
@@ -37,13 +35,11 @@ public class GRN {
 
     }
 
-    GRN(String GRNNumber, Date date, String supplierName, String supplierTelephone, String supplierTIN, User user, Item item, double receivedQuantity, double unitCost, double totalCost) {
+    GRN(String GRNNumber, Date date, Supplier supplier, User user, Item item, double receivedQuantity, double unitCost, double totalCost) {
 
         this.GRNNumber = GRNNumber;
         this.date = date;
-        this.supplierName = supplierName;
-        this.supplierTelephone = supplierTelephone;
-        this.supplierTIN = supplierTIN;
+        this.supplier = supplier;
         this.user = user;
         this.item = item;
         this.receivedQuantity = receivedQuantity;
@@ -54,14 +50,12 @@ public class GRN {
 
     }
 
-    GRN(int id, String GRNNumber, Date date, String supplierName, String supplierTelephone, String supplierTIN, User user, Item item, double receivedQuantity, double unitCost, double totalCost) {
+    GRN(int id, String GRNNumber, Date date, Supplier supplier, User user, Item item, double receivedQuantity, double unitCost, double totalCost) {
 
         this.id = id;
         this.GRNNumber = GRNNumber;
         this.date = date;
-        this.supplierName = supplierName;
-        this.supplierTelephone = supplierTelephone;
-        this.supplierTIN = supplierTIN;
+        this.supplier = supplier;
         this.user = user;
         this.item = item;
         this.receivedQuantity = receivedQuantity;
@@ -92,29 +86,15 @@ public class GRN {
         this.date = date;
     }
 
-    public String getSupplierName() {
-        return supplierName;
+    public Supplier getSupplier() {
+        return supplier;
     }
 
-    public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName;
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
-    public String getSupplierTelephone() {
-        return supplierTelephone;
-    }
-
-    public void setSupplierTelephone(String supplierTelephone) {
-        this.supplierTelephone = supplierTelephone;
-    }
-
-    public String getSupplierTIN() {
-        return supplierTIN;
-    }
-
-    public void setSupplierTIN(String supplierTIN) {
-        this.supplierTIN = supplierTIN;
-    }
+   
 
     public User getUser() {
         return user;
@@ -174,9 +154,8 @@ public class GRN {
             dataToInsert.add("null");
             dataToInsert.add(this.GRNNumber);
             dataToInsert.add(simpleDateFormat.format(this.date));
-            dataToInsert.add(this.getSupplierName());
-            dataToInsert.add(this.getSupplierTelephone());
-            dataToInsert.add(this.getSupplierTIN());
+            dataToInsert.add(this.supplier.getId());
+            
             dataToInsert.add(Session.getLoggedInUser().getId());
             dataToInsert.add(this.getItem().getId());
             dataToInsert.add(this.getReceivedQuantity());
@@ -208,9 +187,7 @@ public class GRN {
             ArrayList columnValues = new ArrayList();
             //columnValues.add(this.GRNNumber);
             //columnValues.add(simpleDateFormat.format(this.date));
-            columnValues.add(this.getSupplierName());
-            columnValues.add(this.getSupplierTelephone());
-            columnValues.add(this.getSupplierTIN());
+            columnValues.add(this.supplier.getId());
             //columnValues.add(this.getUser().getId());
             //columnValues.add(this.getItem().getId());
             //columnValues.add(this.getReceivedQuantity());
@@ -236,7 +213,7 @@ public class GRN {
 
         results.next();
 
-        GRN foundGRN = new GRN(Integer.valueOf(results.getString(1)), results.getString(2), new Date(), results.getString(4), results.getString(5), results.getString(6), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
+        GRN foundGRN = new GRN(Integer.valueOf(results.getString(1)), results.getString(2), new Date(), Supplier.find(Integer.valueOf(results.getString(4))), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
 
         return foundGRN;
 
@@ -257,7 +234,7 @@ public class GRN {
 
         while (results.next()) {
 
-            foundGRNs[rowCounter] = new GRN(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), results.getString(5), results.getString(6), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
+       //     foundGRNs[rowCounter] = new GRN(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), results.getString(5), results.getString(6), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
 
             rowCounter++;
         }
@@ -281,7 +258,7 @@ public class GRN {
 
         while (results.next()) {
 
-            foundGRNs[rowCounter] = new GRN(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), results.getString(5), results.getString(6), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
+       //     foundGRNs[rowCounter] = new GRN(Integer.valueOf(results.getString(1)), results.getString(2), DateFieldHelper.strToDate(results.getString(3), "yyyy-mm-dd"), results.getString(4), results.getString(5), results.getString(6), User.find(Integer.valueOf(results.getString(7))), Item.find(Integer.valueOf(results.getString(8))), Double.parseDouble(results.getString(9)), Double.parseDouble(results.getString(10)), Double.parseDouble(results.getString(11)));
 
             rowCounter++;
         }

@@ -311,9 +311,9 @@ public class Home extends javax.swing.JPanel {
             tableDataRows[numberOfRows][0] = (numberOfRows + 1);
             tableDataRows[numberOfRows][1] = grn.getGRNNumber();
             tableDataRows[numberOfRows][2] = grn.getDate();
-            tableDataRows[numberOfRows][3] = grn.getSupplierName();
-            tableDataRows[numberOfRows][4] = grn.getSupplierTelephone();
-            tableDataRows[numberOfRows][5] = grn.getSupplierTIN();
+            //tableDataRows[numberOfRows][3] = grn.getSupplierName();
+          // tableDataRows[numberOfRows][4] = grn.getSupplierTelephone();
+          // tableDataRows[numberOfRows][5] = grn.getSupplierTIN();
             tableDataRows[numberOfRows][6] = grn.getUser().getUserName();
             tableDataRows[numberOfRows][7] = grn.getItem().getName();
             tableDataRows[numberOfRows][8] = grn.getReceivedQuantity();
@@ -323,11 +323,11 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns){
-        
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns) {
+
             @Override
-            public boolean isCellEditable(int row, int column){
-            return false;
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
         };
 
@@ -362,11 +362,11 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns){
-        
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns) {
+
             @Override
-            public boolean isCellEditable(int row, int column){
-            return false;
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
         };
 
@@ -406,11 +406,11 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns){
-        
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns) {
+
             @Override
-            public boolean isCellEditable(int row, int column){
-            return false;
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
         };
 
@@ -448,11 +448,11 @@ public class Home extends javax.swing.JPanel {
             numberOfRows++;
         }
 
-        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns){
-        
+        TableModel homeTableModel = new DefaultTableModel(tableDataRows, tableColumns) {
+
             @Override
-            public boolean isCellEditable(int row, int column){
-            return false;
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
         };
 
@@ -461,8 +461,8 @@ public class Home extends javax.swing.JPanel {
         tableRowSorter = new TableRowSorter(belowMinStockItemsTable.getModel());
 
         belowMinStockItemsTable.setRowSorter(tableRowSorter);
-        
-         homeTab.setTitleAt(4, "Below Inventory Level Items (" + items.length + ")");
+
+        homeTab.setTitleAt(4, "Below Inventory Level Items (" + items.length + ")");
 
     }
 }

@@ -426,7 +426,7 @@ public class Items extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(this, "Minimum Stock Level Needs To Be A Number Greater Than 0 ", "Add Item", JOptionPane.ERROR_MESSAGE);
                 } else {
-
+/*
                     Item newItem = new Item(codeField.getText(), nameField.getText(), listedItemCategories[itemCategoryField.getSelectedIndex()], uomField.getSelectedItem().toString(), (double) unitPriceField.getValue(), 0, (double) minStockLevelField.getValue(), descriptionField.getText());
                     if (newItem.save()) {
                         JOptionPane.showMessageDialog(this, "Item Registered Succesfully", "Add Item", JOptionPane.INFORMATION_MESSAGE);
@@ -436,7 +436,7 @@ public class Items extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Item Registeration Failed", "Add Item", JOptionPane.ERROR_MESSAGE);
 
                     }
-
+*/
                 }
 
             } else {
@@ -476,7 +476,7 @@ public class Items extends javax.swing.JPanel {
                     selectedItem.setCode(codeField.getText());
                     selectedItem.setName(nameField.getText());
                     selectedItem.setItemCategory(listedItemCategories[itemCategoryField.getSelectedIndex()]);
-                    selectedItem.setUom(uomField.getSelectedItem().toString());
+//                    selectedItem.setUom(uomField.getSelectedItem().toString());
                     selectedItem.setUnitPrice((double) unitPriceField.getValue());
                     selectedItem.setMinStockLevel((double) minStockLevelField.getValue());
                     selectedItem.setDescription(descriptionField.getText());
