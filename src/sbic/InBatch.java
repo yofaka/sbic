@@ -15,7 +15,7 @@ public class InBatch {
     private String origin;
     private GRN grn;
     private Transfer transfer;
-    private InBatch inBatch;
+    private Location location;
     private Item item;
     private double quantityreceived;
     private double quantityUsed;
@@ -29,11 +29,24 @@ public class InBatch {
         this.isNew = true;
     }
 
-    InBatch(String origin, GRN grn, Transfer transfer, InBatch inBatch, Item item, double quantityReceived, double quantityUsed) {
+    InBatch(GRN grn, Location location, Item item, double quantityReceived, double quantityUsed) {
 
-        this.origin = origin;
+        this.origin = "grn";
         this.grn = grn;
-        this.inBatch = inBatch;
+        this.location = location;
+        this.item = item;
+        this.quantityreceived = quantityReceived;
+        this.quantityUsed = quantityUsed;
+
+        this.isNew = true;
+
+    }    
+        
+    InBatch(Transfer transfer, Location location, Item item, double quantityReceived, double quantityUsed) {
+
+        this.origin = "transfer";
+        this.transfer = transfer;
+        this.location = location;
         this.item = item;
         this.quantityreceived = quantityReceived;
         this.quantityUsed = quantityUsed;
@@ -42,12 +55,27 @@ public class InBatch {
 
     }
 
-    InBatch(int id, String origin, GRN grn, Transfer transfer, InBatch inBatch, Item item, double quantityReceived, double quantityUsed) {
+    InBatch(int id, String origin, GRN grn, Location location, Item item, double quantityReceived, double quantityUsed) {
 
         this.id = id;
         this.origin = origin;
-        this.grn = grn;
-        this.inBatch = inBatch;
+        this.grn = grn;        
+        this.location = location;
+        this.item = item;
+        this.quantityreceived = quantityReceived;
+        this.quantityUsed = quantityUsed;
+      
+        this.isNew = false;
+
+    }
+
+    
+    InBatch(int id, String origin, Transfer transfer, Location location, Item item, double quantityReceived, double quantityUsed) {
+
+        this.id = id;
+        this.origin = origin;
+        this.transfer = transfer;
+        this.location = location;
         this.item = item;
         this.quantityreceived = quantityReceived;
         this.quantityUsed = quantityUsed;
@@ -88,12 +116,12 @@ public class InBatch {
         this.transfer = transfer;
     }
 
-    public InBatch getLocation() {
-        return inBatch;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocation(InBatch inBatch) {
-        this.inBatch = inBatch;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public Item getItem() {
@@ -162,8 +190,6 @@ public class InBatch {
         return false;
     }
 
-    public boolean nameExists(String name, String except) {
-        return false;
-    }    
+       
     
 }
