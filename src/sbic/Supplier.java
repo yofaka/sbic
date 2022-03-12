@@ -125,12 +125,12 @@ public class Supplier {
         return false;
     }
 
-    public boolean nameExists(String name, String except) {
+    public static boolean nameExists(String name, String except) {
         return false;
     }
 
 
-    public boolean TINExists(String TIN, String except) {
+    public static boolean tinExists(String TIN, String except) {
         return false;
     }    
 }

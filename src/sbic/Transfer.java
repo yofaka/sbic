@@ -110,11 +110,11 @@ public class Transfer {
         this.item = item;
     }
 
-    public double getDisposedQuantity() {
+    public double getTransferedQuantity() {
         return transferedQuantity;
     }
 
-    public void setDisposedQuantity(double transferedQuantity) {
+    public void setTransferedQuantity(double transferedQuantity) {
         this.transferedQuantity = transferedQuantity;
     }
 
@@ -149,7 +149,7 @@ public class Transfer {
             dataToInsert.add(this.getDescription());
             dataToInsert.add(Session.getLoggedInUser().getId());
             dataToInsert.add(this.getItem().getId());
-            dataToInsert.add(this.getDisposedQuantity());
+            dataToInsert.add(this.getTransferedQuantity());
 
             this.getItem().setQuantityAtHand((this.getItem().getQuantityAtHand() - this.transferedQuantity)); // update quantity and save wih new Transfer
 
@@ -178,7 +178,7 @@ public class Transfer {
             columnValues.add(this.getDescription());
             //columnValues.add(Session.getLoggedInUser().getId());
             //columnValues.add(this.getItem().getId());
-            //columnValues.add(this.getDisposedQuantity());
+            //columnValues.add(this.getTransferedQuantity());
 
             if (DBConnection.update(TABLE_NAME, columnNames, columnValues, "id = " + this.id + "") == 1) {
                 return true;

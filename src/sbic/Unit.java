@@ -86,7 +86,9 @@ public class Unit {
         return false;
     }
 
-    public boolean nameExists(String name, String except) {
+    public static boolean nameExists(String name, String except) {
         return false;
     }
+    
+    
 }
